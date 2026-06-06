@@ -1,0 +1,26 @@
+# === Archivos del sistema operativo ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Configuración de editores ===
+.vscode/
+.idea/
+*.code-workspace
+
+# === Variables de entorno y secretos (nunca subir) ===
+.env
+.env.*
+*.local
+
+# === Logs y temporales ===
+*.log
+npm-debug.log*
+*.tmp
+
+# === Dependencias (por si en el futuro añades Node) ===
+node_modules/
+
+# === Empaquetados que no hace falta versionar ===
+ande-digital-web.zip
+*.zip
