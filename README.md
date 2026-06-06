@@ -32,11 +32,6 @@ automáticamente.
 4. Pulsa **Sync / Push**.
 5. En 1–2 minutos los cambios estarán online.
 
-## ⚠️ Pendiente
-
-- Sustituir el número de WhatsApp de ejemplo (`593999999999`) por el real.
-  Está centralizado en la variable `WHATSAPP` al inicio del `<script>`.
-
 ---
 
 © Ande Digital. Todos los derechos reservados.
