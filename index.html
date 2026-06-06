@@ -246,8 +246,8 @@ header.nav.scrolled{ padding:10px 0; background:rgba(6,14,28,.72); backdrop-filt
 .stats{ background:var(--deep); padding:60px 0; }
 .stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
 .stat{ text-align:center; padding:22px; border-radius:var(--radius); background:var(--glass); border:1px solid var(--glass-border); }
-.stat b{ font-family:var(--font-display); font-weight:800; font-size:2.6rem; display:block; line-height:1; }
-.stat span{ color:var(--on-dark-muted); font-size:.9rem; margin-top:8px; display:block; }
+.stat b{ font-family:var(--font-display); font-weight:800; font-size:2.9rem; display:flex; align-items:center; justify-content:center; flex-wrap:nowrap; line-height:1; gap:0.05em; }
+.stat > span{ color:var(--on-dark-muted); font-size:.9rem; margin-top:8px; display:block; }
 
 /* ============================================================
    7. SECCIONES
@@ -319,7 +319,7 @@ header.nav.scrolled{ padding:10px 0; background:rgba(6,14,28,.72); backdrop-filt
 .diff-visual{ position:relative; border-radius:var(--radius); padding:42px; background:var(--glass); border:1px solid var(--glass-border); overflow:hidden; }
 .diff-visual .peak-bg{ position:absolute; inset:0; opacity:.55; }
 .diff-stats{ position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:28px; }
-.diff-stats b{ font-family:var(--font-display); font-weight:800; font-size:2.4rem; display:block; }
+.diff-stats b{ font-family:var(--font-display); font-weight:800; font-size:2.4rem; display:flex; align-items:center; flex-wrap:nowrap; gap:0.05em; }
 .diff-stats span{ color:var(--on-dark-muted); font-size:.9rem; }
 
 /* ============================================================
@@ -373,7 +373,8 @@ header.nav.scrolled{ padding:10px 0; background:rgba(6,14,28,.72); backdrop-filt
 .about-copy p{ color:var(--on-light-muted); margin-bottom:18px; font-size:1.04rem; }
 .about-badges{ display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
 .about-badges span{ background:#fff; border:1px solid var(--light-2); padding:9px 16px; border-radius:30px; font-family:var(--font-display); font-weight:600; font-size:.85rem; }
-.about-art{ position:relative; aspect-ratio:1/1; border-radius:24px; overflow:hidden; background:linear-gradient(140deg, var(--deep-2), var(--deep-3)); box-shadow:var(--shadow); }
+.about-art{ position:relative; border-radius:24px; overflow:hidden; box-shadow:var(--shadow); }
+.about-art img{ display:block; width:100%; height:auto; }
 
 /* ============================================================
    14. FAQ
@@ -616,9 +617,9 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
 <section class="stats">
   <div class="wrap stats-grid">
     <!-- [TEXTOS] Ajusta estas cifras a tu realidad -->
-    <div class="stat reveal"><b><span class="count" data-to="100">0</span><span style="font-size:1.3rem;vertical-align:middle">%</span></b><span>Diseño responsive garantizado</span></div>
-    <div class="stat reveal" data-delay="1"><b><span class="count" data-to="7">0</span><span style="font-size:1.4rem"> días</span></b><span>Entrega promedio</span></div>
-    <div class="stat reveal" data-delay="2"><b><span class="count" data-to="24">0</span><span style="font-size:1.3rem;vertical-align:middle">/7</span></b><span>Tu web visible siempre</span></div>
+    <div class="stat reveal"><b><span class="count" data-to="100">0</span><span>%</span></b><span>Diseño responsive garantizado</span></div>
+    <div class="stat reveal" data-delay="1"><b><span class="count" data-to="7">0</span><span> días</span></b><span>Entrega promedio</span></div>
+    <div class="stat reveal" data-delay="2"><b><span class="count" data-to="24">0</span><span>/7</span></b><span>Tu web visible siempre</span></div>
     <div class="stat reveal" data-delay="3"><b>HTTPS</b><span>Publicación segura por defecto</span></div>
   </div>
 </section>
@@ -697,9 +698,9 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
       <svg class="peak-bg" viewBox="0 0 400 400" preserveAspectRatio="none" aria-hidden="true"><path d="M0 320 L120 140 L190 240 L260 110 L400 320 Z" fill="url(#cgrad)" opacity=".25"/></svg>
       <div class="diff-stats">
         <div><b class="grad-text">+10</b><span>sectores con presencia web</span></div>
-        <div><b class="grad-text">100<span style="font-size:1.2rem;vertical-align:middle">%</span></b><span>responsive y seguro</span></div>
+        <div><b class="grad-text">100<span>%</span></b><span>responsive y seguro</span></div>
         <div><b class="grad-text">SEO</b><span>optimización inicial incluida</span></div>
-        <div><b class="grad-text">24<span style="font-size:1.2rem;vertical-align:middle">/7</span></b><span>tu web siempre disponible</span></div>
+        <div><b class="grad-text">24<span>/7</span></b><span>tu web siempre disponible</span></div>
       </div>
     </div>
   </div>
@@ -755,12 +756,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
       <div class="about-badges" style="margin-top:26px"><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)">Ecuador y Latinoamérica</span><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)">Enfoque en resultados</span><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)">Proceso cercano</span><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)">Calidad premium</span></div>
     </div>
     <div class="about-art reveal" data-delay="2">
-      <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <rect width="400" height="400" fill="url(#aboutBg)"/>
-        <g fill="none" stroke="url(#cgrad)" stroke-width="1.4" opacity=".7"><path d="M-20 300 C 90 250, 160 330, 240 270 S 380 210, 440 280"/><path d="M-20 250 C 90 200, 170 290, 250 220 S 380 160, 440 230"/><path d="M-20 200 C 100 150, 180 250, 260 180 S 380 110, 440 190"/></g>
-        <path d="M40 320 L150 130 L210 230 L270 100 L380 320 Z" fill="url(#cgrad)" opacity=".55"/>
-        <defs><linearGradient id="aboutBg" x1="0" y1="0" x2="400" y2="400"><stop offset="0" stop-color="#0a1a32"/><stop offset="1" stop-color="#0f2748"/></linearGradient></defs>
-      </svg>
+      <img src="huma-banner.png" alt="HUMA Digital Studio">
     </div>
   </div>
 </section>
