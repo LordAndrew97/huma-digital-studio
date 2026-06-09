@@ -505,10 +505,161 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
   .demo-url{ max-width:none; }
 }
 
+/* ============================================================
+   19. MEJORAS UI/UX
+   ============================================================ */
+
+/* Barra de progreso de scroll */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: var(--grad); z-index: 201; border-radius: 0 3px 3px 0;
+  transition: width .08s linear; pointer-events: none;
+}
+
+/* Stats: borde gradiente sutil + color en números */
+.stat {
+  background: var(--glass) padding-box,
+    linear-gradient(135deg, rgba(69,191,91,.22), rgba(10,161,228,.22)) border-box;
+  border: 1px solid transparent;
+}
+.stat b { color: var(--cyan); }
+
+/* Marquee: punto separador entre sectores */
+.marquee span { position: relative; }
+.marquee span::after {
+  content: "";
+  position: absolute; right: -27px; top: 50%; transform: translateY(-50%);
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--grad); opacity: .5;
+}
+
+/* Reto: acento izquierdo en hover */
+.prob-card { border-left: 3px solid transparent; transition: transform .3s, box-shadow .3s, border-left-color .3s; }
+.prob-card:hover { border-left-color: var(--azure); }
+
+/* Servicios: icono con color distinto por tarjeta */
+.svc-card:nth-child(2) .svc-icon { background: linear-gradient(135deg, var(--green), var(--green-deep)); box-shadow: 0 12px 28px -10px rgba(69,191,91,.45); }
+.svc-card:nth-child(3) .svc-icon { background: linear-gradient(135deg, #6366f1, var(--cobalt)); box-shadow: 0 12px 28px -10px rgba(99,102,241,.45); }
+.svc-card:nth-child(4) .svc-icon { background: linear-gradient(135deg, var(--cobalt), #0f2f7a); box-shadow: 0 12px 28px -10px rgba(10,82,184,.45); }
+.svc-card:nth-child(5) .svc-icon { background: linear-gradient(135deg, var(--azure), var(--cyan)); box-shadow: 0 12px 28px -10px rgba(25,197,239,.45); }
+.svc-card:nth-child(6) .svc-icon { background: linear-gradient(135deg, #a855f7, #7c3aed); box-shadow: 0 12px 28px -10px rgba(168,85,247,.45); }
+
+/* Plan destacado: glow más pronunciado */
+.plan.featured {
+  box-shadow: 0 30px 70px -30px rgba(10,161,228,.55),
+              0 0 60px -20px rgba(10,161,228,.18),
+              inset 0 1px 0 rgba(255,255,255,.10);
+}
+
+/* Testimonios: comilla decorativa de fondo */
+.tst { position: relative; overflow: hidden; }
+.tst::before {
+  content: "\201C";
+  position: absolute; top: -8px; right: 16px;
+  font-size: 6rem; line-height: 1;
+  color: var(--azure); opacity: .10;
+  font-family: Georgia, serif; pointer-events: none;
+}
+
+/* FAQ: estado abierto con acento de color */
+.faq.open { border-color: rgba(25,197,239,.38); background: rgba(25,197,239,.03); }
+
+/* Formulario: glow suave en foco */
+.field input:focus, .field select:focus, .field textarea:focus {
+  box-shadow: 0 0 0 4px rgba(10,161,228,.14);
+}
+
+/* Svc-card hover: acento verde en borde */
+.svc-card:hover { border-color: rgba(25,197,239,.38); }
+
+/* ---- PASO 1: ELEVAR ---- */
+
+/* Hero h1: más impacto — tamaño máximo mayor, tracking más apretado */
+.hero h1 { font-size: clamp(2.7rem, 5.8vw, 4.6rem); letter-spacing: -.035em; line-height: 1.03; margin-bottom: 26px; }
+
+/* h2 de secciones: escala ligeramente mayor */
+.section h2 { font-size: clamp(2.05rem, 3.8vw, 2.95rem); letter-spacing: -.022em; }
+
+/* Lead más legible */
+.hero p.lead { font-size: clamp(1.06rem, 1.7vw, 1.22rem); line-height: 1.7; }
+
+/* ---- PASO 2: SISTEMATIZAR ---- */
+
+/* Stat-icon: contexto visual por cada métrica */
+.stat-icon { width: 46px; height: 46px; border-radius: 13px; background: var(--grad-soft); display: grid; place-items: center; margin: 0 auto 16px; }
+.stat-icon svg { width: 22px; height: 22px; color: var(--cyan); }
+.stat { padding: 28px 20px; }
+
+/* Proceso: línea conector entre pasos (sólo desktop) */
+@media (min-width: 981px) {
+  .proc-grid { position: relative; }
+  .proc-grid::before {
+    content: "";
+    position: absolute;
+    top: 53px;
+    left: 15%; right: 15%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(10,161,228,.32) 20%, rgba(10,82,184,.32) 80%, transparent);
+    z-index: 0;
+  }
+  .proc-card { position: relative; z-index: 1; }
+  .proc-step { position: relative; z-index: 2; }
+}
+
+/* Footer: reemplaza borde sólido con línea de gradiente de marca */
+footer { border-top: 0; position: relative; }
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--azure) 30%, var(--green) 70%, transparent 100%);
+  opacity: 0.45;
+}
+
+/* Diferencial: cada stat con tratamiento de tarjeta */
+.diff-stats > div {
+  padding: 18px 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+  transition: background .25s, border-color .25s;
+}
+.diff-stats > div:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.14); }
+.diff-stats b { font-size: 2.2rem; }
+
+/* Sección light: textura de puntos sutil para diferenciarse del dark */
+.section.light {
+  background-color: var(--light);
+  background-image: radial-gradient(rgba(10,161,228,.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Planes: hover más suave */
+.plan { transition: transform .35s ease, border-color .35s, box-shadow .35s; }
+
+/* Cards de proyecto: glow de color temático en hover */
+.work-card:hover { box-shadow: 0 30px 60px -20px rgba(0,0,0,.65), 0 0 0 1px rgba(25,197,239,.18); }
+
+/* ---- PASO 3: ACCESIBILIDAD ---- */
+
+/* Asegurar focus-visible en todos los elementos interactivos */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-visible {
+  outline: 2px solid var(--azure);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Reduced-motion: sin barra de progreso animada */
+@media (prefers-reduced-motion: reduce) {
+  #scroll-progress { transition: none; }
+  .marquee { animation-play-state: paused; }
+}
+
 </style>
 </head>
 
 <body>
+<div id="scroll-progress"></div>
 <a class="skip" href="#inicio">Saltar al contenido</a>
 
 <!-- ====================== NAV ====================== -->
@@ -616,10 +767,22 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
 <section class="stats">
   <div class="wrap stats-grid">
     <!-- [TEXTOS] Ajusta estas cifras a tu realidad -->
-    <div class="stat reveal"><b><span class="count" data-to="100">0</span><span>%</span></b><span>Diseño responsive garantizado</span></div>
-    <div class="stat reveal" data-delay="1"><b><span class="count" data-to="7">0</span><span> días</span></b><span>Entrega promedio</span></div>
-    <div class="stat reveal" data-delay="2"><b><span class="count" data-to="24">0</span><span>/7</span></b><span>Tu web visible siempre</span></div>
-    <div class="stat reveal" data-delay="3"><b>HTTPS</b><span>Publicación segura por defecto</span></div>
+    <div class="stat reveal">
+      <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+      <b><span class="count" data-to="100">0</span><span>%</span></b><span>Diseño responsive garantizado</span>
+    </div>
+    <div class="stat reveal" data-delay="1">
+      <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+      <b><span class="count" data-to="7">0</span><span> días</span></b><span>Entrega promedio</span>
+    </div>
+    <div class="stat reveal" data-delay="2">
+      <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg></div>
+      <b><span class="count" data-to="24">0</span><span>/7</span></b><span>Tu web visible siempre</span>
+    </div>
+    <div class="stat reveal" data-delay="3">
+      <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <b>HTTPS</b><span>Publicación segura por defecto</span>
+    </div>
   </div>
 </section>
 
@@ -873,9 +1036,14 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
   "use strict";
   var WHATSAPP = "34695909608"; // [WHATSAPP] número en formato internacional, sin + ni espacios
 
+  // Barra de progreso de scroll
+  var prog=document.getElementById('scroll-progress');
+  function updateProgress(){ var h=document.documentElement.scrollHeight-window.innerHeight; prog.style.width=h>0?Math.round(window.scrollY/h*1000)/10+'%':'0%'; }
+  window.addEventListener('scroll',updateProgress,{passive:true});
+
   // Header scroll
   var nav=document.getElementById('nav');
-  var onScroll=function(){ nav.classList.toggle('scrolled', window.scrollY>30); };
+  var onScroll=function(){ nav.classList.toggle('scrolled', window.scrollY>30); updateProgress(); };
   window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
 
   // Menú móvil
@@ -943,6 +1111,16 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
 
   // Año
   document.getElementById('year').textContent=new Date().getFullYear();
+
+  // Accesibilidad: ocultar SVGs decorativos al lector de pantalla
+  document.querySelectorAll('.faq .ic, .hero-trust svg, .diff-check svg, .plan ul svg, .svc-icon svg, .btn svg, .foot-social svg, .prob-num, .proc-step').forEach(function(el){
+    el.setAttribute('aria-hidden','true');
+  });
+
+  // Accesibilidad: tipo explícito en botones que no son submit
+  document.querySelectorAll('.faq button, .burger').forEach(function(btn){
+    if(!btn.type || btn.type==='submit') btn.type='button';
+  });
 })();
 </script>
 <script>
@@ -977,21 +1155,68 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
     var layout=d.layout||'default';
     var baseCSS='*{margin:0;padding:0;box-sizing:border-box}'
       +':root{--p:'+d.p+';--p2:'+d.p2+';--bg:'+d.bg+';--surf:'+d.surf+';--ink:'+d.ink+';--mut:'+d.mut+';--line:'+d.line+';--rad:'+d.radius+'}'
-      +'html{scroll-behavior:smooth}body{font-family:'+d.body+';background:var(--bg);color:var(--ink);line-height:1.6}'
+      +'html{scroll-behavior:smooth}body{font-family:'+d.body+';background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}'
       +'a{color:inherit;text-decoration:none}.w{max-width:1060px;margin:0 auto;padding:0 26px}'
-      +'.nav{position:sticky;top:0;z-index:10;background:'+d.navbg+';backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}'
+      +'@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}'
+      +'@keyframes btnShine{from{left:-120%}to{left:130%}}'
+      +'.nav{position:sticky;top:0;z-index:10;background:'+d.navbg+';backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}'
       +'.nav .w{display:flex;align-items:center;justify-content:space-between;padding:16px 26px}'
       +'.brand{display:flex;align-items:center;gap:10px;font-family:'+d.head+';font-weight:800;font-size:1.18rem}'
       +'.brand .m{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--p),var(--p2));display:grid;place-items:center;color:#fff;font-family:'+d.head+';font-weight:800;font-size:.85rem}'
-      +'.menu{display:flex;gap:22px;font-size:.9rem;color:var(--mut)}.menu a:hover{color:var(--p)}'
-      +'.btn{display:inline-block;cursor:pointer;border:0;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;font-family:'+d.head+';font-weight:700;padding:12px 22px;border-radius:var(--rad);font-size:.9rem}'
+      +'.menu{display:flex;gap:22px;font-size:.9rem;color:var(--mut)}.menu a{transition:color .2s}.menu a:hover{color:var(--p)}'
+      +'.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;cursor:pointer;border:0;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;font-family:'+d.head+';font-weight:700;padding:12px 22px;border-radius:var(--rad);font-size:.9rem;transition:transform .22s,box-shadow .22s;white-space:nowrap}'
+      +'.btn:hover{transform:translateY(-2px);box-shadow:0 14px 32px -12px rgba(0,0,0,.32)}'
+      +'.btn::after{content:"";position:absolute;top:0;left:-120%;width:55%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-20deg)}'
+      +'.btn:hover::after{animation:btnShine .55s ease forwards}'
       +'.btn.o{background:transparent;border:1.5px solid var(--line);color:var(--ink)}'
-      +'footer{padding:34px 0;border-top:1px solid var(--line);color:var(--mut);font-size:.84rem;text-align:center}'
-      +'@media(max-width:760px){.menu{display:none}}';
+      +'.btn.o:hover{border-color:var(--p);color:var(--p);transform:translateY(-1px)}'
+      +'.ph{transition:transform .4s}.card:hover .ph{transform:scale(1.04)}'
+      +'.stars{display:inline-flex;gap:1px;font-size:.9rem;color:#f59e0b}'
+      +'.tst-sec{padding:68px 0;background:var(--surf);border-top:1px solid var(--line)}'
+      +'.tst-head{text-align:center;margin-bottom:38px}'
+      +'.tst-h2{font-family:'+d.head+';font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:7px}'
+      +'.tst-sub{color:var(--mut);font-size:.95rem}'
+      +'.tst-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}'
+      +'.tst-card{background:var(--bg);border:1px solid var(--line);border-radius:var(--rad);padding:22px;display:flex;flex-direction:column;gap:12px;transition:transform .25s,box-shadow .25s}'
+      +'.tst-card:hover{transform:translateY(-4px);box-shadow:0 18px 44px -18px rgba(0,0,0,.14)}'
+      +'.tst-top{display:flex;align-items:center;justify-content:space-between}'
+      +'.tst-ago{font-size:.72rem;color:var(--mut)}'
+      +'.tst-q{font-size:.91rem;line-height:1.72;flex:1}'
+      +'.tst-who{display:flex;align-items:center;gap:10px;padding-top:10px;border-top:1px solid var(--line)}'
+      +'.tst-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;display:grid;place-items:center;font-family:'+d.head+';font-weight:700;font-size:.7rem;flex:none}'
+      +'.tst-who b{display:block;font-family:'+d.head+';font-size:.88rem}'
+      +'.tst-who span{font-size:.74rem;color:var(--mut)}'
+      +'footer{padding:32px 0;border-top:1px solid var(--line)}'
+      +'.foot-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}'
+      +'.foot-brand{display:flex;align-items:center;gap:8px;font-family:'+d.head+';font-weight:700;font-size:.92rem}'
+      +'.foot-m{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--p),var(--p2));display:grid;place-items:center;color:#fff;font-size:.68rem;font-weight:800;font-family:'+d.head+';flex:none}'
+      +'.foot-links{display:flex;gap:16px;font-size:.82rem;color:var(--mut)}.foot-links a{transition:color .2s}.foot-links a:hover{color:var(--p)}'
+      +'.foot-copy{font-size:.76rem;color:var(--mut)}'
+      +'@media(max-width:760px){.menu{display:none}.tst-grid{grid-template-columns:1fr}.foot-links{display:none}}';
     var nav='<div class="nav"><div class="w"><div class="brand"><span class="m">'+d.initial+'</span>'+d.name+'</div>'
       +'<div class="menu">'+d.menu.map(function(m){return'<a href="#">'+m+'</a>';}).join('')+'</div>'
       +'<a class="btn" href="#">'+d.navCta+'</a></div></div>';
-    var foot='<footer>© '+d.name+' — Sitio de demostración creado por HUMA Digital Studio</footer>';
+    var foot='<footer><div class="w"><div class="foot-inner">'
+      +'<div class="foot-brand"><span class="foot-m">'+d.initial+'</span>'+d.name+'</div>'
+      +'<div class="foot-links">'+d.menu.slice(0,3).map(function(m){return'<a href="#">'+m+'</a>';}).join('')+'</div>'
+      +'<span class="foot-copy">© 2026 '+d.name+' &nbsp;·&nbsp; Demo creado por HUMA Digital Studio</span>'
+      +'</div></div></footer>';
+    var starStr='★★★★★';
+    function mkTST(demo){
+      if(!demo.tst||!demo.tst.length) return '';
+      var cards=demo.tst.map(function(t,i){
+        return '<div class="tst-card" style="animation:fadeUp .6s '+(i*.13)+'s both">'
+          +'<div class="tst-top"><div class="stars">'+starStr+'</div><span class="tst-ago">'+t.ago+'</span></div>'
+          +'<p class="tst-q">“'+t.q+'”</p>'
+          +'<div class="tst-who"><div class="tst-av">'+t.ini+'</div>'
+          +'<div><b>'+t.name+'</b><span>'+t.role+'</span></div></div>'
+          +'</div>';
+      }).join('');
+      return '<section class="tst-sec"><div class="w"><div class="tst-head">'
+        +'<h2 class="tst-h2">'+demo.tstH+'</h2>'
+        +'<p class="tst-sub">'+demo.tstS+'</p>'
+        +'</div><div class="tst-grid">'+cards+'</div></div></section>';
+    }
     var head='<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
       +'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
       +'<link href="https://fonts.googleapis.com/css2?family='+d.font+'&display=swap" rel="stylesheet">';
@@ -1020,7 +1245,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
         +'.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;text-align:left}'
         +'.card{background:var(--surf);border:1px solid var(--line);border-radius:var(--rad);overflow:hidden}'
         +'.card:hover .ph{transform:scale(1.04)}'
-        +'.ph{height:195px;position:relative;overflow:hidden;transition:transform .4s}'
+        +'.ph{height:220px;position:relative;overflow:hidden;transition:transform .4s}'
         +'.ph .tag{position:absolute;bottom:12px;left:12px;color:#fff;font-family:'+d.head+';font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;background:rgba(0,0,0,.42);padding:4px 10px;border-radius:20px}'
         +'.ph .price-tag{position:absolute;top:12px;right:12px;font-family:'+d.head+';font-weight:800;font-size:.95rem;color:#fff;background:linear-gradient(135deg,var(--p),var(--p2));padding:6px 13px;border-radius:30px}'
         +'.cbody{padding:18px 20px}.cbody h3{font-family:'+d.head+';font-size:1.08rem;margin-bottom:6px}.cbody p{font-size:.9rem;color:var(--mut)}'
@@ -1039,7 +1264,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
         +'<section class="sec"><div class="w"><h2>'+d.gridTitle+'</h2><p class="sub">'+d.gridSub+'</p><div class="grid">'+cards+'</div></div></section>'
         +'<section class="band"><div class="w"><div class="feats">'+feats+'</div></div></section>'
         +'<section class="cta"><div class="w"><h2>'+d.ctaTitle+'</h2><p>'+d.ctaSub+'</p><a class="btn" href="#" style="'+(d.ctaBtn||'')+'">'+d.ctaBtnText+'</a></div></section>'
-        +foot+'</body></html>';
+        +mkTST(d)+foot+'</body></html>';
     }
 
     // ── INMOBILIARIA: precio grande, specs, features numeradas ──
@@ -1068,7 +1293,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
         +'.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}'
         +'.card{background:var(--surf);border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;transition:transform .25s}'
         +'.card:hover{transform:translateY(-5px)}'
-        +'.ph{height:170px;position:relative}'
+        +'.ph{height:215px;position:relative;overflow:hidden}'
         +'.ph .tag{position:absolute;top:12px;left:12px;color:#fff;font-family:'+d.head+';font-weight:700;font-size:.74rem;background:linear-gradient(135deg,var(--p),var(--p2));padding:5px 12px;border-radius:4px}'
         +'.cbody{padding:18px 20px}'
         +'.price{font-family:'+d.head+';font-weight:800;font-size:1.35rem;color:var(--p);margin-bottom:8px}'
@@ -1092,7 +1317,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
         +'<section class="sec"><div class="w"><h2>'+d.gridTitle+'</h2><p class="sub">'+d.gridSub+'</p><div class="grid">'+cards+'</div></div></section>'
         +'<section class="band"><div class="w"><div class="feats">'+feats+'</div></div></section>'
         +'<section class="cta"><div class="w"><h2>'+d.ctaTitle+'</h2><p>'+d.ctaSub+'</p><a class="btn" href="#" style="'+(d.ctaBtn||'')+'">'+d.ctaBtnText+'</a></div></section>'
-        +foot+'</body></html>';
+        +mkTST(d)+foot+'</body></html>';
     }
 
     // ── LEGAL/CORPORATIVO: sin imágenes, cards con borde lateral en hover ──
@@ -1138,7 +1363,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
         +'<section class="sec"><div class="w"><h2>'+d.gridTitle+'</h2><p class="sub">'+d.gridSub+'</p><div class="grid">'+cards+'</div></div></section>'
         +'<section class="band"><div class="w"><div class="feats">'+feats+'</div></div></section>'
         +'<section class="cta"><div class="w"><h2>'+d.ctaTitle+'</h2><p>'+d.ctaSub+'</p><a class="btn" href="#" style="'+(d.ctaBtn||'')+'">'+d.ctaBtnText+'</a></div></section>'
-        +foot+'</body></html>';
+        +mkTST(d)+foot+'</body></html>';
     }
 
     // ── ACADEMIA: hero centrado con pills de stats, cards con botón inscripción ──
@@ -1170,7 +1395,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
         +'.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;text-align:left}'
         +'.card{background:var(--surf);border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;transition:transform .25s}'
         +'.card:hover{transform:translateY(-5px)}'
-        +'.ph{height:138px;position:relative}'
+        +'.ph{height:215px;position:relative;overflow:hidden}'
         +'.ph .tag{position:absolute;top:10px;left:10px;color:#fff;font-family:'+d.head+';font-weight:700;font-size:.72rem;padding:4px 10px;border-radius:20px;background:rgba(0,0,0,.4)}'
         +'.cbody{padding:16px 18px}.cbody h3{font-family:'+d.head+';font-size:1.05rem;margin-bottom:5px}'
         +'.cbody p{font-size:.88rem;color:var(--mut);margin-bottom:10px}'
@@ -1195,7 +1420,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
         +'<section class="sec"><div class="w"><h2>'+d.gridTitle+'</h2><p class="sub">'+d.gridSub+'</p><div class="grid">'+cards+'</div></div></section>'
         +'<section class="band"><div class="w"><div class="feats">'+feats+'</div></div></section>'
         +'<section class="cta"><div class="w"><h2>'+d.ctaTitle+'</h2><p>'+d.ctaSub+'</p><a class="btn" href="#" style="'+(d.ctaBtn||'')+'">'+d.ctaBtnText+'</a></div></section>'
-        +foot+'</body></html>';
+        +mkTST(d)+foot+'</body></html>';
     }
 
     // ── COMERCIO: franja promo + hero split + botón "Pedir" en cada card ──
@@ -1224,7 +1449,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
         +'.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}'
         +'.card{background:var(--surf);border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;transition:transform .25s}'
         +'.card:hover{transform:translateY(-5px)}'
-        +'.ph{height:172px;position:relative}'
+        +'.ph{height:215px;position:relative;overflow:hidden}'
         +'.ph .tag{position:absolute;top:10px;left:10px;color:#fff;font-family:'+d.head+';font-weight:700;font-size:.72rem;padding:4px 10px;border-radius:20px;background:linear-gradient(135deg,var(--p),var(--p2))}'
         +'.cbody{padding:16px 18px}'
         +'.price{font-family:'+d.head+';font-weight:800;font-size:1.22rem;color:var(--p);margin-bottom:5px}'
@@ -1250,7 +1475,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
         +'<section class="sec"><div class="w"><h2>'+d.gridTitle+'</h2><p class="sub">'+d.gridSub+'</p><div class="grid">'+cards+'</div></div></section>'
         +'<section class="band"><div class="w"><div class="feats">'+feats+'</div></div></section>'
         +'<section class="cta"><div class="w"><h2>'+d.ctaTitle+'</h2><p>'+d.ctaSub+'</p><a class="btn" href="#" style="'+(d.ctaBtn||'')+'">'+d.ctaBtnText+'</a></div></section>'
-        +foot+'</body></html>';
+        +mkTST(d)+foot+'</body></html>';
     }
 
     // ── CLÍNICA: hero split con widget de cita real a la derecha ──
@@ -1282,7 +1507,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
         +'.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}'
         +'.card{background:var(--surf);border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;transition:transform .25s}'
         +'.card:hover{transform:translateY(-5px)}'
-        +'.ph{height:148px;position:relative}'
+        +'.ph{height:215px;position:relative;overflow:hidden}'
         +'.ph .tag{position:absolute;top:10px;left:10px;color:#fff;font-family:'+d.head+';font-weight:700;font-size:.72rem;padding:4px 10px;border-radius:4px;background:linear-gradient(135deg,var(--p),var(--p2))}'
         +'.cbody{padding:18px 20px}.cbody h3{font-family:'+d.head+';font-size:1.06rem;margin-bottom:6px}.cbody p{font-size:.88rem;color:var(--mut)}'
         +'.meta{font-size:.8rem;color:var(--mut);margin:8px 0 14px}'
@@ -1308,7 +1533,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
         +'<section class="sec"><div class="w"><h2>'+d.gridTitle+'</h2><p class="sub">'+d.gridSub+'</p><div class="grid">'+cards+'</div></div></section>'
         +'<section class="band"><div class="w"><div class="feats">'+feats+'</div></div></section>'
         +'<section class="cta"><div class="w"><h2>'+d.ctaTitle+'</h2><p>'+d.ctaSub+'</p><a class="btn" href="#" style="'+(d.ctaBtn||'')+'">'+d.ctaBtnText+'</a></div></section>'
-        +foot+'</body></html>';
+        +mkTST(d)+foot+'</body></html>';
     }
 
     // ── FALLBACK ──
@@ -1335,7 +1560,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
       +'.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}'
       +'.card{background:var(--surf);border:1px solid var(--line);border-radius:var(--rad);overflow:hidden;transition:transform .25s}'
       +'.card:hover{transform:translateY(-5px)}'
-      +'.ph{height:148px;position:relative}.ph span{position:absolute;left:14px;bottom:12px;color:#fff;font-family:'+d.head+';font-weight:700;font-size:.8rem}'
+      +'.ph{height:215px;position:relative;overflow:hidden}.ph span{position:absolute;left:14px;bottom:12px;color:#fff;font-family:'+d.head+';font-weight:700;font-size:.8rem}'
       +'.cbody{padding:18px 20px}.cbody h3{font-family:'+d.head+';font-size:1.12rem;margin-bottom:6px}.cbody p{font-size:.9rem;color:var(--mut)}'
       +'.meta{font-size:.8rem;color:var(--mut);margin-top:8px}.price{font-family:'+d.head+';font-weight:800;color:var(--p);margin-top:10px;font-size:1.08rem}'
       +'.band{padding:62px 0;background:'+d.bandBg+'}'
@@ -1351,7 +1576,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
       +'<section class="sec"><div class="w"><h2>'+d.gridTitle+'</h2><p class="sub">'+d.gridSub+'</p><div class="grid">'+items+'</div></div></section>'
       +'<section class="band"><div class="w"><div class="grid">'+feats+'</div></div></section>'
       +'<section class="cta"><div class="w"><h2>'+d.ctaTitle+'</h2><p>'+d.ctaSub+'</p><a class="btn" href="#" style="'+(d.ctaBtn||'')+'">'+d.ctaBtnText+'</a></div></section>'
-      +foot+'</body></html>';
+      +mkTST(d)+foot+'</body></html>';
   }
 
   // ---------- Contenido de cada sector ----------
@@ -1371,7 +1596,13 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
       ],
       bandBg:'#1d1714', bandInk:'#f6ece6', bandMut:'#b9a99f', featIcon:'rgba(255,122,69,.16)',
       feats:[{icon:I.cal,title:'Reservas online',desc:'Reserva en segundos desde el móvil.'},{icon:I.truck,title:'Delivery propio',desc:'Llevamos tu pedido hasta tu casa.'},{icon:I.leaf,title:'Ingredientes frescos',desc:'Producto local seleccionado cada día.'}],
-      ctaBg:'background:linear-gradient(135deg,#ff7a45,#d63a2f);', ctaInk:'#fff', ctaTitle:'¿Reservamos tu mesa?', ctaSub:'Te esperamos para una experiencia inolvidable.', ctaBtnText:'Reservar ahora', ctaBtn:'background:#fff;color:#d63a2f'
+      ctaBg:'background:linear-gradient(135deg,#ff7a45,#d63a2f);', ctaInk:'#fff', ctaTitle:'¿Reservamos tu mesa?', ctaSub:'Te esperamos para una experiencia inolvidable.', ctaBtnText:'Reservar ahora', ctaBtn:'background:#fff;color:#d63a2f',
+      tstH:'Lo que dicen nuestros clientes', tstS:'Más de 280 opiniones verificadas',
+      tst:[
+        {q:'La mejor experiencia gastronómica de la ciudad. El volcán de chocolate, simplemente perfecto.',name:'Ana García',role:'Cliente habitual',ini:'AG',ago:'Hace 2 días'},
+        {q:'Reserva en minutos desde el móvil. El servicio y la carta de temporada son excepcionales.',name:'Carlos M.',role:'Celebración familiar',ini:'CM',ago:'Hace 1 semana'},
+        {q:'Ambiente elegante sin perder la calidez. El risotto de hongos es para repetir sí o sí.',name:'Laura P.',role:'Cena especial',ini:'LP',ago:'Hace 4 días'}
+      ]
     },
     clinica:{
       layout:'clinic', domain:'clinica-vital.com', name:'Clínica Vital', initial:'CV', heroImg:'https://images.adsttc.com/media/images/5bff/0cf0/08a5/e522/0900/0357/large_jpg/CLI%E2%80%BAA%CC%8ANICA_UNIVERSITARIA_NAVARRA001.jpg?1543441608', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(243,250,252,.72) 55%, rgba(243,250,252,.2) 100%)',
@@ -1388,7 +1619,13 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
       ],
       bandBg:'#ffffff', featIcon:'rgba(14,165,183,.12)',
       feats:[{icon:I.cal,title:'Citas online',desc:'Agenda tu cita sin llamadas.'},{icon:I.shield,title:'Profesionales certificados',desc:'Experiencia que da confianza.'},{icon:I.heart,title:'Atención cercana',desc:'Te acompañamos en cada paso.'}],
-      ctaBg:'background:linear-gradient(135deg,#0ea5b7,#0a6aa8);', ctaTitle:'Agenda tu cita hoy', ctaSub:'Reserva en minutos y recibe atención de calidad.', ctaBtnText:'Agendar ahora', ctaBtn:'background:#fff;color:#0a6aa8'
+      ctaBg:'background:linear-gradient(135deg,#0ea5b7,#0a6aa8);', ctaTitle:'Agenda tu cita hoy', ctaSub:'Reserva en minutos y recibe atención de calidad.', ctaBtnText:'Agendar ahora', ctaBtn:'background:#fff;color:#0a6aa8',
+      tstH:'La confianza de nuestros pacientes', tstS:'Más de 1.200 pacientes atendidos cada año',
+      tst:[
+        {q:'Atención rápida y muy humana. Por fin una clínica donde te explican todo con calma.',name:'Marta S.',role:'Paciente recurrente',ini:'MS',ago:'Hace 3 días'},
+        {q:'El sistema de citas online es impecable. Sin esperas y los profesionales son excelentes.',name:'Pedro A.',role:'Paciente nuevo',ini:'PA',ago:'Hace 5 días'},
+        {q:'Llevé a mis hijos a pediatría y la atención fue increíble. Repetiremos sin duda.',name:'Rosa M.',role:'Madre de familia',ini:'RM',ago:'Hace 1 semana'}
+      ]
     },
     inmobiliaria:{
       layout:'realestate', domain:'andes-propiedades.com', name:'Andes Propiedades', initial:'AP', heroImg:'https://sembra.pe/wp-content/uploads/2026/01/sembra-blog-que-es-una-inmobiliaria.jpg', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(15,20,28,.62) 55%, rgba(15,20,28,.2) 100%)',
@@ -1405,7 +1642,13 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
       ],
       bandBg:'#161d28', featIcon:'rgba(200,162,74,.14)',
       feats:[{icon:I.home,title:'Catálogo curado',desc:'Solo propiedades verificadas.'},{icon:I.pin,title:'Las mejores zonas',desc:'Ubicaciones de alta plusvalía.'},{icon:I.award,title:'Asesoría experta',desc:'Te guiamos en toda la operación.'}],
-      ctaBg:'background:linear-gradient(135deg,#1a212c,#0f141c);border-top:1px solid rgba(200,162,74,.25);', ctaInk:'#eef1f6', ctaMut:'#9aa6b8', ctaTitle:'¿Buscas o vendes una propiedad?', ctaSub:'Conversemos y encontremos la mejor opción para ti.', ctaBtnText:'Contactar a un asesor', ctaBtn:'background:linear-gradient(135deg,#c8a24a,#9a7b2e);color:#1a160a'
+      ctaBg:'background:linear-gradient(135deg,#1a212c,#0f141c);border-top:1px solid rgba(200,162,74,.25);', ctaInk:'#eef1f6', ctaMut:'#9aa6b8', ctaTitle:'¿Buscas o vendes una propiedad?', ctaSub:'Conversemos y encontremos la mejor opción para ti.', ctaBtnText:'Contactar a un asesor', ctaBtn:'background:linear-gradient(135deg,#c8a24a,#9a7b2e);color:#1a160a',
+      tstH:'Clientes que encontraron su hogar', tstS:'Más de 350 operaciones cerradas con éxito',
+      tst:[
+        {q:'Encontré la propiedad perfecta en tiempo récord. El asesor conoce cada detalle de las zonas.',name:'Jorge R.',role:'Comprador',ini:'JR',ago:'Hace 1 semana'},
+        {q:'Me ayudaron a vender por encima del precio esperado. Profesionales al cien por cien.',name:'Elena V.',role:'Vendedora',ini:'EV',ago:'Hace 2 semanas'},
+        {q:'Todo el proceso, desde la búsqueda hasta la firma, fue transparente y sin sorpresas.',name:'Diego M.',role:'Primer comprador',ini:'DM',ago:'Hace 3 días'}
+      ]
     },
     legal:{
       layout:'corporate', domain:'estudio-ramirez.com', name:'Estudio Ramírez', initial:'ER', heroImg:'https://loremflickr.com/1280/720/office?lock=81', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(245,246,250,.74) 55%, rgba(245,246,250,.2) 100%)',
@@ -1422,7 +1665,13 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
       ],
       bandBg:'#ffffff', featIcon:'rgba(47,75,168,.10)',
       feats:[{icon:I.scale,title:'+25 años de experiencia',desc:'Trayectoria que respalda resultados.'},{icon:I.shield,title:'Confidencialidad',desc:'Tu caso, tratado con discreción.'},{icon:I.award,title:'Casos resueltos',desc:'Defensa firme de tus derechos.'}],
-      ctaBg:'background:linear-gradient(135deg,#2f4ba8,#16235a);', ctaTitle:'Cuéntanos tu caso', ctaSub:'Primera consulta de orientación sin compromiso.', ctaBtnText:'Solicitar consulta', ctaBtn:'background:#fff;color:#16235a'
+      ctaBg:'background:linear-gradient(135deg,#2f4ba8,#16235a);', ctaTitle:'Cuéntanos tu caso', ctaSub:'Primera consulta de orientación sin compromiso.', ctaBtnText:'Solicitar consulta', ctaBtn:'background:#fff;color:#16235a',
+      tstH:'Lo que dicen nuestros clientes', tstS:'Más de 500 casos gestionados con éxito',
+      tst:[
+        {q:'Caso resuelto con rapidez y total transparencia. Me mantuvieron informado en todo momento.',name:'Luis F.',role:'Cliente corporativo',ini:'LF',ago:'Hace 2 días'},
+        {q:'Asesoría laboral excelente. Resolvieron en días lo que pensé que llevaría meses.',name:'Carmen T.',role:'Trabajadora',ini:'CT',ago:'Hace 4 días'},
+        {q:'Primera consulta sin compromiso, y ya los contraté. Equipo muy serio y humano.',name:'Roberto E.',role:'Empresario',ini:'RE',ago:'Hace 1 semana'}
+      ]
     },
     academia:{
       layout:'academy', heroStats:[{n:'20+',l:'cursos'},{n:'+500',l:'estudiantes'},{n:'98%',l:'satisfacción'}], domain:'academia-impulso.com', name:'Academia Impulso', initial:'AI', heroImg:'https://loremflickr.com/1280/720/classroom?lock=101', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(243,251,245,.74) 55%, rgba(243,251,245,.2) 100%)',
@@ -1439,7 +1688,13 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
       ],
       bandBg:'#ffffff', featIcon:'rgba(22,163,74,.12)',
       feats:[{icon:I.book,title:'Contenido práctico',desc:'Aprendes haciendo proyectos reales.'},{icon:I.user,title:'Tutores expertos',desc:'Acompañamiento durante todo el curso.'},{icon:I.award,title:'Certificación',desc:'Acredita tus nuevas habilidades.'}],
-      ctaBg:'background:linear-gradient(135deg,#16a34a,#0c7a52);', ctaTitle:'Empieza a aprender hoy', ctaSub:'Inscríbete y accede a tu primer módulo de inmediato.', ctaBtnText:'Inscríbete ahora', ctaBtn:'background:#fff;color:#0c7a52'
+      ctaBg:'background:linear-gradient(135deg,#16a34a,#0c7a52);', ctaTitle:'Empieza a aprender hoy', ctaSub:'Inscríbete y accede a tu primer módulo de inmediato.', ctaBtnText:'Inscríbete ahora', ctaBtn:'background:#fff;color:#0c7a52',
+      tstH:'Lo que logran nuestros estudiantes', tstS:'Más de 500 estudiantes certificados',
+      tst:[
+        {q:'El curso de marketing digital cambió mi carrera. Los tutores responden al instante.',name:'Sofía R.',role:'Estudiante de marketing',ini:'SR',ago:'Hace 1 día'},
+        {q:'Aprendí diseño gráfico de cero y ya tengo mis primeros clientes. Vale cada centavo.',name:'Andrés P.',role:'Diseñador freelance',ini:'AP',ago:'Hace 3 días'},
+        {q:'Plataforma muy intuitiva y contenido práctico. Completé Excel en 6 semanas sin problema.',name:'Valeria G.',role:'Contadora',ini:'VG',ago:'Hace 5 días'}
+      ]
     },
     comercio:{
       layout:'shop', domain:'tienda-nova.com', name:'Tienda Nova', initial:'TN', heroImg:'https://www.muycanal.com/wp-content/uploads/2019/01/BEEP.jpg', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(250,246,255,.74) 55%, rgba(250,246,255,.2) 100%)',
@@ -1456,7 +1711,13 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
       ],
       bandBg:'#ffffff', featIcon:'rgba(147,51,234,.12)',
       feats:[{icon:I.cart,title:'Pedido por WhatsApp',desc:'Compra en un par de toques.'},{icon:I.truck,title:'Envío a todo el país',desc:'Recibe donde estés.'},{icon:I.shield,title:'Compra segura',desc:'Pagos protegidos y garantía.'}],
-      ctaBg:'background:linear-gradient(135deg,#9333ea,#6d28d9);', ctaTitle:'¿Listo para tu pedido?', ctaSub:'Explora el catálogo y escríbenos por WhatsApp.', ctaBtnText:'Hacer pedido', ctaBtn:'background:#fff;color:#6d28d9'
+      ctaBg:'background:linear-gradient(135deg,#9333ea,#6d28d9);', ctaTitle:'¿Listo para tu pedido?', ctaSub:'Explora el catálogo y escríbenos por WhatsApp.', ctaBtnText:'Hacer pedido', ctaBtn:'background:#fff;color:#6d28d9',
+      tstH:'Clientes que confían en nosotros', tstS:'Más de 2.000 pedidos entregados satisfactoriamente',
+      tst:[
+        {q:'Los audífonos llegaron en 24h y la calidad es espectacular. Ya voy por mi tercer pedido.',name:'Miguel A.',role:'Cliente frecuente',ini:'MA',ago:'Hace 2 días'},
+        {q:'Pedí por WhatsApp y en 5 minutos ya tenía confirmación. Envío rápido y bien empaquetado.',name:'Valeria S.',role:'Primera compra',ini:'VS',ago:'Hace 3 días'},
+        {q:'El smartwatch es increíble por el precio. Muy buena relación calidad-precio.',name:'Diego C.',role:'Cliente satisfecho',ini:'DC',ago:'Hace 1 semana'}
+      ]
     }
   };
 

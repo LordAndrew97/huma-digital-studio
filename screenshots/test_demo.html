@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<style>
+html,body{margin:0;padding:0;width:1280px;height:900px;background:#111;overflow:hidden}
+iframe{width:100%;height:900px;border:none}
+</style>
+</head><body>
+<iframe id="f"></iframe>
+<script>
+window.onload = function(){
+  // Load main page in hidden iframe, wait, then extract srcdoc
+  var main = document.createElement('iframe');
+  main.style.display='none';
+  main.src = 'http://localhost:9000/';
+  main.onload = function(){
+    try {
+      // Try to access the renderDemo via the main frame's context
+      var win = main.contentWindow;
+      setTimeout(function(){
+        // Click on the restaurante demo to trigger it
+        var btn = main.contentDocument.querySelector('[data-demo="restaurante"]');
+        if(btn){ 
+          btn.click();
+          setTimeout(function(){
+            var demoFrame = main.contentDocument.getElementById('demoFrame');
+            if(demoFrame){
+              document.getElementById('f').srcdoc = demoFrame.srcdoc;
+            }
+          }, 500);
+        }
+      }, 1000);
+    } catch(e){ console.error(e); }
+  };
+  document.body.appendChild(main);
+};
+</script>
+</body></html>
