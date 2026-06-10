@@ -368,12 +368,10 @@ header.nav.scrolled{ padding:10px 0; background:rgba(6,14,28,.72); backdrop-filt
 /* ============================================================
    13. SOBRE NOSOTROS
    ============================================================ */
-.about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+.about-grid{ max-width:740px; margin-left:auto; margin-right:auto; }
 .about-copy p{ color:var(--on-light-muted); margin-bottom:18px; font-size:1.04rem; }
 .about-badges{ display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
 .about-badges span{ background:#fff; border:1px solid var(--light-2); padding:9px 16px; border-radius:30px; font-family:var(--font-display); font-weight:600; font-size:.85rem; }
-.about-art{ position:relative; border-radius:24px; overflow:hidden; box-shadow:var(--shadow); }
-.about-art img{ display:block; width:100%; height:auto; }
 
 /* ============================================================
    14. FAQ
@@ -441,7 +439,7 @@ footer{ background:var(--deep); border-top:1px solid var(--glass-border); paddin
 .reveal[data-delay="3"]{ transition-delay:.24s; } .reveal[data-delay="4"]{ transition-delay:.32s; }
 
 @media (max-width:980px){
-  .hero-grid, .diff-grid, .about-grid, .cta-grid{ grid-template-columns:1fr; gap:48px; }
+  .hero-grid, .diff-grid, .cta-grid{ grid-template-columns:1fr; gap:48px; }
   .hero-visual{ max-width:440px; margin:0 auto; }
   .prob-grid, .svc-grid, .work-grid, .proc-grid, .plans-grid, .tst-grid, .stats-grid{ grid-template-columns:repeat(2,1fr); }
   .plan.featured{ transform:none; } .plan.featured:hover{ transform:translateY(-6px); }
@@ -655,6 +653,38 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
   .marquee { animation-play-state: paused; }
 }
 
+/* Language switcher */
+.lang-switch { position: relative; }
+.lang-btn {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 7px; color: rgba(255,255,255,.88); padding: 6px 10px;
+  cursor: pointer; font-size: .79rem; font-family: var(--font-body);
+  transition: background .15s, border-color .15s; font-weight: 600;
+  letter-spacing: .06em; line-height: 1;
+}
+.lang-btn:hover { background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.22); }
+.lang-btn svg { opacity: .7; flex-shrink: 0; }
+.lang-chevron { transition: transform .18s; opacity: .6 !important; }
+.lang-switch.open .lang-chevron { transform: rotate(180deg); }
+.lang-menu {
+  position: absolute; top: calc(100% + 8px); right: 0;
+  background: #0c1322; border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px; overflow: hidden; min-width: 145px;
+  opacity: 0; pointer-events: none; transform: translateY(-8px);
+  transition: opacity .18s, transform .18s; z-index: 200;
+  box-shadow: 0 20px 50px -10px rgba(0,0,0,.85);
+}
+.lang-switch.open .lang-menu { opacity: 1; pointer-events: auto; transform: none; }
+.lang-menu button {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 10px 14px; background: none; border: 0;
+  color: rgba(255,255,255,.6); cursor: pointer; font-size: .84rem;
+  text-align: left; transition: background .12s, color .12s; font-family: var(--font-body);
+}
+.lang-menu button:hover { background: rgba(255,255,255,.08); color: rgba(255,255,255,.92); }
+.lang-menu button.lang-active { color: var(--azure); font-weight: 600; }
+
 </style>
 </head>
 
@@ -670,18 +700,31 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
     </a>
     <nav aria-label="Principal">
       <ul class="nav-links" id="navLinks">
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#proyectos">Proyectos</a></li>
-        <li><a href="#proceso">Proceso</a></li>
-        <li><a href="#planes">Planes</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#inicio" data-i18n="nav.inicio">Inicio</a></li>
+        <li><a href="#servicios" data-i18n="nav.servicios">Servicios</a></li>
+        <li><a href="#proyectos" data-i18n="nav.proyectos">Proyectos</a></li>
+        <li><a href="#proceso" data-i18n="nav.proceso">Proceso</a></li>
+        <li><a href="#planes" data-i18n="nav.planes">Planes</a></li>
+        <li><a href="#nosotros" data-i18n="nav.nosotros">Nosotros</a></li>
+        <li><a href="#contacto" data-i18n="nav.contacto">Contacto</a></li>
       </ul>
     </nav>
     <div class="nav-cta">
-      <a href="#contacto" class="btn btn-primary">Solicitar propuesta</a>
-      <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" id="langBtn" aria-label="Change language">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>
+          <span id="langCode">ES</span>
+          <svg class="lang-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu" role="listbox">
+          <button data-lang="es" role="option">🇪🇸 Español</button>
+          <button data-lang="en" role="option">🇬🇧 English</button>
+          <button data-lang="fr" role="option">🇫🇷 Français</button>
+          <button data-lang="ru" role="option">🇷🇺 Русский</button>
+        </div>
+      </div>
+      <a href="#contacto" class="btn btn-primary" data-i18n="nav.cta">Solicitar propuesta</a>
+      <button class="burger" id="burger" data-i18n-aria="nav.burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
@@ -711,17 +754,17 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="hero-badge reveal"><span class="dot"></span> Agencia digital · Para cualquier negocio</span>
-      <h1 class="reveal" data-delay="1">Impulsamos empresas hacia el <span class="grad-text">mundo digital</span></h1>
-      <p class="lead reveal" data-delay="2">Creamos páginas web modernas, rápidas y funcionales para que empresas, marcas y organizaciones fortalezcan su presencia online, generen confianza y conecten con más clientes.</p>
+      <span class="hero-badge reveal"><span class="dot"></span><span data-i18n="hero.badge"> Agencia digital · Para cualquier negocio</span></span>
+      <h1 class="reveal" data-delay="1" data-i18n-html="hero.h1">Impulsamos empresas hacia el <span class="grad-text">mundo digital</span></h1>
+      <p class="lead reveal" data-delay="2" data-i18n="hero.lead">Creamos páginas web modernas, rápidas y funcionales para que empresas, marcas y organizaciones fortalezcan su presencia online, generen confianza y conecten con más clientes.</p>
       <div class="hero-actions reveal" data-delay="3">
-        <a href="#contacto" class="btn btn-primary">Solicitar mi página web</a>
-        <a href="#proyectos" class="btn btn-ghost">Ver proyectos</a>
+        <a href="#contacto" class="btn btn-primary" data-i18n="hero.cta1">Solicitar mi página web</a>
+        <a href="#proyectos" class="btn btn-ghost" data-i18n="hero.cta2">Ver proyectos</a>
       </div>
       <div class="hero-trust reveal" data-delay="4">
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Diseño responsive</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Entrega rápida</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Soporte cercano</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="hero.trust1">Diseño responsive</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="hero.trust2">Entrega rápida</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="hero.trust3">Soporte cercano</span></span>
       </div>
     </div>
 
@@ -748,14 +791,14 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
     </div>
   </div>
 
-  <div class="scroll-cue" aria-hidden="true"><span class="mouse"></span>Desliza</div>
+  <div class="scroll-cue" aria-hidden="true"><span class="mouse"></span><span data-i18n="hero.scroll">Desliza</span></div>
 </section>
 </main>
 
 <!-- ====================== SECTORES ====================== -->
 <div class="strip">
   <div class="wrap">
-    <p class="strip-label">Diseñamos para empresas y profesionales de todos los sectores</p>
+    <p class="strip-label" data-i18n="strip.label">Diseñamos para empresas y profesionales de todos los sectores</p>
     <div style="overflow:hidden"><div class="marquee">
       <span>Clínicas</span><span>Restaurantes</span><span>Consultoras</span><span>Estudios jurídicos</span><span>Inmobiliarias</span><span>Academias</span><span>Comercios</span><span>Servicios</span>
       <span>Clínicas</span><span>Restaurantes</span><span>Consultoras</span><span>Estudios jurídicos</span><span>Inmobiliarias</span><span>Academias</span><span>Comercios</span><span>Servicios</span>
@@ -769,19 +812,19 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
     <!-- [TEXTOS] Ajusta estas cifras a tu realidad -->
     <div class="stat reveal">
       <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
-      <b><span class="count" data-to="100">0</span><span>%</span></b><span>Diseño responsive garantizado</span>
+      <b><span class="count" data-to="100">0</span><span>%</span></b><span data-i18n="stat.responsive">Diseño responsive garantizado</span>
     </div>
     <div class="stat reveal" data-delay="1">
       <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
-      <b><span class="count" data-to="7">0</span><span> días</span></b><span>Entrega promedio</span>
+      <b><span class="count" data-to="7">0</span><span data-i18n="stat.days.unit"> días</span></b><span data-i18n="stat.days">Entrega promedio</span>
     </div>
     <div class="stat reveal" data-delay="2">
       <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg></div>
-      <b><span class="count" data-to="24">0</span><span>/7</span></b><span>Tu web visible siempre</span>
+      <b><span class="count" data-to="24">0</span><span>/7</span></b><span data-i18n="stat.online">Tu web visible siempre</span>
     </div>
     <div class="stat reveal" data-delay="3">
       <div class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-      <b>HTTPS</b><span>Publicación segura por defecto</span>
+      <b>HTTPS</b><span data-i18n="stat.https">Publicación segura por defecto</span>
     </div>
   </div>
 </section>
@@ -790,13 +833,13 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 <section class="section light">
   <div class="wrap">
     <div class="section-head center reveal">
-      <span class="eyebrow">El reto</span>
-      <h2>Tu empresa puede tener un gran servicio, pero si no se ve profesional en internet, muchos clientes no llegarán a conocerte.</h2>
+      <span class="eyebrow" data-i18n="prob.eyebrow">El reto</span>
+      <h2 data-i18n="prob.h2">Tu empresa puede tener un gran servicio, pero si no se ve profesional en internet, muchos clientes no llegarán a conocerte.</h2>
     </div>
     <div class="prob-grid">
-      <article class="prob-card reveal" data-delay="1"><div class="prob-num">01</div><h3>Confianza desde el primer clic</h3><p>Tu negocio necesita transmitir seriedad y credibilidad en los primeros segundos. Una web cuidada es tu mejor carta de presentación.</p></article>
-      <article class="prob-card reveal" data-delay="2"><div class="prob-num">02</div><h3>Información clara y accesible</h3><p>Tus clientes buscan respuestas rápidas: qué ofreces, dónde estás y cómo contactarte. Si no lo encuentran, se van con la competencia.</p></article>
-      <article class="prob-card reveal" data-delay="3"><div class="prob-num">03</div><h3>De visitas a clientes reales</h3><p>Una web profesional convierte el interés en contacto: formularios, WhatsApp y llamadas a la acción que generan oportunidades.</p></article>
+      <article class="prob-card reveal" data-delay="1"><div class="prob-num">01</div><h3 data-i18n="prob.1.h3">Confianza desde el primer clic</h3><p data-i18n="prob.1.p">Tu negocio necesita transmitir seriedad y credibilidad en los primeros segundos. Una web cuidada es tu mejor carta de presentación.</p></article>
+      <article class="prob-card reveal" data-delay="2"><div class="prob-num">02</div><h3 data-i18n="prob.2.h3">Información clara y accesible</h3><p data-i18n="prob.2.p">Tus clientes buscan respuestas rápidas: qué ofreces, dónde estás y cómo contactarte. Si no lo encuentran, se van con la competencia.</p></article>
+      <article class="prob-card reveal" data-delay="3"><div class="prob-num">03</div><h3 data-i18n="prob.3.h3">De visitas a clientes reales</h3><p data-i18n="prob.3.p">Una web profesional convierte el interés en contacto: formularios, WhatsApp y llamadas a la acción que generan oportunidades.</p></article>
     </div>
   </div>
 </section>
@@ -805,17 +848,17 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 <section class="section dark" id="servicios">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">Servicios</span>
-      <h2>Soluciones digitales para que tu empresa <span class="grad-text">destaque</span></h2>
-      <p class="sub">Diseño, tecnología y estrategia en cada proyecto. Elige el servicio que tu negocio necesita hoy.</p>
+      <span class="eyebrow" data-i18n="svc.eyebrow">Servicios</span>
+      <h2 data-i18n-html="svc.h2">Soluciones digitales para que tu empresa <span class="grad-text">destaque</span></h2>
+      <p class="sub" data-i18n="svc.sub">Diseño, tecnología y estrategia en cada proyecto. Elige el servicio que tu negocio necesita hoy.</p>
     </div>
     <div class="svc-grid">
-      <article class="svc-card tilt reveal" data-delay="1"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>Diseño de páginas web</h3><p>Webs modernas, rápidas y adaptadas a móviles para presentar tu empresa de forma profesional.</p></article>
-      <article class="svc-card tilt reveal" data-delay="2"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div><h3>Landing pages comerciales</h3><p>Páginas enfocadas en captar clientes, promocionar servicios o presentar campañas específicas.</p></article>
-      <article class="svc-card tilt reveal" data-delay="3"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20"/></svg></div><h3>Presencia digital para empresas</h3><p>Estructura básica para que tu empresa sea visible, contactable y confiable en internet.</p></article>
-      <article class="svc-card tilt reveal" data-delay="1"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a5 5 0 0 0-7 7l-4 4a2 2 0 1 0 3 3l4-4a5 5 0 0 0 7-7l-2.5 2.5-2-2L17 4z"/></svg></div><h3>Mantenimiento web</h3><p>Soporte, actualizaciones menores, dominio, hosting y revisión técnica anual.</p></article>
-      <article class="svc-card tilt reveal" data-delay="2"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H4z"/><path d="M2 20h20M9 8l2 2 4-4"/></svg></div><h3>Integraciones básicas</h3><p>Botones de WhatsApp, formularios, mapas, redes sociales, analítica y enlaces comerciales.</p></article>
-      <article class="svc-card tilt reveal" data-delay="3"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Soluciones digitales a medida</h3><p>Espacio para automatizaciones, dashboards, herramientas internas o proyectos con IA.</p></article>
+      <article class="svc-card tilt reveal" data-delay="1"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3 data-i18n="svc.1.h3">Diseño de páginas web</h3><p data-i18n="svc.1.p">Webs modernas, rápidas y adaptadas a móviles para presentar tu empresa de forma profesional.</p></article>
+      <article class="svc-card tilt reveal" data-delay="2"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div><h3 data-i18n="svc.2.h3">Landing pages comerciales</h3><p data-i18n="svc.2.p">Páginas enfocadas en captar clientes, promocionar servicios o presentar campañas específicas.</p></article>
+      <article class="svc-card tilt reveal" data-delay="3"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20"/></svg></div><h3 data-i18n="svc.3.h3">Presencia digital para empresas</h3><p data-i18n="svc.3.p">Estructura básica para que tu empresa sea visible, contactable y confiable en internet.</p></article>
+      <article class="svc-card tilt reveal" data-delay="1"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a5 5 0 0 0-7 7l-4 4a2 2 0 1 0 3 3l4-4a5 5 0 0 0 7-7l-2.5 2.5-2-2L17 4z"/></svg></div><h3 data-i18n="svc.4.h3">Mantenimiento web</h3><p data-i18n="svc.4.p">Soporte, actualizaciones menores, dominio, hosting y revisión técnica anual.</p></article>
+      <article class="svc-card tilt reveal" data-delay="2"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H4z"/><path d="M2 20h20M9 8l2 2 4-4"/></svg></div><h3 data-i18n="svc.5.h3">Integraciones básicas</h3><p data-i18n="svc.5.p">Botones de WhatsApp, formularios, mapas, redes sociales, analítica y enlaces comerciales.</p></article>
+      <article class="svc-card tilt reveal" data-delay="3"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/><circle cx="12" cy="12" r="3"/></svg></div><h3 data-i18n="svc.6.h3">Soluciones digitales a medida</h3><p data-i18n="svc.6.p">Espacio para automatizaciones, dashboards, herramientas internas o proyectos con IA.</p></article>
     </div>
   </div>
 </section>
@@ -824,18 +867,18 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 <section class="section work" id="proyectos">
   <div class="wrap">
     <div class="section-head center reveal">
-      <span class="eyebrow">Proyectos</span>
-      <h2>Diseños pensados para <span class="grad-text">cada tipo de negocio</span></h2>
-      <p class="sub">Una muestra del estilo y la calidad que entregamos. Adaptamos cada web a la identidad y el sector de tu empresa.</p>
+      <span class="eyebrow" data-i18n="work.eyebrow">Proyectos</span>
+      <h2 data-i18n-html="work.h2">Diseños pensados para <span class="grad-text">cada tipo de negocio</span></h2>
+      <p class="sub" data-i18n="work.sub">Una muestra del estilo y la calidad que entregamos. Adaptamos cada web a la identidad y el sector de tu empresa.</p>
     </div>
     <!-- [PROYECTOS] Sustituye estas muestras por capturas reales de tus webs cuando las tengas -->
     <div class="work-grid">
-      <article class="work-card reveal open-demo" data-demo="restaurante" role="button" tabindex="0" aria-label="Ver demostración de web para restaurante" data-delay="1"><div class="wk-frame" style="--t1:#ff7a45;--t2:#d63a2f"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Restaurante</span><span class="wk-title">Sabores que enamoran</span><span class="wk-sub">Menú, reservas y delivery</span><span class="wk-pill">Reservar mesa</span></div><div class="wk-open"><span class="wk-open-btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3>Gastronomía</h3><span>Restaurantes y cafeterías</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
-      <article class="work-card reveal open-demo" data-demo="clinica" role="button" tabindex="0" aria-label="Ver demostración de web para clinica" data-delay="2"><div class="wk-frame" style="--t1:#19c5ef;--t2:#0a6aa8"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Clínica</span><span class="wk-title">Tu salud, en buenas manos</span><span class="wk-sub">Especialidades y citas online</span><span class="wk-pill">Agendar cita</span></div><div class="wk-open"><span class="wk-open-btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3>Salud</h3><span>Clínicas y consultorios</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
-      <article class="work-card reveal open-demo" data-demo="inmobiliaria" role="button" tabindex="0" aria-label="Ver demostración de web para inmobiliaria" data-delay="3"><div class="wk-frame" style="--t1:#c8a24a;--t2:#1f2a3c"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Inmobiliaria</span><span class="wk-title">Encuentra tu próximo hogar</span><span class="wk-sub">Catálogo de propiedades</span><span class="wk-pill">Ver propiedades</span></div><div class="wk-open"><span class="wk-open-btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3>Inmobiliaria</h3><span>Venta y alquiler</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
-      <article class="work-card reveal open-demo" data-demo="legal" role="button" tabindex="0" aria-label="Ver demostración de web para legal" data-delay="1"><div class="wk-frame" style="--t1:#3b5bdb;--t2:#11203a"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Estudio jurídico</span><span class="wk-title">Asesoría legal de confianza</span><span class="wk-sub">Áreas de práctica y contacto</span><span class="wk-pill">Consultar caso</span></div><div class="wk-open"><span class="wk-open-btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3>Legal</h3><span>Abogados y consultoras</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
-      <article class="work-card reveal open-demo" data-demo="academia" role="button" tabindex="0" aria-label="Ver demostración de web para academia" data-delay="2"><div class="wk-frame" style="--t1:#45bf5b;--t2:#0c7a52"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Academia</span><span class="wk-title">Aprende a tu ritmo</span><span class="wk-sub">Cursos, horarios e inscripción</span><span class="wk-pill">Inscríbete</span></div><div class="wk-open"><span class="wk-open-btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3>Educación</h3><span>Academias y centros</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
-      <article class="work-card reveal open-demo" data-demo="comercio" role="button" tabindex="0" aria-label="Ver demostración de web para comercio" data-delay="3"><div class="wk-frame" style="--t1:#a855f7;--t2:#5b21b6"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Comercio</span><span class="wk-title">Tu tienda, siempre abierta</span><span class="wk-sub">Catálogo y pedidos por WhatsApp</span><span class="wk-pill">Ver catálogo</span></div><div class="wk-open"><span class="wk-open-btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3>Comercio</h3><span>Tiendas y servicios</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="restaurante" role="button" tabindex="0" aria-label="Ver demostración de web para restaurante" data-delay="1"><div class="wk-frame" style="--t1:#ff7a45;--t2:#d63a2f"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Restaurante</span><span class="wk-title">Sabores que enamoran</span><span class="wk-sub" data-i18n="work.rest.sub">Menú, reservas y delivery</span><span class="wk-pill" data-i18n="work.rest.pill">Reservar mesa</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.rest.h3">Gastronomía</h3><span data-i18n="work.rest.meta">Restaurantes y cafeterías</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="clinica" role="button" tabindex="0" aria-label="Ver demostración de web para clinica" data-delay="2"><div class="wk-frame" style="--t1:#19c5ef;--t2:#0a6aa8"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Clínica</span><span class="wk-title">Tu salud, en buenas manos</span><span class="wk-sub" data-i18n="work.clinic.sub">Especialidades y citas online</span><span class="wk-pill" data-i18n="work.clinic.pill">Agendar cita</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.clinic.h3">Salud</h3><span data-i18n="work.clinic.meta">Clínicas y consultorios</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="inmobiliaria" role="button" tabindex="0" aria-label="Ver demostración de web para inmobiliaria" data-delay="3"><div class="wk-frame" style="--t1:#c8a24a;--t2:#1f2a3c"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Inmobiliaria</span><span class="wk-title">Encuentra tu próximo hogar</span><span class="wk-sub" data-i18n="work.real.sub">Catálogo de propiedades</span><span class="wk-pill" data-i18n="work.real.pill">Ver propiedades</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.real.h3">Inmobiliaria</h3><span data-i18n="work.real.meta">Venta y alquiler</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="legal" role="button" tabindex="0" aria-label="Ver demostración de web para legal" data-delay="1"><div class="wk-frame" style="--t1:#3b5bdb;--t2:#11203a"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Estudio jurídico</span><span class="wk-title">Asesoría legal de confianza</span><span class="wk-sub" data-i18n="work.legal.sub">Áreas de práctica y contacto</span><span class="wk-pill" data-i18n="work.legal.pill">Consultar caso</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.legal.h3">Legal</h3><span data-i18n="work.legal.meta">Abogados y consultoras</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="academia" role="button" tabindex="0" aria-label="Ver demostración de web para academia" data-delay="2"><div class="wk-frame" style="--t1:#45bf5b;--t2:#0c7a52"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Academia</span><span class="wk-title">Aprende a tu ritmo</span><span class="wk-sub" data-i18n="work.acad.sub">Cursos, horarios e inscripción</span><span class="wk-pill" data-i18n="work.acad.pill">Inscríbete</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.acad.h3">Educación</h3><span data-i18n="work.acad.meta">Academias y centros</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="comercio" role="button" tabindex="0" aria-label="Ver demostración de web para comercio" data-delay="3"><div class="wk-frame" style="--t1:#a855f7;--t2:#5b21b6"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag">Comercio</span><span class="wk-title">Tu tienda, siempre abierta</span><span class="wk-sub" data-i18n="work.shop.sub">Catálogo y pedidos por WhatsApp</span><span class="wk-pill" data-i18n="work.shop.pill">Ver catálogo</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.shop.h3">Comercio</h3><span data-i18n="work.shop.meta">Tiendas y servicios</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
     </div>
   </div>
 </section>
@@ -844,25 +887,25 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 <section class="section diff">
   <div class="wrap diff-grid">
     <div class="reveal">
-      <span class="eyebrow">Por qué HUMA Digital Studio</span>
-      <h2 style="font-size:clamp(1.9rem,3.6vw,2.7rem); margin-bottom:18px;">No solo diseñamos páginas, <span class="grad-text">construimos presencia digital</span></h2>
-      <p class="sub" style="margin-bottom:30px;">Entregamos una herramienta para mejorar la visibilidad, la confianza y el contacto con tus clientes, no solo una web bonita.</p>
+      <span class="eyebrow" data-i18n="diff.eyebrow">Por qué HUMA Digital Studio</span>
+      <h2 style="font-size:clamp(1.9rem,3.6vw,2.7rem); margin-bottom:18px;" data-i18n-html="diff.h2">No solo diseñamos páginas, <span class="grad-text">construimos presencia digital</span></h2>
+      <p class="sub" style="margin-bottom:30px;" data-i18n="diff.sub">Entregamos una herramienta para mejorar la visibilidad, la confianza y el contacto con tus clientes, no solo una web bonita.</p>
       <ul class="diff-list">
-        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Diseño profesional a medida</b><p>Adaptado a la identidad y el sector de cada empresa.</p></div></li>
-        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Tecnología rápida y segura</b><p>Webs eficientes, optimizadas y con HTTPS.</p></div></li>
-        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Optimizadas para móvil</b><p>La mayoría de tus clientes te verán desde el teléfono.</p></div></li>
-        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Comunicación clara y proceso simple</b><p>Sin tecnicismos ni procesos complicados.</p></div></li>
-        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Precio accesible, calidad visual</b><p>Una imagen profesional sin costes excesivos.</p></div></li>
-        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Propuesta visual previa</b><p>Puedes ver una muestra antes de decidir.</p></div></li>
+        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b data-i18n="diff.1.b">Diseño profesional a medida</b><p data-i18n="diff.1.p">Adaptado a la identidad y el sector de cada empresa.</p></div></li>
+        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b data-i18n="diff.2.b">Tecnología rápida y segura</b><p data-i18n="diff.2.p">Webs eficientes, optimizadas y con HTTPS.</p></div></li>
+        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b data-i18n="diff.3.b">Optimizadas para móvil</b><p data-i18n="diff.3.p">La mayoría de tus clientes te verán desde el teléfono.</p></div></li>
+        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b data-i18n="diff.4.b">Comunicación clara y proceso simple</b><p data-i18n="diff.4.p">Sin tecnicismos ni procesos complicados.</p></div></li>
+        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b data-i18n="diff.5.b">Precio accesible, calidad visual</b><p data-i18n="diff.5.p">Una imagen profesional sin costes excesivos.</p></div></li>
+        <li><span class="diff-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span><div><b data-i18n="diff.6.b">Propuesta visual previa</b><p data-i18n="diff.6.p">Puedes ver una muestra antes de decidir.</p></div></li>
       </ul>
     </div>
     <div class="diff-visual reveal" data-delay="2">
       <svg class="peak-bg" viewBox="0 0 400 400" preserveAspectRatio="none" aria-hidden="true"><path d="M0 320 L120 140 L190 240 L260 110 L400 320 Z" fill="url(#cgrad)" opacity=".25"/></svg>
       <div class="diff-stats">
-        <div><b class="grad-text">+10</b><span>sectores con presencia web</span></div>
-        <div><b class="grad-text">100<span>%</span></b><span>responsive y seguro</span></div>
-        <div><b class="grad-text">SEO</b><span>optimización inicial incluida</span></div>
-        <div><b class="grad-text">24<span>/7</span></b><span>tu web siempre disponible</span></div>
+        <div><b class="grad-text">+10</b><span data-i18n="diff.stat1">sectores con presencia web</span></div>
+        <div><b class="grad-text">100<span>%</span></b><span data-i18n="diff.stat2">responsive y seguro</span></div>
+        <div><b class="grad-text">SEO</b><span data-i18n="diff.stat3">optimización inicial incluida</span></div>
+        <div><b class="grad-text">24<span>/7</span></b><span data-i18n="diff.stat4">tu web siempre disponible</span></div>
       </div>
     </div>
   </div>
@@ -871,12 +914,12 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 <!-- ====================== PROCESO ====================== -->
 <section class="section light" id="proceso">
   <div class="wrap">
-    <div class="section-head center reveal"><span class="eyebrow">Cómo trabajamos</span><h2>Un proceso simple, claro y sin complicaciones</h2><p class="sub">De la idea a tu web publicada en cuatro pasos.</p></div>
+    <div class="section-head center reveal"><span class="eyebrow" data-i18n="proc.eyebrow">Cómo trabajamos</span><h2 data-i18n="proc.h2">Un proceso simple, claro y sin complicaciones</h2><p class="sub" data-i18n="proc.sub">De la idea a tu web publicada en cuatro pasos.</p></div>
     <div class="proc-grid">
-      <article class="proc-card reveal" data-delay="1"><div class="proc-step">1</div><h3>Entendemos tu negocio</h3><p>Analizamos qué haces, qué quieres comunicar y qué necesitan ver tus clientes.</p></article>
-      <article class="proc-card reveal" data-delay="2"><div class="proc-step">2</div><h3>Diseñamos una propuesta visual</h3><p>Creamos una estructura moderna y alineada con tu marca.</p></article>
-      <article class="proc-card reveal" data-delay="3"><div class="proc-step">3</div><h3>Adaptamos contenido y funciones</h3><p>Textos, imágenes, servicios, WhatsApp, redes, mapa y formulario.</p></article>
-      <article class="proc-card reveal" data-delay="4"><div class="proc-step">4</div><h3>Publicamos tu web</h3><p>Dejamos tu página online, segura, responsive y lista para compartir.</p></article>
+      <article class="proc-card reveal" data-delay="1"><div class="proc-step">1</div><h3 data-i18n="proc.1.h3">Entendemos tu negocio</h3><p data-i18n="proc.1.p">Analizamos qué haces, qué quieres comunicar y qué necesitan ver tus clientes.</p></article>
+      <article class="proc-card reveal" data-delay="2"><div class="proc-step">2</div><h3 data-i18n="proc.2.h3">Diseñamos una propuesta visual</h3><p data-i18n="proc.2.p">Creamos una estructura moderna y alineada con tu marca.</p></article>
+      <article class="proc-card reveal" data-delay="3"><div class="proc-step">3</div><h3 data-i18n="proc.3.h3">Adaptamos contenido y funciones</h3><p data-i18n="proc.3.p">Textos, imágenes, servicios, WhatsApp, redes, mapa y formulario.</p></article>
+      <article class="proc-card reveal" data-delay="4"><div class="proc-step">4</div><h3 data-i18n="proc.4.h3">Publicamos tu web</h3><p data-i18n="proc.4.p">Dejamos tu página online, segura, responsive y lista para compartir.</p></article>
     </div>
   </div>
 </section>
@@ -884,25 +927,25 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 <!-- ====================== PLANES ====================== -->
 <section class="section dark" id="planes">
   <div class="wrap">
-    <div class="section-head center reveal"><span class="eyebrow">Planes</span><h2>Planes pensados para <span class="grad-text">cada tipo de empresa</span></h2><p class="sub">Precios orientativos. Elige el punto de partida que mejor encaje con tu negocio.</p></div>
+    <div class="section-head center reveal"><span class="eyebrow" data-i18n="plans.eyebrow">Planes</span><h2 data-i18n-html="plans.h2">Planes pensados para <span class="grad-text">cada tipo de empresa</span></h2><p class="sub" data-i18n="plans.sub">Precios orientativos. Elige el punto de partida que mejor encaje con tu negocio.</p></div>
     <div class="plans-grid">
-      <div class="plan reveal" data-delay="1"><h3>Presencia</h3><p class="plan-desc">Para negocios que necesitan una landing simple y profesional.</p><div class="price"><small>Desde</small> <b>250</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Página de una sola vista</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Hasta 4 secciones</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Diseño responsive</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Botón de WhatsApp</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Redes sociales</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Publicación online</li></ul><a href="#contacto" class="btn btn-ghost">Solicitar este plan</a></div>
-      <div class="plan featured reveal" data-delay="2"><span class="plan-tag">Más elegido</span><h3>Profesional</h3><p class="plan-desc">Para empresas que quieren una presencia digital más completa.</p><div class="price"><small>Desde</small> <b class="grad-text">300</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Página web moderna</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Hasta 6 secciones</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Diseño responsive</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>WhatsApp + mapa de ubicación</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Formulario o botón de contacto</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Galería básica</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>SEO básico inicial</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Publicación con HTTPS</li></ul><a href="#contacto" class="btn btn-primary">Solicitar este plan</a></div>
-      <div class="plan reveal" data-delay="3"><h3>Corporativo</h3><p class="plan-desc">Para empresas que necesitan mayor estructura y presencia institucional.</p><div class="price"><small>Desde</small> <b>450</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Estructura ampliada</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Secciones corporativas</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Servicios detallados</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Integraciones básicas</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Optimización inicial</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>Soporte de publicación</li></ul><a href="#contacto" class="btn btn-ghost">Solicitar este plan</a></div>
+      <div class="plan reveal" data-delay="1"><h3 data-i18n="plan.1.h3">Presencia</h3><p class="plan-desc" data-i18n="plan.1.desc">Para negocios que necesitan una landing simple y profesional.</p><div class="price"><small>Desde</small> <b>250</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li1">Página de una sola vista</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li2">Hasta 4 secciones</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li3">Diseño responsive</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li4">Botón de WhatsApp</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li5">Redes sociales</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li6">Publicación online</span></li></ul><a href="#contacto" class="btn btn-ghost" data-i18n="plan.cta">Solicitar este plan</a></div>
+      <div class="plan featured reveal" data-delay="2"><span class="plan-tag" data-i18n="plan.2.tag">Más elegido</span><h3 data-i18n="plan.2.h3">Profesional</h3><p class="plan-desc" data-i18n="plan.2.desc">Para empresas que quieren una presencia digital más completa.</p><div class="price"><small>Desde</small> <b class="grad-text">300</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li1">Página web moderna</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li2">Hasta 6 secciones</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li3">Diseño responsive</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li4">WhatsApp + mapa de ubicación</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li5">Formulario o botón de contacto</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li6">Galería básica</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li7">SEO básico inicial</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li8">Publicación con HTTPS</span></li></ul><a href="#contacto" class="btn btn-primary" data-i18n="plan.cta">Solicitar este plan</a></div>
+      <div class="plan reveal" data-delay="3"><h3 data-i18n="plan.3.h3">Corporativo</h3><p class="plan-desc" data-i18n="plan.3.desc">Para empresas que necesitan mayor estructura y presencia institucional.</p><div class="price"><small>Desde</small> <b>450</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li1">Estructura ampliada</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li2">Secciones corporativas</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li3">Servicios detallados</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li4">Integraciones básicas</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li5">Optimización inicial</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li6">Soporte de publicación</span></li></ul><a href="#contacto" class="btn btn-ghost" data-i18n="plan.cta">Solicitar este plan</a></div>
     </div>
-    <p class="plans-note reveal">Los precios pueden ajustarse según el alcance, número de secciones, funcionalidades y necesidades específicas de cada empresa.<br><b>Mantenimiento anual desde 80 USD/año</b>, incluyendo soporte técnico básico, hosting, dominio estándar y pequeños ajustes.</p>
+    <p class="plans-note reveal" data-i18n-html="plans.note">Los precios pueden ajustarse según el alcance, número de secciones, funcionalidades y necesidades específicas de cada empresa.<br><b>Mantenimiento anual desde 80 USD/año</b>, incluyendo soporte técnico básico, hosting, dominio estándar y pequeños ajustes.</p>
   </div>
 </section>
 
 <!-- ====================== TESTIMONIOS ====================== -->
 <section class="section light">
   <div class="wrap">
-    <div class="section-head center reveal"><span class="eyebrow">Testimonios</span><h2>Lo que dicen las empresas que confiaron en nosotros</h2><p class="sub">Resultados reales que respaldan nuestro trabajo.</p></div>
+    <div class="section-head center reveal"><span class="eyebrow" data-i18n="tst.eyebrow">Testimonios</span><h2 data-i18n="tst.h2">Lo que dicen las empresas que confiaron en nosotros</h2><p class="sub" data-i18n="tst.sub">Resultados reales que respaldan nuestro trabajo.</p></div>
     <!-- [TESTIMONIOS] Reemplaza por reseñas reales cuando las tengas -->
     <div class="tst-grid">
-      <article class="tst reveal" data-delay="1"><div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div><p>"La web quedó impecable y muy profesional. Desde que la publicamos recibimos más consultas por WhatsApp."</p><div class="who"><div class="av">MR</div><div><b>María Rodríguez</b><span>Clínica dental</span></div></div></article>
-      <article class="tst reveal" data-delay="2"><div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div><p>"Proceso rápido y claro. Entendieron lo que necesitaba mi restaurante y la entrega fue puntual."</p><div class="who"><div class="av">CL</div><div><b>Carlos López</b><span>Restaurante</span></div></div></article>
-      <article class="tst reveal" data-delay="3"><div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div><p>"Por fin tenemos una imagen seria en internet. La página se ve moderna y carga muy rápido."</p><div class="who"><div class="av">AT</div><div><b>Andrea Torres</b><span>Consultora</span></div></div></article>
+      <article class="tst reveal" data-delay="1"><div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div><p data-i18n="tst.1.p">"La web quedó impecable y muy profesional. Desde que la publicamos recibimos más consultas por WhatsApp."</p><div class="who"><div class="av">MR</div><div><b data-i18n="tst.1.name">María Rodríguez</b><span data-i18n="tst.1.role">Clínica dental</span></div></div></article>
+      <article class="tst reveal" data-delay="2"><div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div><p data-i18n="tst.2.p">"Proceso rápido y claro. Entendieron lo que necesitaba mi restaurante y la entrega fue puntual."</p><div class="who"><div class="av">CL</div><div><b data-i18n="tst.2.name">Carlos López</b><span data-i18n="tst.2.role">Restaurante</span></div></div></article>
+      <article class="tst reveal" data-delay="3"><div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div><p data-i18n="tst.3.p">"Por fin tenemos una imagen seria en internet. La página se ve moderna y carga muy rápido."</p><div class="who"><div class="av">AT</div><div><b data-i18n="tst.3.name">Andrea Torres</b><span data-i18n="tst.3.role">Consultora</span></div></div></article>
     </div>
   </div>
 </section>
@@ -911,14 +954,11 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 <section class="section dark" id="nosotros">
   <div class="wrap about-grid">
     <div class="about-copy reveal">
-      <span class="eyebrow">Sobre nosotros</span>
-      <h2 style="font-size:clamp(1.9rem,3.6vw,2.7rem); margin-bottom:20px; color:var(--on-dark);">Tecnología práctica para impulsar tu negocio</h2>
-      <p style="color:var(--on-dark-muted)">En HUMA Digital Studio ayudamos a empresas, emprendimientos y organizaciones a construir una presencia digital moderna, profesional y funcional. Diseñamos páginas web y soluciones digitales accesibles, pensadas para mejorar la visibilidad de cada marca, facilitar el contacto con sus clientes y proyectar una imagen sólida en internet.</p>
-      <p style="color:var(--on-dark-muted)">Creemos que la tecnología debe ser una herramienta práctica para impulsar negocios, abrir oportunidades y fortalecer la competitividad de cualquier empresa, sin importar dónde se encuentre.</p>
-      <div class="about-badges" style="margin-top:26px"><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)">Clientes en todo el mundo</span><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)">Enfoque en resultados</span><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)">Proceso cercano</span><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)">Calidad premium</span></div>
-    </div>
-    <div class="about-art reveal" data-delay="2">
-      <img src="huma-banner.png" alt="HUMA Digital Studio">
+      <span class="eyebrow" data-i18n="about.eyebrow">Sobre nosotros</span>
+      <h2 style="font-size:clamp(1.9rem,3.6vw,2.7rem); margin-bottom:20px; color:var(--on-dark);" data-i18n="about.h2">Tecnología práctica para impulsar tu negocio</h2>
+      <p style="color:var(--on-dark-muted)" data-i18n="about.p1">En HUMA Digital Studio ayudamos a empresas, emprendimientos y organizaciones a construir una presencia digital moderna, profesional y funcional. Diseñamos páginas web y soluciones digitales accesibles, pensadas para mejorar la visibilidad de cada marca, facilitar el contacto con sus clientes y proyectar una imagen sólida en internet.</p>
+      <p style="color:var(--on-dark-muted)" data-i18n="about.p2">Creemos que la tecnología debe ser una herramienta práctica para impulsar negocios, abrir oportunidades y fortalecer la competitividad de cualquier empresa, sin importar dónde se encuentre.</p>
+      <div class="about-badges" style="margin-top:26px"><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)" data-i18n="about.badge1">Clientes en todo el mundo</span><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)" data-i18n="about.badge2">Enfoque en resultados</span><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)" data-i18n="about.badge3">Proceso cercano</span><span style="background:var(--glass); border-color:var(--glass-border); color:var(--on-dark)" data-i18n="about.badge4">Calidad premium</span></div>
     </div>
   </div>
 </section>
@@ -926,14 +966,14 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 <!-- ====================== FAQ ====================== -->
 <section class="section dark">
   <div class="wrap">
-    <div class="section-head center reveal"><span class="eyebrow">Preguntas frecuentes</span><h2>Resolvemos tus dudas antes de empezar</h2></div>
+    <div class="section-head center reveal"><span class="eyebrow" data-i18n="faq.eyebrow">Preguntas frecuentes</span><h2 data-i18n="faq.h2">Resolvemos tus dudas antes de empezar</h2></div>
     <!-- [FAQ] -->
     <div class="faq-wrap">
-      <div class="faq reveal"><button aria-expanded="false">¿Cuánto tarda en estar lista mi página web?<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="ans"><p>Depende del plan y del contenido, pero la mayoría de proyectos se entregan en pocos días una vez recibimos tus textos e imágenes. Te damos una fecha estimada desde el inicio.</p></div></div>
-      <div class="faq reveal"><button aria-expanded="false">¿Qué necesito darles para empezar?<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="ans"><p>Básicamente tu logo (si lo tienes), información de tu empresa, servicios, fotos y datos de contacto. Si no tienes algo, te orientamos para conseguirlo o lo resolvemos juntos.</p></div></div>
-      <div class="faq reveal"><button aria-expanded="false">¿El precio incluye dominio y hosting?<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="ans"><p>La publicación inicial está incluida. El dominio y el mantenimiento anual se gestionan con el plan de mantenimiento (desde 80 USD/año), que cubre hosting, dominio estándar y pequeños ajustes.</p></div></div>
-      <div class="faq reveal"><button aria-expanded="false">¿Puedo pedir cambios después de la entrega?<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="ans"><p>Sí. Los ajustes menores entran dentro del mantenimiento. Para cambios mayores o nuevas secciones preparamos un presupuesto claro antes de empezar.</p></div></div>
-      <div class="faq reveal"><button aria-expanded="false">¿La web funcionará bien en celulares?<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="ans"><p>Siempre. Todas nuestras páginas son 100% responsive y se adaptan a móvil, tablet y escritorio, porque la mayoría de tus clientes te verán desde el teléfono.</p></div></div>
+      <div class="faq reveal"><button aria-expanded="false"><span data-i18n="faq.1.q">¿Cuánto tarda en estar lista mi página web?</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="ans"><p data-i18n="faq.1.a">Depende del plan y del contenido, pero la mayoría de proyectos se entregan en pocos días una vez recibimos tus textos e imágenes. Te damos una fecha estimada desde el inicio.</p></div></div>
+      <div class="faq reveal"><button aria-expanded="false"><span data-i18n="faq.2.q">¿Qué necesito darles para empezar?</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="ans"><p data-i18n="faq.2.a">Básicamente tu logo (si lo tienes), información de tu empresa, servicios, fotos y datos de contacto. Si no tienes algo, te orientamos para conseguirlo o lo resolvemos juntos.</p></div></div>
+      <div class="faq reveal"><button aria-expanded="false"><span data-i18n="faq.3.q">¿El precio incluye dominio y hosting?</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="ans"><p data-i18n="faq.3.a">La publicación inicial está incluida. El dominio y el mantenimiento anual se gestionan con el plan de mantenimiento (desde 80 USD/año), que cubre hosting, dominio estándar y pequeños ajustes.</p></div></div>
+      <div class="faq reveal"><button aria-expanded="false"><span data-i18n="faq.4.q">¿Puedo pedir cambios después de la entrega?</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="ans"><p data-i18n="faq.4.a">Sí. Los ajustes menores entran dentro del mantenimiento. Para cambios mayores o nuevas secciones preparamos un presupuesto claro antes de empezar.</p></div></div>
+      <div class="faq reveal"><button aria-expanded="false"><span data-i18n="faq.5.q">¿La web funcionará bien en celulares?</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="ans"><p data-i18n="faq.5.a">Siempre. Todas nuestras páginas son 100% responsive y se adaptan a móvil, tablet y escritorio, porque la mayoría de tus clientes te verán desde el teléfono.</p></div></div>
     </div>
   </div>
 </section>
@@ -943,40 +983,40 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
   <div class="hero-bg" aria-hidden="true"><div class="aurora a1"></div><div class="aurora a2"></div><div class="grain"></div></div>
   <div class="wrap cta-grid">
     <div class="cta-copy reveal">
-      <span class="eyebrow">Hablemos</span>
-      <h2>Tu empresa también puede verse así de <span class="grad-text">profesional en internet</span></h2>
-      <p>Cuéntanos sobre tu negocio y te preparamos una propuesta a medida. Sin compromiso y con una idea clara de cómo se vería tu web.</p>
+      <span class="eyebrow" data-i18n="cta.eyebrow">Hablemos</span>
+      <h2 data-i18n-html="cta.h2">Tu empresa también puede verse así de <span class="grad-text">profesional en internet</span></h2>
+      <p data-i18n="cta.p">Cuéntanos sobre tu negocio y te preparamos una propuesta a medida. Sin compromiso y con una idea clara de cómo se vería tu web.</p>
       <div class="cta-actions">
         <!-- [WHATSAPP] -->
         <a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/34695909608?text=Hola%20HUMA%20Digital%20Studio%2C%20quiero%20una%20propuesta%20para%20mi%20empresa">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4-1l-.3-.2-2.8.8.8-2.8-.2-.3A8 8 0 1 1 12 20z"/></svg> WhatsApp directo
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4-1l-.3-.2-2.8.8.8-2.8-.2-.3A8 8 0 1 1 12 20z"/></svg> <span data-i18n="cta.wa">WhatsApp directo</span>
         </a>
-        <a class="btn btn-ghost" href="mailto:ventas@humadigitalstudio.com?subject=Quiero%20una%20propuesta%20web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> Enviar correo</a>
+        <a class="btn btn-ghost" href="mailto:ventas@humadigitalstudio.com?subject=Quiero%20una%20propuesta%20web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> <span data-i18n="cta.email">Enviar correo</span></a>
       </div>
     </div>
 
     <!-- Formulario (sin backend): compone un mensaje de WhatsApp con los datos -->
     <div class="form-card reveal" data-delay="2">
-      <h3>Solicita tu propuesta</h3>
-      <p class="fh">Rellena el formulario y abriremos WhatsApp con tu mensaje listo para enviar.</p>
+      <h3 data-i18n="form.h3">Solicita tu propuesta</h3>
+      <p class="fh" data-i18n="form.fh">Rellena el formulario y abriremos WhatsApp con tu mensaje listo para enviar.</p>
       <form id="leadForm">
         <div class="form-row">
-          <div class="field"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" type="text" placeholder="Tu nombre" required /></div>
-          <div class="field"><label for="f-empresa">Empresa</label><input id="f-empresa" name="empresa" type="text" placeholder="Nombre de tu empresa" /></div>
+          <div class="field"><label for="f-nombre" data-i18n="form.nombre">Nombre</label><input id="f-nombre" name="nombre" type="text" data-i18n-ph="form.ph.nombre" placeholder="Tu nombre" required /></div>
+          <div class="field"><label for="f-empresa" data-i18n="form.empresa">Empresa</label><input id="f-empresa" name="empresa" type="text" data-i18n-ph="form.ph.empresa" placeholder="Nombre de tu empresa" /></div>
         </div>
-        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" placeholder="tucorreo@empresa.com" /></div>
-        <div class="field"><label for="f-tipo">¿Qué necesitas?</label>
+        <div class="field"><label for="f-email" data-i18n="form.email">Email</label><input id="f-email" name="email" type="email" data-i18n-ph="form.ph.email" placeholder="tucorreo@empresa.com" /></div>
+        <div class="field"><label for="f-tipo" data-i18n="form.tipo">¿Qué necesitas?</label>
           <select id="f-tipo" name="tipo">
-            <option>Página web nueva</option>
-            <option>Landing page comercial</option>
-            <option>Rediseño de mi web actual</option>
-            <option>Mantenimiento web</option>
-            <option>Otra solución digital</option>
+            <option data-i18n="form.opt1">Página web nueva</option>
+            <option data-i18n="form.opt2">Landing page comercial</option>
+            <option data-i18n="form.opt3">Rediseño de mi web actual</option>
+            <option data-i18n="form.opt4">Mantenimiento web</option>
+            <option data-i18n="form.opt5">Otra solución digital</option>
           </select>
         </div>
-        <div class="field"><label for="f-msg">Cuéntanos un poco más</label><textarea id="f-msg" name="mensaje" placeholder="Describe brevemente tu proyecto..."></textarea></div>
-        <button type="submit" class="btn btn-primary">Enviar por WhatsApp</button>
-        <p class="form-note">También puedes escribirnos a ventas@humadigitalstudio.com</p>
+        <div class="field"><label for="f-msg" data-i18n="form.msg">Cuéntanos un poco más</label><textarea id="f-msg" name="mensaje" data-i18n-ph="form.ph.msg" placeholder="Describe brevemente tu proyecto..."></textarea></div>
+        <button type="submit" class="btn btn-primary" data-i18n="form.submit">Enviar por WhatsApp</button>
+        <p class="form-note" data-i18n="form.note">También puedes escribirnos a ventas@humadigitalstudio.com</p>
       </form>
     </div>
   </div>
@@ -988,7 +1028,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
     <div class="foot-grid">
       <div class="foot-brand">
         <a href="#inicio" class="brand"><span class="brand-logo footer-logo" role="img" aria-label="HUMA Digital Studio"></span></a>
-        <p>Impulsamos empresas hacia el mundo digital. Páginas web modernas, rápidas y funcionales para negocios de cualquier parte del mundo.</p>
+        <p data-i18n="foot.p">Impulsamos empresas hacia el mundo digital. Páginas web modernas, rápidas y funcionales para negocios de cualquier parte del mundo.</p>
         <!-- [CONTACTO] Redes -->
         <div class="foot-social">
           <a href="https://instagram.com/humadigitalstudio" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
@@ -996,11 +1036,11 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
           <a href="https://wa.me/34695909608" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4-1l-.3-.2-2.8.8.8-2.8-.2-.3A8 8 0 1 1 12 20z"/></svg></a>
         </div>
       </div>
-      <div class="foot-col"><h4>Navegación</h4><ul><li><a href="#inicio">Inicio</a></li><li><a href="#servicios">Servicios</a></li><li><a href="#proyectos">Proyectos</a></li><li><a href="#proceso">Proceso</a></li><li><a href="#planes">Planes</a></li></ul></div>
-      <div class="foot-col"><h4>Servicios</h4><ul><li><a href="#servicios">Páginas web</a></li><li><a href="#servicios">Landing pages</a></li><li><a href="#servicios">Presencia digital</a></li><li><a href="#servicios">Mantenimiento</a></li><li><a href="#servicios">Soluciones a medida</a></li></ul></div>
-      <div class="foot-col"><h4>Contacto</h4><ul><li><a href="https://wa.me/34695909608" target="_blank" rel="noopener">+34 695 909 608</a></li><li><a href="mailto:ventas@humadigitalstudio.com">ventas@humadigitalstudio.com</a></li><li>En todo el mundo</li><li><a href="https://instagram.com/humadigitalstudio" target="_blank" rel="noopener">@humadigitalstudio</a></li></ul></div>
+      <div class="foot-col"><h4 data-i18n="foot.nav">Navegación</h4><ul><li><a href="#inicio" data-i18n="nav.inicio">Inicio</a></li><li><a href="#servicios" data-i18n="nav.servicios">Servicios</a></li><li><a href="#proyectos" data-i18n="nav.proyectos">Proyectos</a></li><li><a href="#proceso" data-i18n="nav.proceso">Proceso</a></li><li><a href="#planes" data-i18n="nav.planes">Planes</a></li></ul></div>
+      <div class="foot-col"><h4 data-i18n="foot.svc">Servicios</h4><ul><li><a href="#servicios" data-i18n="foot.svc.1">Páginas web</a></li><li><a href="#servicios" data-i18n="foot.svc.2">Landing pages</a></li><li><a href="#servicios" data-i18n="foot.svc.3">Presencia digital</a></li><li><a href="#servicios" data-i18n="foot.svc.4">Mantenimiento</a></li><li><a href="#servicios" data-i18n="foot.svc.5">Soluciones a medida</a></li></ul></div>
+      <div class="foot-col"><h4 data-i18n="foot.contact">Contacto</h4><ul><li><a href="https://wa.me/34695909608" target="_blank" rel="noopener">+34 695 909 608</a></li><li><a href="mailto:ventas@humadigitalstudio.com">ventas@humadigitalstudio.com</a></li><li data-i18n="foot.world">En todo el mundo</li><li><a href="https://instagram.com/humadigitalstudio" target="_blank" rel="noopener">@humadigitalstudio</a></li></ul></div>
     </div>
-    <div class="foot-bottom"><span>© <span id="year"></span> HUMA Digital Studio — Impulsamos empresas hacia el mundo digital.</span><span>Diseñado con criterio y tecnología.</span></div>
+    <div class="foot-bottom"><span>© <span id="year"></span> HUMA Digital Studio — <span data-i18n="foot.bottom">Impulsamos empresas hacia el mundo digital.</span></span><span data-i18n="foot.designed">Diseñado con criterio y tecnología.</span></div>
   </div>
 </footer>
 
@@ -1018,14 +1058,14 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       <div class="dots"><i></i><i></i><i></i></div>
       <div class="demo-url"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span id="demoUrl">demo.humadigitalstudio.com</span></div>
       <div class="demo-tools">
-        <button class="dev-btn active" id="devDesktop" aria-label="Vista de escritorio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/></svg></button>
-        <button class="dev-btn" id="devMobile" aria-label="Vista móvil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></button>
-        <button class="demo-close" id="demoClose" aria-label="Cerrar demostración"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <button class="dev-btn active" id="devDesktop" data-i18n-aria="demo.desktop" aria-label="Vista de escritorio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/></svg></button>
+        <button class="dev-btn" id="devMobile" data-i18n-aria="demo.mobile" aria-label="Vista móvil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></button>
+        <button class="demo-close" id="demoClose" data-i18n-aria="demo.close" aria-label="Cerrar demostración"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
     </div>
     <div class="demo-banner">
-      <span><b>Demostración</b> · Así de profesional podría verse tu web</span>
-      <button class="btn btn-primary" id="demoWant">Quiero una web así</button>
+      <span><b>Demostración</b> · <span data-i18n="demo.banner">Así de profesional podría verse tu web</span></span>
+      <button class="btn btn-primary" id="demoWant" data-i18n="demo.want">Quiero una web así</button>
     </div>
     <div class="demo-stage" id="demoStage"><iframe id="demoFrame" title="Demostración de sitio web"></iframe></div>
   </div>
@@ -1121,6 +1161,463 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
   document.querySelectorAll('.faq button, .burger').forEach(function(btn){
     if(!btn.type || btn.type==='submit') btn.type='button';
   });
+
+  // ============================================================
+  // SELECTOR DE IDIOMA — ES / EN / FR / RU
+  // ============================================================
+  var LANG = {
+    es: {
+      'meta.title':'HUMA Digital Studio | Diseño de páginas web profesionales',
+      'meta.desc':'Creamos páginas web modernas, rápidas y funcionales para empresas y organizaciones de todo el mundo.',
+      'nav.inicio':'Inicio','nav.servicios':'Servicios','nav.proyectos':'Proyectos',
+      'nav.proceso':'Proceso','nav.planes':'Planes','nav.nosotros':'Nosotros',
+      'nav.contacto':'Contacto','nav.cta':'Solicitar propuesta','nav.burger':'Abrir menú',
+      'hero.badge':' Agencia digital · Para cualquier negocio',
+      'hero.h1':'Impulsamos empresas hacia el <span class="grad-text">mundo digital</span>',
+      'hero.lead':'Creamos páginas web modernas, rápidas y funcionales para que empresas, marcas y organizaciones fortalezcan su presencia online, generen confianza y conecten con más clientes.',
+      'hero.cta1':'Solicitar mi página web','hero.cta2':'Ver proyectos',
+      'hero.trust1':'Diseño responsive','hero.trust2':'Entrega rápida','hero.trust3':'Soporte cercano',
+      'hero.scroll':'Desliza',
+      'strip.label':'Diseñamos para empresas y profesionales de todos los sectores',
+      'stat.responsive':'Diseño responsive garantizado','stat.days':'Entrega promedio',
+      'stat.days.unit':' días','stat.online':'Tu web visible siempre','stat.https':'Publicación segura por defecto',
+      'prob.eyebrow':'El reto',
+      'prob.h2':'Tu empresa puede tener un gran servicio, pero si no se ve profesional en internet, muchos clientes no llegarán a conocerte.',
+      'prob.1.h3':'Confianza desde el primer clic','prob.1.p':'Tu negocio necesita transmitir seriedad y credibilidad en los primeros segundos. Una web cuidada es tu mejor carta de presentación.',
+      'prob.2.h3':'Información clara y accesible','prob.2.p':'Tus clientes buscan respuestas rápidas: qué ofreces, dónde estás y cómo contactarte. Si no lo encuentran, se van con la competencia.',
+      'prob.3.h3':'De visitas a clientes reales','prob.3.p':'Una web profesional convierte el interés en contacto: formularios, WhatsApp y llamadas a la acción que generan oportunidades.',
+      'svc.eyebrow':'Servicios',
+      'svc.h2':'Soluciones digitales para que tu empresa <span class="grad-text">destaque</span>',
+      'svc.sub':'Diseño, tecnología y estrategia en cada proyecto. Elige el servicio que tu negocio necesita hoy.',
+      'svc.1.h3':'Diseño de páginas web','svc.1.p':'Webs modernas, rápidas y adaptadas a móviles para presentar tu empresa de forma profesional.',
+      'svc.2.h3':'Landing pages comerciales','svc.2.p':'Páginas enfocadas en captar clientes, promocionar servicios o presentar campañas específicas.',
+      'svc.3.h3':'Presencia digital para empresas','svc.3.p':'Estructura básica para que tu empresa sea visible, contactable y confiable en internet.',
+      'svc.4.h3':'Mantenimiento web','svc.4.p':'Soporte, actualizaciones menores, dominio, hosting y revisión técnica anual.',
+      'svc.5.h3':'Integraciones básicas','svc.5.p':'Botones de WhatsApp, formularios, mapas, redes sociales, analítica y enlaces comerciales.',
+      'svc.6.h3':'Soluciones digitales a medida','svc.6.p':'Espacio para automatizaciones, dashboards, herramientas internas o proyectos con IA.',
+      'work.eyebrow':'Proyectos',
+      'work.h2':'Diseños pensados para <span class="grad-text">cada tipo de negocio</span>',
+      'work.sub':'Una muestra del estilo y la calidad que entregamos. Adaptamos cada web a la identidad y el sector de tu empresa.',
+      'demo.btn':'Ver demo en vivo',
+      'work.rest.h3':'Gastronomía','work.rest.sub':'Menú, reservas y delivery','work.rest.pill':'Reservar mesa','work.rest.meta':'Restaurantes y cafeterías',
+      'work.clinic.h3':'Salud','work.clinic.sub':'Especialidades y citas online','work.clinic.pill':'Agendar cita','work.clinic.meta':'Clínicas y consultorios',
+      'work.real.h3':'Inmobiliaria','work.real.sub':'Catálogo de propiedades','work.real.pill':'Ver propiedades','work.real.meta':'Venta y alquiler',
+      'work.legal.h3':'Legal','work.legal.sub':'Áreas de práctica y contacto','work.legal.pill':'Consultar caso','work.legal.meta':'Abogados y consultoras',
+      'work.acad.h3':'Educación','work.acad.sub':'Cursos, horarios e inscripción','work.acad.pill':'Inscríbete','work.acad.meta':'Academias y centros',
+      'work.shop.h3':'Comercio','work.shop.sub':'Catálogo y pedidos por WhatsApp','work.shop.pill':'Ver catálogo','work.shop.meta':'Tiendas y servicios',
+      'diff.eyebrow':'Por qué HUMA Digital Studio',
+      'diff.h2':'No solo diseñamos páginas, <span class="grad-text">construimos presencia digital</span>',
+      'diff.sub':'Entregamos una herramienta para mejorar la visibilidad, la confianza y el contacto con tus clientes, no solo una web bonita.',
+      'diff.1.b':'Diseño profesional a medida','diff.1.p':'Adaptado a la identidad y el sector de cada empresa.',
+      'diff.2.b':'Tecnología rápida y segura','diff.2.p':'Webs eficientes, optimizadas y con HTTPS.',
+      'diff.3.b':'Optimizadas para móvil','diff.3.p':'La mayoría de tus clientes te verán desde el teléfono.',
+      'diff.4.b':'Comunicación clara y proceso simple','diff.4.p':'Sin tecnicismos ni procesos complicados.',
+      'diff.5.b':'Precio accesible, calidad visual','diff.5.p':'Una imagen profesional sin costes excesivos.',
+      'diff.6.b':'Propuesta visual previa','diff.6.p':'Puedes ver una muestra antes de decidir.',
+      'diff.stat1':'sectores con presencia web','diff.stat2':'responsive y seguro',
+      'diff.stat3':'optimización inicial incluida','diff.stat4':'tu web siempre disponible',
+      'proc.eyebrow':'Cómo trabajamos','proc.h2':'Un proceso simple, claro y sin complicaciones',
+      'proc.sub':'De la idea a tu web publicada en cuatro pasos.',
+      'proc.1.h3':'Entendemos tu negocio','proc.1.p':'Analizamos qué haces, qué quieres comunicar y qué necesitan ver tus clientes.',
+      'proc.2.h3':'Diseñamos una propuesta visual','proc.2.p':'Creamos una estructura moderna y alineada con tu marca.',
+      'proc.3.h3':'Adaptamos contenido y funciones','proc.3.p':'Textos, imágenes, servicios, WhatsApp, redes, mapa y formulario.',
+      'proc.4.h3':'Publicamos tu web','proc.4.p':'Dejamos tu página online, segura, responsive y lista para compartir.',
+      'plans.eyebrow':'Planes',
+      'plans.h2':'Planes pensados para <span class="grad-text">cada tipo de empresa</span>',
+      'plans.sub':'Precios orientativos. Elige el punto de partida que mejor encaje con tu negocio.',
+      'plan.1.h3':'Presencia','plan.1.desc':'Para negocios que necesitan una landing simple y profesional.',
+      'plan.1.li1':'Página de una sola vista','plan.1.li2':'Hasta 4 secciones','plan.1.li3':'Diseño responsive',
+      'plan.1.li4':'Botón de WhatsApp','plan.1.li5':'Redes sociales','plan.1.li6':'Publicación online',
+      'plan.2.tag':'Más elegido','plan.2.h3':'Profesional','plan.2.desc':'Para empresas que quieren una presencia digital más completa.',
+      'plan.2.li1':'Página web moderna','plan.2.li2':'Hasta 6 secciones','plan.2.li3':'Diseño responsive',
+      'plan.2.li4':'WhatsApp + mapa de ubicación','plan.2.li5':'Formulario o botón de contacto',
+      'plan.2.li6':'Galería básica','plan.2.li7':'SEO básico inicial','plan.2.li8':'Publicación con HTTPS',
+      'plan.3.h3':'Corporativo','plan.3.desc':'Para empresas que necesitan mayor estructura y presencia institucional.',
+      'plan.3.li1':'Estructura ampliada','plan.3.li2':'Secciones corporativas','plan.3.li3':'Servicios detallados',
+      'plan.3.li4':'Integraciones básicas','plan.3.li5':'Optimización inicial','plan.3.li6':'Soporte de publicación',
+      'plan.cta':'Solicitar este plan',
+      'plans.note':'Los precios pueden ajustarse según el alcance, número de secciones, funcionalidades y necesidades específicas de cada empresa.<br><b>Mantenimiento anual desde 80 USD/año</b>, incluyendo soporte técnico básico, hosting, dominio estándar y pequeños ajustes.',
+      'tst.eyebrow':'Testimonios','tst.h2':'Lo que dicen las empresas que confiaron en nosotros','tst.sub':'Resultados reales que respaldan nuestro trabajo.',
+      'tst.1.p':'"La web quedó impecable y muy profesional. Desde que la publicamos recibimos más consultas por WhatsApp."','tst.1.name':'María Rodríguez','tst.1.role':'Clínica dental',
+      'tst.2.p':'"Proceso rápido y claro. Entendieron lo que necesitaba mi restaurante y la entrega fue puntual."','tst.2.name':'Carlos López','tst.2.role':'Restaurante',
+      'tst.3.p':'"Por fin tenemos una imagen seria en internet. La página se ve moderna y carga muy rápido."','tst.3.name':'Andrea Torres','tst.3.role':'Consultora',
+      'about.eyebrow':'Sobre nosotros','about.h2':'Tecnología práctica para impulsar tu negocio',
+      'about.p1':'En HUMA Digital Studio ayudamos a empresas, emprendimientos y organizaciones a construir una presencia digital moderna, profesional y funcional. Diseñamos páginas web y soluciones digitales accesibles, pensadas para mejorar la visibilidad de cada marca, facilitar el contacto con sus clientes y proyectar una imagen sólida en internet.',
+      'about.p2':'Creemos que la tecnología debe ser una herramienta práctica para impulsar negocios, abrir oportunidades y fortalecer la competitividad de cualquier empresa, sin importar dónde se encuentre.',
+      'about.badge1':'Clientes en todo el mundo','about.badge2':'Enfoque en resultados','about.badge3':'Proceso cercano','about.badge4':'Calidad premium',
+      'faq.eyebrow':'Preguntas frecuentes','faq.h2':'Resolvemos tus dudas antes de empezar',
+      'faq.1.q':'¿Cuánto tarda en estar lista mi página web?','faq.1.a':'Depende del plan y del contenido, pero la mayoría de proyectos se entregan en pocos días una vez recibimos tus textos e imágenes. Te damos una fecha estimada desde el inicio.',
+      'faq.2.q':'¿Qué necesito darles para empezar?','faq.2.a':'Básicamente tu logo (si lo tienes), información de tu empresa, servicios, fotos y datos de contacto. Si no tienes algo, te orientamos para conseguirlo o lo resolvemos juntos.',
+      'faq.3.q':'¿El precio incluye dominio y hosting?','faq.3.a':'La publicación inicial está incluida. El dominio y el mantenimiento anual se gestionan con el plan de mantenimiento (desde 80 USD/año), que cubre hosting, dominio estándar y pequeños ajustes.',
+      'faq.4.q':'¿Puedo pedir cambios después de la entrega?','faq.4.a':'Sí. Los ajustes menores entran dentro del mantenimiento. Para cambios mayores o nuevas secciones preparamos un presupuesto claro antes de empezar.',
+      'faq.5.q':'¿La web funcionará bien en celulares?','faq.5.a':'Siempre. Todas nuestras páginas son 100% responsive y se adaptan a móvil, tablet y escritorio, porque la mayoría de tus clientes te verán desde el teléfono.',
+      'cta.eyebrow':'Hablemos',
+      'cta.h2':'Tu empresa también puede verse así de <span class="grad-text">profesional en internet</span>',
+      'cta.p':'Cuéntanos sobre tu negocio y te preparamos una propuesta a medida. Sin compromiso y con una idea clara de cómo se vería tu web.',
+      'cta.wa':'WhatsApp directo','cta.email':'Enviar correo',
+      'form.h3':'Solicita tu propuesta','form.fh':'Rellena el formulario y abriremos WhatsApp con tu mensaje listo para enviar.',
+      'form.nombre':'Nombre','form.empresa':'Empresa','form.email':'Email','form.tipo':'¿Qué necesitas?',
+      'form.opt1':'Página web nueva','form.opt2':'Landing page comercial','form.opt3':'Rediseño de mi web actual','form.opt4':'Mantenimiento web','form.opt5':'Otra solución digital',
+      'form.msg':'Cuéntanos un poco más','form.submit':'Enviar por WhatsApp',
+      'form.note':'También puedes escribirnos a ventas@humadigitalstudio.com',
+      'form.ph.nombre':'Tu nombre','form.ph.empresa':'Nombre de tu empresa','form.ph.email':'tucorreo@empresa.com','form.ph.msg':'Describe brevemente tu proyecto...',
+      'foot.p':'Impulsamos empresas hacia el mundo digital. Páginas web modernas, rápidas y funcionales para negocios de cualquier parte del mundo.',
+      'foot.nav':'Navegación','foot.svc':'Servicios','foot.contact':'Contacto',
+      'foot.svc.1':'Páginas web','foot.svc.2':'Landing pages','foot.svc.3':'Presencia digital','foot.svc.4':'Mantenimiento','foot.svc.5':'Soluciones a medida',
+      'foot.world':'En todo el mundo','foot.bottom':'Impulsamos empresas hacia el mundo digital.','foot.designed':'Diseñado con criterio y tecnología.',
+      'demo.banner':'Así de profesional podría verse tu web','demo.want':'Quiero una web así',
+      'demo.desktop':'Vista de escritorio','demo.mobile':'Vista móvil','demo.close':'Cerrar demostración'
+    },
+    en: {
+      'meta.title':'HUMA Digital Studio | Professional website design',
+      'meta.desc':'We create modern, fast, and functional websites for businesses and organizations worldwide.',
+      'nav.inicio':'Home','nav.servicios':'Services','nav.proyectos':'Projects',
+      'nav.proceso':'Process','nav.planes':'Pricing','nav.nosotros':'About',
+      'nav.contacto':'Contact','nav.cta':'Request a proposal','nav.burger':'Open menu',
+      'hero.badge':' Digital agency · For any business',
+      'hero.h1':'We drive businesses into the <span class="grad-text">digital world</span>',
+      'hero.lead':'We build modern, fast, and functional websites so that businesses, brands and organizations can strengthen their online presence, build trust and connect with more customers.',
+      'hero.cta1':'Request my website','hero.cta2':'View projects',
+      'hero.trust1':'Responsive design','hero.trust2':'Fast turnaround','hero.trust3':'Personal support',
+      'hero.scroll':'Scroll',
+      'strip.label':'We design for businesses and professionals across all industries',
+      'stat.responsive':'Responsive design guaranteed','stat.days':'Average delivery',
+      'stat.days.unit':' days','stat.online':'Your website always online','stat.https':'Secure by default',
+      'prob.eyebrow':'The challenge',
+      'prob.h2':'Your business may offer excellent services, but if it doesn\'t look professional online, many customers will never find you.',
+      'prob.1.h3':'Trust from the first click','prob.1.p':'Your business needs to convey seriousness and credibility in the first seconds. A polished website is your best first impression.',
+      'prob.2.h3':'Clear and accessible information','prob.2.p':'Your customers look for quick answers: what you offer, where you are, and how to contact you. If they can\'t find it, they go to the competition.',
+      'prob.3.h3':'From visitors to real customers','prob.3.p':'A professional website converts interest into action: forms, WhatsApp, and calls to action that generate real opportunities.',
+      'svc.eyebrow':'Services',
+      'svc.h2':'Digital solutions to make your business <span class="grad-text">stand out</span>',
+      'svc.sub':'Design, technology, and strategy in every project. Choose the service your business needs today.',
+      'svc.1.h3':'Website design','svc.1.p':'Modern, fast, mobile-friendly websites to present your company professionally.',
+      'svc.2.h3':'Commercial landing pages','svc.2.p':'Pages focused on acquiring customers, promoting services, or presenting specific campaigns.',
+      'svc.3.h3':'Digital presence for businesses','svc.3.p':'Basic structure to make your business visible, reachable, and trustworthy online.',
+      'svc.4.h3':'Website maintenance','svc.4.p':'Support, minor updates, domain, hosting, and annual technical review.',
+      'svc.5.h3':'Basic integrations','svc.5.p':'WhatsApp buttons, forms, maps, social media, analytics, and commercial links.',
+      'svc.6.h3':'Custom digital solutions','svc.6.p':'Space for automations, dashboards, internal tools, or AI projects.',
+      'work.eyebrow':'Projects',
+      'work.h2':'Designs crafted for <span class="grad-text">every type of business</span>',
+      'work.sub':'A sample of the style and quality we deliver. We adapt each website to your company\'s identity and sector.',
+      'demo.btn':'View live demo',
+      'work.rest.h3':'Food & Drink','work.rest.sub':'Menu, reservations & delivery','work.rest.pill':'Book a table','work.rest.meta':'Restaurants & cafés',
+      'work.clinic.h3':'Health','work.clinic.sub':'Specialties & online appointments','work.clinic.pill':'Schedule appointment','work.clinic.meta':'Clinics & medical offices',
+      'work.real.h3':'Real Estate','work.real.sub':'Property catalog','work.real.pill':'View properties','work.real.meta':'Sales & rentals',
+      'work.legal.h3':'Legal','work.legal.sub':'Practice areas & contact','work.legal.pill':'Book a consultation','work.legal.meta':'Lawyers & consultancies',
+      'work.acad.h3':'Education','work.acad.sub':'Courses, schedules & enrollment','work.acad.pill':'Enroll now','work.acad.meta':'Academies & centers',
+      'work.shop.h3':'Commerce','work.shop.sub':'Catalog & WhatsApp orders','work.shop.pill':'View catalog','work.shop.meta':'Stores & services',
+      'diff.eyebrow':'Why HUMA Digital Studio',
+      'diff.h2':'We don\'t just design pages, we <span class="grad-text">build a digital presence</span>',
+      'diff.sub':'We deliver a tool to improve visibility, trust, and contact with your customers — not just a pretty website.',
+      'diff.1.b':'Custom professional design','diff.1.p':'Tailored to each company\'s identity and sector.',
+      'diff.2.b':'Fast and secure technology','diff.2.p':'Efficient, optimized websites with HTTPS.',
+      'diff.3.b':'Mobile-optimized','diff.3.p':'Most of your customers will see you on their phone.',
+      'diff.4.b':'Clear communication, simple process','diff.4.p':'No jargon, no complicated processes.',
+      'diff.5.b':'Affordable price, premium quality','diff.5.p':'A professional image without excessive costs.',
+      'diff.6.b':'Visual preview before you decide','diff.6.p':'See a sample before committing.',
+      'diff.stat1':'sectors with an online presence','diff.stat2':'responsive and secure',
+      'diff.stat3':'initial SEO optimization included','diff.stat4':'your website always available',
+      'proc.eyebrow':'How we work','proc.h2':'A simple, clear, and hassle-free process',
+      'proc.sub':'From idea to published website in four steps.',
+      'proc.1.h3':'We understand your business','proc.1.p':'We analyze what you do, what you want to communicate, and what your clients need to see.',
+      'proc.2.h3':'We design a visual proposal','proc.2.p':'We create a modern structure aligned with your brand.',
+      'proc.3.h3':'We adapt content and functions','proc.3.p':'Texts, images, services, WhatsApp, social media, map, and form.',
+      'proc.4.h3':'We publish your website','proc.4.p':'We leave your page online, secure, responsive, and ready to share.',
+      'plans.eyebrow':'Pricing',
+      'plans.h2':'Plans designed for <span class="grad-text">every type of business</span>',
+      'plans.sub':'Starting prices. Choose the plan that best fits your business.',
+      'plan.1.h3':'Presence','plan.1.desc':'For businesses that need a simple and professional landing page.',
+      'plan.1.li1':'Single-page view','plan.1.li2':'Up to 4 sections','plan.1.li3':'Responsive design',
+      'plan.1.li4':'WhatsApp button','plan.1.li5':'Social media','plan.1.li6':'Online publishing',
+      'plan.2.tag':'Most popular','plan.2.h3':'Professional','plan.2.desc':'For businesses that want a more complete digital presence.',
+      'plan.2.li1':'Modern website','plan.2.li2':'Up to 6 sections','plan.2.li3':'Responsive design',
+      'plan.2.li4':'WhatsApp + location map','plan.2.li5':'Contact form or button',
+      'plan.2.li6':'Basic gallery','plan.2.li7':'Initial basic SEO','plan.2.li8':'HTTPS publishing',
+      'plan.3.h3':'Corporate','plan.3.desc':'For businesses that need more structure and institutional presence.',
+      'plan.3.li1':'Extended structure','plan.3.li2':'Corporate sections','plan.3.li3':'Detailed services',
+      'plan.3.li4':'Basic integrations','plan.3.li5':'Initial optimization','plan.3.li6':'Publishing support',
+      'plan.cta':'Request this plan',
+      'plans.note':'Prices may be adjusted based on scope, number of sections, features, and specific requirements of each business.<br><b>Annual maintenance from $80 USD/year</b>, including basic technical support, hosting, standard domain, and minor adjustments.',
+      'tst.eyebrow':'Testimonials','tst.h2':'What our clients have to say','tst.sub':'Real results that back our work.',
+      'tst.1.p':'"The website turned out impeccable and very professional. Since we published it, we receive more WhatsApp inquiries."','tst.1.name':'María Rodríguez','tst.1.role':'Dental clinic',
+      'tst.2.p':'"Fast and clear process. They understood what my restaurant needed and delivered on time."','tst.2.name':'Carlos López','tst.2.role':'Restaurant',
+      'tst.3.p':'"We finally have a serious image online. The page looks modern and loads very fast."','tst.3.name':'Andrea Torres','tst.3.role':'Consultant',
+      'about.eyebrow':'About us','about.h2':'Practical technology to boost your business',
+      'about.p1':'At HUMA Digital Studio we help businesses, startups, and organizations build a modern, professional, and functional digital presence. We design websites and accessible digital solutions, aimed at improving each brand\'s visibility, facilitating contact with their clients, and projecting a solid image online.',
+      'about.p2':'We believe technology should be a practical tool to drive businesses forward, open opportunities, and strengthen competitiveness — no matter where you are.',
+      'about.badge1':'Clients worldwide','about.badge2':'Results-focused','about.badge3':'Personal approach','about.badge4':'Premium quality',
+      'faq.eyebrow':'Frequently asked questions','faq.h2':'We answer your questions before you start',
+      'faq.1.q':'How long does it take to have my website ready?','faq.1.a':'It depends on the plan and content, but most projects are delivered in a few days once we receive your texts and images. We give you an estimated date from the start.',
+      'faq.2.q':'What do I need to provide to get started?','faq.2.a':'Basically your logo (if you have one), company information, services, photos, and contact details. If you\'re missing something, we\'ll guide you or solve it together.',
+      'faq.3.q':'Does the price include domain and hosting?','faq.3.a':'Initial publishing is included. Domain and annual maintenance are handled with the maintenance plan (from $80 USD/year), which covers hosting, standard domain, and minor adjustments.',
+      'faq.4.q':'Can I request changes after delivery?','faq.4.a':'Yes. Minor adjustments are included in maintenance. For major changes or new sections, we prepare a clear quote before starting.',
+      'faq.5.q':'Will the website work well on mobile phones?','faq.5.a':'Always. All our pages are 100% responsive and adapt to mobile, tablet, and desktop, because most of your customers will see you on their phone.',
+      'cta.eyebrow':"Let's talk",
+      'cta.h2':'Your business can look just as <span class="grad-text">professional online</span>',
+      'cta.p':'Tell us about your business and we\'ll prepare a custom proposal. No commitment, and with a clear idea of what your website would look like.',
+      'cta.wa':'Message us on WhatsApp','cta.email':'Send email',
+      'form.h3':'Request your proposal','form.fh':'Fill out the form and we\'ll open WhatsApp with your message ready to send.',
+      'form.nombre':'Name','form.empresa':'Company','form.email':'Email','form.tipo':'What do you need?',
+      'form.opt1':'New website','form.opt2':'Commercial landing page','form.opt3':'Redesign of my current website','form.opt4':'Website maintenance','form.opt5':'Another digital solution',
+      'form.msg':'Tell us a bit more','form.submit':'Send via WhatsApp',
+      'form.note':'You can also write to us at ventas@humadigitalstudio.com',
+      'form.ph.nombre':'Your name','form.ph.empresa':'Your company name','form.ph.email':'your@email.com','form.ph.msg':'Briefly describe your project...',
+      'foot.p':'We drive businesses into the digital world. Modern, fast, and functional websites for businesses anywhere in the world.',
+      'foot.nav':'Navigation','foot.svc':'Services','foot.contact':'Contact',
+      'foot.svc.1':'Websites','foot.svc.2':'Landing pages','foot.svc.3':'Digital presence','foot.svc.4':'Maintenance','foot.svc.5':'Custom solutions',
+      'foot.world':'Worldwide','foot.bottom':'We drive businesses into the digital world.','foot.designed':'Designed with care and technology.',
+      'demo.banner':'This is how professional your website could look','demo.want':'I want a website like this',
+      'demo.desktop':'Desktop view','demo.mobile':'Mobile view','demo.close':'Close demo'
+    },
+    fr: {
+      'meta.title':'HUMA Digital Studio | Conception de sites web professionnels',
+      'meta.desc':'Nous créons des sites web modernes, rapides et fonctionnels pour les entreprises et organisations du monde entier.',
+      'nav.inicio':'Accueil','nav.servicios':'Services','nav.proyectos':'Projets',
+      'nav.proceso':'Processus','nav.planes':'Tarifs','nav.nosotros':'À propos',
+      'nav.contacto':'Contact','nav.cta':'Demander un devis','nav.burger':'Ouvrir le menu',
+      'hero.badge':" Agence digitale · Pour tout type d'entreprise",
+      'hero.h1':'Nous propulsons les entreprises dans le <span class="grad-text">monde digital</span>',
+      'hero.lead':'Nous créons des sites web modernes, rapides et fonctionnels pour que les entreprises, marques et organisations renforcent leur présence en ligne, génèrent de la confiance et connectent avec plus de clients.',
+      'hero.cta1':'Demander mon site web','hero.cta2':'Voir les projets',
+      'hero.trust1':'Design responsive','hero.trust2':'Livraison rapide','hero.trust3':'Accompagnement dédié',
+      'hero.scroll':'Découvrir',
+      'strip.label':'Nous concevons pour les entreprises et professionnels de tous les secteurs',
+      'stat.responsive':'Design responsive garanti','stat.days':'Délai moyen de livraison',
+      'stat.days.unit':' j','stat.online':'Votre site visible en permanence','stat.https':'Publication sécurisée par défaut',
+      'prob.eyebrow':'Le défi',
+      'prob.h2':"Votre entreprise peut offrir d'excellents services, mais si elle ne paraît pas professionnelle en ligne, de nombreux clients ne vous trouveront jamais.",
+      'prob.1.h3':'Confiance dès le premier clic','prob.1.p':'Votre entreprise doit transmettre sérieux et crédibilité en quelques secondes. Un site soigné est votre meilleure carte de visite.',
+      'prob.2.h3':'Informations claires et accessibles','prob.2.p':"Vos clients cherchent des réponses rapides : ce que vous proposez, où vous êtes et comment vous contacter. S'ils ne trouvent pas, ils vont chez la concurrence.",
+      'prob.3.h3':'Des visites aux vrais clients','prob.3.p':"Un site professionnel convertit l'intérêt en contact : formulaires, WhatsApp et appels à l'action qui génèrent des opportunités réelles.",
+      'svc.eyebrow':'Services',
+      'svc.h2':'Solutions digitales pour faire <span class="grad-text">rayonner votre entreprise</span>',
+      'svc.sub':"Design, technologie et stratégie dans chaque projet. Choisissez le service dont votre entreprise a besoin aujourd'hui.",
+      'svc.1.h3':'Conception de sites web','svc.1.p':'Sites modernes, rapides et adaptés aux mobiles pour présenter votre entreprise de manière professionnelle.',
+      'svc.2.h3':'Landing pages commerciales','svc.2.p':"Pages centrées sur l'acquisition de clients, la promotion de services ou la présentation de campagnes.",
+      'svc.3.h3':'Présence digitale pour entreprises','svc.3.p':'Structure de base pour que votre entreprise soit visible, joignable et fiable en ligne.',
+      'svc.4.h3':'Maintenance web','svc.4.p':'Support, mises à jour mineures, domaine, hébergement et révision technique annuelle.',
+      'svc.5.h3':'Intégrations de base','svc.5.p':'Boutons WhatsApp, formulaires, cartes, réseaux sociaux, analytics et liens commerciaux.',
+      'svc.6.h3':'Solutions digitales sur mesure','svc.6.p':"Espace pour les automatisations, tableaux de bord, outils internes ou projets d'IA.",
+      'work.eyebrow':'Projets',
+      'work.h2':"Designs conçus pour <span class=\"grad-text\">chaque type d'entreprise</span>",
+      'work.sub':"Un aperçu du style et de la qualité que nous livrons. Nous adaptons chaque site à l'identité et au secteur de votre entreprise.",
+      'demo.btn':'Voir la démo en direct',
+      'work.rest.h3':'Gastronomie','work.rest.sub':'Menu, réservations & livraison','work.rest.pill':'Réserver une table','work.rest.meta':'Restaurants & cafés',
+      'work.clinic.h3':'Santé','work.clinic.sub':'Spécialités & rendez-vous en ligne','work.clinic.pill':'Prendre rendez-vous','work.clinic.meta':'Cliniques & cabinets médicaux',
+      'work.real.h3':'Immobilier','work.real.sub':'Catalogue de propriétés','work.real.pill':'Voir les propriétés','work.real.meta':'Vente & location',
+      'work.legal.h3':'Juridique','work.legal.sub':'Domaines de pratique & contact','work.legal.pill':'Prendre rendez-vous','work.legal.meta':'Avocats & consultants',
+      'work.acad.h3':'Éducation','work.acad.sub':'Cours, horaires & inscription','work.acad.pill':"S'inscrire",'work.acad.meta':'Académies & centres',
+      'work.shop.h3':'Commerce','work.shop.sub':'Catalogue & commandes WhatsApp','work.shop.pill':'Voir le catalogue','work.shop.meta':'Boutiques & services',
+      'diff.eyebrow':'Pourquoi HUMA Digital Studio',
+      'diff.h2':'Nous ne créons pas que des pages, nous <span class="grad-text">construisons une présence digitale</span>',
+      'diff.sub':'Nous livrons un outil pour améliorer la visibilité, la confiance et le contact avec vos clients — pas seulement un beau site.',
+      'diff.1.b':'Design professionnel sur mesure','diff.1.p':"Adapté à l'identité et au secteur de chaque entreprise.",
+      'diff.2.b':'Technologie rapide et sécurisée','diff.2.p':'Sites efficaces, optimisés et avec HTTPS.',
+      'diff.3.b':'Optimisé pour mobile','diff.3.p':'La plupart de vos clients vous verront depuis leur téléphone.',
+      'diff.4.b':'Communication claire, processus simple','diff.4.p':'Sans jargon ni processus compliqués.',
+      'diff.5.b':'Prix accessible, qualité premium','diff.5.p':'Une image professionnelle sans coûts excessifs.',
+      'diff.6.b':'Aperçu visuel avant de décider','diff.6.p':"Vous pouvez voir un exemple avant de vous engager.",
+      'diff.stat1':'secteurs avec présence web','diff.stat2':'responsive et sécurisé',
+      'diff.stat3':'optimisation SEO initiale incluse','diff.stat4':'votre site toujours disponible',
+      'proc.eyebrow':'Comment nous travaillons','proc.h2':'Un processus simple, clair et sans complications',
+      'proc.sub':'De l\'idée à votre site publié en quatre étapes.',
+      'proc.1.h3':'Nous comprenons votre entreprise','proc.1.p':'Nous analysons ce que vous faites, ce que vous voulez communiquer et ce que vos clients doivent voir.',
+      'proc.2.h3':'Nous concevons une proposition visuelle','proc.2.p':'Nous créons une structure moderne alignée sur votre marque.',
+      'proc.3.h3':'Nous adaptons le contenu et les fonctions','proc.3.p':'Textes, images, services, WhatsApp, réseaux sociaux, carte et formulaire.',
+      'proc.4.h3':'Nous publions votre site','proc.4.p':'Nous mettons votre page en ligne, sécurisée, responsive et prête à partager.',
+      'plans.eyebrow':'Tarifs',
+      'plans.h2':"Plans conçus pour <span class=\"grad-text\">chaque type d'entreprise</span>",
+      'plans.sub':'Prix indicatifs. Choisissez le point de départ qui correspond le mieux à votre entreprise.',
+      'plan.1.h3':'Présence','plan.1.desc':'Pour les entreprises qui ont besoin d\'une landing page simple et professionnelle.',
+      "plan.1.li1":'Page vue unique',"plan.1.li2":"Jusqu'à 4 sections","plan.1.li3":'Design responsive',
+      "plan.1.li4":'Bouton WhatsApp',"plan.1.li5":'Réseaux sociaux',"plan.1.li6":'Publication en ligne',
+      'plan.2.tag':'Le plus choisi','plan.2.h3':'Professionnel','plan.2.desc':'Pour les entreprises qui veulent une présence digitale plus complète.',
+      "plan.2.li1":'Site web moderne',"plan.2.li2":"Jusqu'à 6 sections","plan.2.li3":'Design responsive',
+      "plan.2.li4":'WhatsApp + carte de localisation',"plan.2.li5":'Formulaire ou bouton de contact',
+      "plan.2.li6":'Galerie de base',"plan.2.li7":'SEO initial basique',"plan.2.li8":'Publication HTTPS',
+      'plan.3.h3':'Corporate','plan.3.desc':'Pour les entreprises qui ont besoin de plus de structure et de présence institutionnelle.',
+      "plan.3.li1":'Structure étendue',"plan.3.li2":'Sections corporatives',"plan.3.li3":'Services détaillés',
+      "plan.3.li4":'Intégrations de base',"plan.3.li5":'Optimisation initiale',"plan.3.li6":'Support de publication',
+      'plan.cta':'Choisir ce plan',
+      'plans.note':"Les prix peuvent être ajustés selon la portée, le nombre de sections, les fonctionnalités et les besoins spécifiques de chaque entreprise.<br><b>Maintenance annuelle à partir de 80 USD/an</b>, incluant support technique de base, hébergement, domaine standard et petits ajustements.",
+      'tst.eyebrow':'Témoignages','tst.h2':'Ce que disent les entreprises qui nous ont fait confiance','tst.sub':'Des résultats réels qui soutiennent notre travail.',
+      'tst.1.p':'"Le site est impeccable et très professionnel. Depuis sa publication, nous recevons plus de demandes via WhatsApp."','tst.1.name':'María Rodríguez','tst.1.role':'Clinique dentaire',
+      'tst.2.p':'"Processus rapide et clair. Ils ont compris ce dont mon restaurant avait besoin et la livraison a été ponctuelle."','tst.2.name':'Carlos López','tst.2.role':'Restaurant',
+      'tst.3.p':'"Enfin une image sérieuse en ligne. La page est moderne et se charge très rapidement."','tst.3.name':'Andrea Torres','tst.3.role':'Consultante',
+      'about.eyebrow':'À propos de nous','about.h2':'Technologie pratique pour développer votre entreprise',
+      'about.p1':"Chez HUMA Digital Studio, nous aidons les entreprises, startups et organisations à construire une présence digitale moderne, professionnelle et fonctionnelle. Nous concevons des sites web et des solutions digitales accessibles, pensées pour améliorer la visibilité de chaque marque, faciliter le contact avec les clients et projeter une image solide en ligne.",
+      'about.p2':'Nous croyons que la technologie doit être un outil pratique pour stimuler les entreprises, ouvrir des opportunités et renforcer la compétitivité — peu importe où vous vous trouvez.',
+      'about.badge1':'Clients dans le monde entier','about.badge2':'Orienté résultats','about.badge3':'Approche personnalisée','about.badge4':'Qualité premium',
+      'faq.eyebrow':'Questions fréquentes','faq.h2':'Nous répondons à vos questions avant de commencer',
+      'faq.1.q':'Combien de temps faut-il pour que mon site soit prêt ?','faq.1.a':"Cela dépend du plan et du contenu, mais la plupart des projets sont livrés en quelques jours une fois que nous recevons vos textes et images. Nous vous donnons une date estimée dès le départ.",
+      'faq.2.q':'Que dois-je fournir pour commencer ?','faq.2.a':"Essentiellement votre logo (si vous en avez un), des informations sur votre entreprise, vos services, des photos et vos coordonnées. Si vous manquez de quelque chose, nous vous orientons pour l'obtenir ou nous le résolvons ensemble.",
+      "faq.3.q":"Le prix inclut-il le domaine et l'hébergement ?",'faq.3.a':"La publication initiale est incluse. Le domaine et la maintenance annuelle sont gérés avec le plan de maintenance (à partir de 80 USD/an), qui couvre l'hébergement, un domaine standard et des petits ajustements.",
+      'faq.4.q':'Puis-je demander des modifications après la livraison ?','faq.4.a':"Oui. Les ajustements mineurs sont inclus dans la maintenance. Pour des changements majeurs ou de nouvelles sections, nous préparons un devis clair avant de commencer.",
+      'faq.5.q':'Le site fonctionnera-t-il bien sur les téléphones mobiles ?','faq.5.a':"Toujours. Toutes nos pages sont 100% responsive et s'adaptent aux mobiles, tablettes et ordinateurs, car la plupart de vos clients vous verront depuis leur téléphone.",
+      'cta.eyebrow':'Parlons-en',
+      'cta.h2':'Votre entreprise peut elle aussi afficher une image <span class="grad-text">professionnelle en ligne</span>',
+      'cta.p':"Parlez-nous de votre entreprise et nous préparerons une proposition personnalisée. Sans engagement et avec une idée claire de ce que votre site pourrait ressembler.",
+      'cta.wa':'WhatsApp direct','cta.email':'Envoyer un e-mail',
+      'form.h3':'Demandez votre devis','form.fh':'Remplissez le formulaire et nous ouvrirons WhatsApp avec votre message prêt à envoyer.',
+      'form.nombre':'Nom','form.empresa':'Entreprise','form.email':'E-mail','form.tipo':'De quoi avez-vous besoin ?',
+      'form.opt1':'Nouveau site web','form.opt2':'Landing page commerciale','form.opt3':'Refonte de mon site actuel','form.opt4':'Maintenance web','form.opt5':'Une autre solution digitale',
+      'form.msg':'Dites-nous en un peu plus','form.submit':'Envoyer via WhatsApp',
+      'form.note':'Vous pouvez aussi nous écrire à ventas@humadigitalstudio.com',
+      'form.ph.nombre':'Votre nom','form.ph.empresa':'Nom de votre entreprise','form.ph.email':'votre@email.com','form.ph.msg':'Décrivez brièvement votre projet...',
+      'foot.p':'Nous propulsons les entreprises dans le monde digital. Sites web modernes, rapides et fonctionnels pour les entreprises du monde entier.',
+      'foot.nav':'Navigation','foot.svc':'Services','foot.contact':'Contact',
+      'foot.svc.1':'Sites web','foot.svc.2':'Landing pages','foot.svc.3':'Présence digitale','foot.svc.4':'Maintenance','foot.svc.5':'Solutions sur mesure',
+      'foot.world':'Dans le monde entier','foot.bottom':'Nous propulsons les entreprises dans le monde digital.','foot.designed':'Conçu avec soin et technologie.',
+      'demo.banner':'Voici comment pourrait être votre site web','demo.want':'Je veux un site comme ça',
+      'demo.desktop':'Vue bureau','demo.mobile':'Vue mobile','demo.close':'Fermer la démo'
+    },
+    ru: {
+      'meta.title':'HUMA Digital Studio | Профессиональный веб-дизайн',
+      'meta.desc':'Создаём современные, быстрые и функциональные сайты для компаний и организаций по всему миру.',
+      'nav.inicio':'Главная','nav.servicios':'Услуги','nav.proyectos':'Проекты',
+      'nav.proceso':'Процесс','nav.planes':'Тарифы','nav.nosotros':'О нас',
+      'nav.contacto':'Контакты','nav.cta':'Запросить предложение','nav.burger':'Открыть меню',
+      'hero.badge':' Цифровое агентство · Для любого бизнеса',
+      'hero.h1':'Развиваем бизнес в <span class="grad-text">цифровом мире</span>',
+      'hero.lead':'Создаём современные, быстрые и функциональные сайты, чтобы компании, бренды и организации укрепляли своё присутствие в интернете, вызывали доверие и привлекали больше клиентов.',
+      'hero.cta1':'Заказать мой сайт','hero.cta2':'Смотреть проекты',
+      'hero.trust1':'Адаптивный дизайн','hero.trust2':'Быстрые сроки','hero.trust3':'Личная поддержка',
+      'hero.scroll':'Листайте',
+      'strip.label':'Разрабатываем для компаний и специалистов всех отраслей',
+      'stat.responsive':'Адаптивный дизайн гарантирован','stat.days':'Средний срок',
+      'stat.days.unit':' дн.','stat.online':'Ваш сайт всегда в сети','stat.https':'Безопасная публикация по умолчанию',
+      'prob.eyebrow':'Вызов',
+      'prob.h2':'Ваш бизнес может предлагать отличные услуги, но если он не выглядит профессионально в интернете, многие клиенты никогда вас не найдут.',
+      'prob.1.h3':'Доверие с первого клика','prob.1.p':'Ваш бизнес должен вызывать серьёзность и доверие в первые секунды. Ухоженный сайт — ваша лучшая визитная карточка.',
+      'prob.2.h3':'Чёткая и доступная информация','prob.2.p':'Клиенты ищут быстрые ответы: что вы предлагаете, где находитесь, как с вами связаться. Если они не находят — уходят к конкурентам.',
+      'prob.3.h3':'От посетителей к реальным клиентам','prob.3.p':'Профессиональный сайт конвертирует интерес в действие: формы, WhatsApp и призывы к действию, генерирующие реальные возможности.',
+      'svc.eyebrow':'Услуги',
+      'svc.h2':'Цифровые решения, чтобы ваш бизнес <span class="grad-text">выделялся</span>',
+      'svc.sub':'Дизайн, технологии и стратегия в каждом проекте. Выберите услугу, которая нужна вашему бизнесу сегодня.',
+      'svc.1.h3':'Разработка сайтов','svc.1.p':'Современные, быстрые и мобильные сайты для профессионального представления вашей компании.',
+      'svc.2.h3':'Коммерческие лендинги','svc.2.p':'Страницы, ориентированные на привлечение клиентов, продвижение услуг или представление кампаний.',
+      'svc.3.h3':'Цифровое присутствие для бизнеса','svc.3.p':'Базовая структура для видимости, доступности и доверия вашей компании в интернете.',
+      'svc.4.h3':'Поддержка сайта','svc.4.p':'Поддержка, обновления, домен, хостинг и ежегодная техническая проверка.',
+      'svc.5.h3':'Базовые интеграции','svc.5.p':'Кнопки WhatsApp, формы, карты, соцсети, аналитика и коммерческие ссылки.',
+      'svc.6.h3':'Индивидуальные цифровые решения','svc.6.p':'Автоматизация, дашборды, внутренние инструменты или AI-проекты.',
+      'work.eyebrow':'Проекты',
+      'work.h2':'Дизайны для <span class="grad-text">каждого типа бизнеса</span>',
+      'work.sub':'Образец стиля и качества, которые мы предоставляем. Адаптируем каждый сайт к фирменному стилю и отрасли вашей компании.',
+      'demo.btn':'Смотреть демо',
+      'work.rest.h3':'Гастрономия','work.rest.sub':'Меню, бронирование и доставка','work.rest.pill':'Забронировать столик','work.rest.meta':'Рестораны и кафе',
+      'work.clinic.h3':'Здоровье','work.clinic.sub':'Специализации и онлайн-запись','work.clinic.pill':'Записаться','work.clinic.meta':'Клиники и кабинеты',
+      'work.real.h3':'Недвижимость','work.real.sub':'Каталог недвижимости','work.real.pill':'Смотреть объекты','work.real.meta':'Продажа и аренда',
+      'work.legal.h3':'Право','work.legal.sub':'Области практики и контакт','work.legal.pill':'Консультация','work.legal.meta':'Юристы и консультанты',
+      'work.acad.h3':'Образование','work.acad.sub':'Курсы, расписание и запись','work.acad.pill':'Записаться','work.acad.meta':'Академии и центры',
+      'work.shop.h3':'Торговля','work.shop.sub':'Каталог и заказы через WhatsApp','work.shop.pill':'Смотреть каталог','work.shop.meta':'Магазины и сервисы',
+      'diff.eyebrow':'Почему HUMA Digital Studio',
+      'diff.h2':'Мы не просто создаём страницы — мы <span class="grad-text">строим цифровое присутствие</span>',
+      'diff.sub':'Мы создаём инструмент для улучшения видимости, доверия и контакта с вашими клиентами — не просто красивый сайт.',
+      'diff.1.b':'Профессиональный дизайн на заказ','diff.1.p':'Адаптирован к фирменному стилю и отрасли каждой компании.',
+      'diff.2.b':'Быстрые и безопасные технологии','diff.2.p':'Эффективные, оптимизированные сайты с HTTPS.',
+      'diff.3.b':'Оптимизировано для мобильных','diff.3.p':'Большинство клиентов увидят вас с телефона.',
+      'diff.4.b':'Ясная коммуникация, простой процесс','diff.4.p':'Без технического жаргона и сложных процессов.',
+      'diff.5.b':'Доступная цена, высокое качество','diff.5.p':'Профессиональный имидж без лишних затрат.',
+      'diff.6.b':'Визуальный макет заранее','diff.6.p':'Можете увидеть образец до принятия решения.',
+      'diff.stat1':'отраслей с веб-присутствием','diff.stat2':'адаптивный и безопасный',
+      'diff.stat3':'начальная SEO-оптимизация включена','diff.stat4':'ваш сайт всегда доступен',
+      'proc.eyebrow':'Как мы работаем','proc.h2':'Простой, понятный и беспроблемный процесс',
+      'proc.sub':'От идеи до опубликованного сайта — четыре шага.',
+      'proc.1.h3':'Понимаем ваш бизнес','proc.1.p':'Анализируем, чем вы занимаетесь, что хотите донести и что нужно увидеть вашим клиентам.',
+      'proc.2.h3':'Создаём визуальное предложение','proc.2.p':'Разрабатываем современную структуру, соответствующую вашему бренду.',
+      'proc.3.h3':'Адаптируем контент и функции','proc.3.p':'Тексты, изображения, услуги, WhatsApp, соцсети, карта и форма.',
+      'proc.4.h3':'Публикуем ваш сайт','proc.4.p':'Размещаем страницу онлайн — безопасную, адаптивную и готовую к распространению.',
+      'plans.eyebrow':'Тарифы',
+      'plans.h2':'Тарифы для <span class="grad-text">каждого типа бизнеса</span>',
+      'plans.sub':'Ориентировочные цены. Выберите отправную точку, которая лучше всего подходит вашему бизнесу.',
+      'plan.1.h3':'Присутствие','plan.1.desc':'Для бизнесов, которым нужен простой и профессиональный лендинг.',
+      'plan.1.li1':'Одностраничный сайт','plan.1.li2':'До 4 секций','plan.1.li3':'Адаптивный дизайн',
+      'plan.1.li4':'Кнопка WhatsApp','plan.1.li5':'Социальные сети','plan.1.li6':'Публикация онлайн',
+      'plan.2.tag':'Самый популярный','plan.2.h3':'Профессиональный','plan.2.desc':'Для компаний, которые хотят более полного цифрового присутствия.',
+      'plan.2.li1':'Современный сайт','plan.2.li2':'До 6 секций','plan.2.li3':'Адаптивный дизайн',
+      'plan.2.li4':'WhatsApp + карта расположения','plan.2.li5':'Форма или кнопка контакта',
+      'plan.2.li6':'Базовая галерея','plan.2.li7':'Начальный базовый SEO','plan.2.li8':'Публикация с HTTPS',
+      'plan.3.h3':'Корпоративный','plan.3.desc':'Для компаний, которым нужна большая структура и институциональное присутствие.',
+      'plan.3.li1':'Расширенная структура','plan.3.li2':'Корпоративные секции','plan.3.li3':'Подробные услуги',
+      'plan.3.li4':'Базовые интеграции','plan.3.li5':'Начальная оптимизация','plan.3.li6':'Поддержка публикации',
+      'plan.cta':'Выбрать этот тариф',
+      'plans.note':'Цены могут корректироваться в зависимости от объёма, количества секций, функциональности и специфических потребностей каждой компании.<br><b>Ежегодное обслуживание от 80 USD/год</b>, включая базовую техподдержку, хостинг, стандартный домен и небольшие корректировки.',
+      'tst.eyebrow':'Отзывы','tst.h2':'Что говорят компании, которые нам доверились','tst.sub':'Реальные результаты, подтверждающие нашу работу.',
+      'tst.1.p':'"Сайт получился безупречным и очень профессиональным. С момента публикации мы получаем больше запросов через WhatsApp."','tst.1.name':'Мария Родригес','tst.1.role':'Стоматологическая клиника',
+      'tst.2.p':'"Быстрый и понятный процесс. Они поняли, что нужно моему ресторану, и сдали всё вовремя."','tst.2.name':'Карлос Лопес','tst.2.role':'Ресторан',
+      'tst.3.p':'"Наконец у нас есть серьёзный имидж в интернете. Страница выглядит современно и загружается очень быстро."','tst.3.name':'Андреа Торрес','tst.3.role':'Консультант',
+      'about.eyebrow':'О нас','about.h2':'Практические технологии для развития вашего бизнеса',
+      'about.p1':'В HUMA Digital Studio мы помогаем компаниям, стартапам и организациям создавать современное, профессиональное и функциональное цифровое присутствие. Мы разрабатываем сайты и доступные цифровые решения, нацеленные на улучшение видимости каждого бренда, упрощение контакта с клиентами и формирование надёжного имиджа в интернете.',
+      'about.p2':'Мы верим, что технологии должны быть практическим инструментом для развития бизнеса, открытия возможностей и укрепления конкурентоспособности — независимо от того, где вы находитесь.',
+      'about.badge1':'Клиенты по всему миру','about.badge2':'Ориентация на результат','about.badge3':'Личный подход','about.badge4':'Премиум качество',
+      'faq.eyebrow':'Часто задаваемые вопросы','faq.h2':'Отвечаем на вопросы до начала работы',
+      'faq.1.q':'Сколько времени занимает создание сайта?','faq.1.a':'Зависит от тарифа и контента, но большинство проектов сдаётся в течение нескольких дней после получения ваших текстов и изображений. Мы даём предварительную дату с самого начала.',
+      'faq.2.q':'Что мне нужно предоставить для начала?','faq.2.a':'В основном логотип (если есть), информацию о компании, услуги, фото и контактные данные. Если чего-то нет — поможем найти или решим вместе.',
+      'faq.3.q':'Включает ли цена домен и хостинг?','faq.3.a':'Первичная публикация включена. Домен и ежегодное обслуживание управляются через план обслуживания (от 80 USD/год), который включает хостинг, стандартный домен и небольшие корректировки.',
+      'faq.4.q':'Могу ли я попросить изменения после сдачи?','faq.4.a':'Да. Незначительные правки входят в обслуживание. Для крупных изменений или новых секций мы готовим чёткую смету до начала работы.',
+      'faq.5.q':'Будет ли сайт хорошо работать на мобильных телефонах?','faq.5.a':'Всегда. Все наши страницы на 100% адаптивны и подстраиваются под мобильный, планшет и ПК, потому что большинство клиентов увидят вас с телефона.',
+      'cta.eyebrow':'Поговорим',
+      'cta.h2':'Ваш бизнес тоже может выглядеть так <span class="grad-text">профессионально в интернете</span>',
+      'cta.p':'Расскажите нам о своём бизнесе, и мы подготовим индивидуальное предложение. Без обязательств и с чётким представлением о том, как будет выглядеть ваш сайт.',
+      'cta.wa':'WhatsApp напрямую','cta.email':'Отправить e-mail',
+      'form.h3':'Запросить предложение','form.fh':'Заполните форму, и мы откроем WhatsApp с вашим сообщением, готовым к отправке.',
+      'form.nombre':'Имя','form.empresa':'Компания','form.email':'E-mail','form.tipo':'Что вам нужно?',
+      'form.opt1':'Новый сайт','form.opt2':'Коммерческий лендинг','form.opt3':'Редизайн существующего сайта','form.opt4':'Поддержка сайта','form.opt5':'Другое цифровое решение',
+      'form.msg':'Расскажите немного подробнее','form.submit':'Отправить через WhatsApp',
+      'form.note':'Вы также можете написать нам на ventas@humadigitalstudio.com',
+      'form.ph.nombre':'Ваше имя','form.ph.empresa':'Название вашей компании','form.ph.email':'ваш@email.com','form.ph.msg':'Кратко опишите ваш проект...',
+      'foot.p':'Развиваем бизнес в цифровом мире. Современные, быстрые и функциональные сайты для компаний со всего мира.',
+      'foot.nav':'Навигация','foot.svc':'Услуги','foot.contact':'Контакты',
+      'foot.svc.1':'Сайты','foot.svc.2':'Лендинги','foot.svc.3':'Цифровое присутствие','foot.svc.4':'Обслуживание','foot.svc.5':'Индивидуальные решения',
+      'foot.world':'По всему миру','foot.bottom':'Развиваем бизнес в цифровом мире.','foot.designed':'Создано с умом и технологиями.',
+      'demo.banner':'Именно так мог бы выглядеть ваш сайт','demo.want':'Хочу такой сайт',
+      'demo.desktop':'Вид на рабочем столе','demo.mobile':'Мобильный вид','demo.close':'Закрыть демо'
+    }
+  };
+
+  function setLang(lang) {
+    var t = LANG[lang]; if (!t) return;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n'); if (t[k] !== undefined) el.textContent = t[k];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-html'); if (t[k] !== undefined) el.innerHTML = t[k];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-ph'); if (t[k] !== undefined) el.placeholder = t[k];
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-aria'); if (t[k] !== undefined) el.setAttribute('aria-label', t[k]);
+    });
+    document.documentElement.lang = lang;
+    var codeEl = document.getElementById('langCode');
+    if (codeEl) codeEl.textContent = lang.toUpperCase();
+    document.querySelectorAll('[data-lang]').forEach(function(btn) {
+      btn.classList.toggle('lang-active', btn.getAttribute('data-lang') === lang);
+    });
+    if (t['meta.title']) document.title = t['meta.title'];
+    var md = document.querySelector('meta[name="description"]');
+    if (md && t['meta.desc']) md.setAttribute('content', t['meta.desc']);
+    try { localStorage.setItem('huma_lang', lang); } catch(e) {}
+  }
+
+  // Language switcher toggle
+  var lsw = document.getElementById('langSwitch');
+  var lbtn = document.getElementById('langBtn');
+  if (lsw && lbtn) {
+    lbtn.addEventListener('click', function(e) { e.stopPropagation(); lsw.classList.toggle('open'); });
+    document.addEventListener('click', function() { lsw.classList.remove('open'); });
+    lsw.addEventListener('click', function(e) { e.stopPropagation(); });
+    document.getElementById('langMenu').querySelectorAll('[data-lang]').forEach(function(btn) {
+      btn.addEventListener('click', function() { setLang(btn.getAttribute('data-lang')); lsw.classList.remove('open'); });
+    });
+  }
+
+  // Init language
+  var saved; try { saved = localStorage.getItem('huma_lang'); } catch(e) {}
+  setLang(saved && LANG[saved] ? saved : 'es');
+
 })();
 </script>
 <script>
