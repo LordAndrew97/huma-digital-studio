@@ -34,4 +34,4 @@ automáticamente.
 
 ---
 
-© Ande Digital. Todos los derechos reservados.
+© HUMA Digital Studio. Todos los derechos reservados.
