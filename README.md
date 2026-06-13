@@ -1,6 +1,6 @@
-# Ande Digital
+# HUMA Digital Studio
 
-Sitio web comercial de **Ande Digital** — agencia de diseño y desarrollo web.
+Sitio web comercial de **HUMA Digital Studio** — agencia de diseño y desarrollo web.
 Landing page de una sola página, estática (HTML + CSS + JS), sin backend.
 
 ## 🌐 Publicación
