@@ -33,9 +33,15 @@
 <meta property="og:description" content="Páginas web modernas, rápidas y funcionales para empresas y organizaciones de todo el mundo." />
 <meta property="og:url" content="https://www.humadigitalstudio.com/" />
 <meta property="og:image" content="https://www.humadigitalstudio.com/og-image.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1536" />
+<meta property="og:image:height" content="1024" />
+<meta property="og:image:alt" content="HUMA Digital Studio — Impulsamos tu presencia digital" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="HUMA Digital Studio | Impulsamos empresas hacia el mundo digital" />
 <meta name="twitter:description" content="Páginas web modernas, rápidas y funcionales para empresas y organizaciones." />
+<meta name="twitter:image" content="https://www.humadigitalstudio.com/og-image.png" />
+<meta name="twitter:image:alt" content="HUMA Digital Studio — Impulsamos tu presencia digital" />
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -712,16 +718,16 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
     </nav>
     <div class="nav-cta">
       <div class="lang-switch" id="langSwitch">
-        <button class="lang-btn" id="langBtn" aria-label="Change language">
+        <button class="lang-btn" id="langBtn" type="button" data-i18n-aria="nav.lang" aria-label="Cambiar idioma" aria-haspopup="listbox" aria-expanded="false" aria-controls="langMenu">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>
           <span id="langCode">ES</span>
           <svg class="lang-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="lang-menu" id="langMenu" role="listbox">
-          <button data-lang="es" role="option">🇪🇸 Español</button>
-          <button data-lang="en" role="option">🇺🇸 English</button>
-          <button data-lang="fr" role="option">🇫🇷 Français</button>
-          <button data-lang="ru" role="option">🇷🇺 Русский</button>
+          <button type="button" data-lang="es" role="option" aria-selected="true">🇪🇸 Español</button>
+          <button type="button" data-lang="en" role="option" aria-selected="false">🇺🇸 English</button>
+          <button type="button" data-lang="fr" role="option" aria-selected="false">🇫🇷 Français</button>
+          <button type="button" data-lang="ru" role="option" aria-selected="false">🇷🇺 Русский</button>
         </div>
       </div>
       <a href="#contacto" class="btn btn-primary" data-i18n="nav.cta">Solicitar propuesta</a>
@@ -794,8 +800,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 
   <div class="scroll-cue" aria-hidden="true"><span class="mouse"></span><span data-i18n="hero.scroll">Desliza</span></div>
 </section>
-</main>
-
 <!-- ====================== SECTORES ====================== -->
 <div class="strip">
   <div class="wrap">
@@ -1023,6 +1027,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
   </div>
 </section>
 
+</main>
+
 <!-- ====================== FOOTER ====================== -->
 <footer>
   <div class="wrap">
@@ -1052,21 +1058,21 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 
 
 <!-- ====================== VISOR DE DEMOS ====================== -->
-<div class="demo-overlay" id="demoOverlay" role="dialog" aria-modal="true" aria-label="Demostración de sitio web">
+<div class="demo-overlay" id="demoOverlay" role="dialog" aria-modal="true" aria-label="Demostración de sitio web" aria-hidden="true">
   <div class="demo-backdrop" data-close></div>
   <div class="demo-window">
     <div class="demo-chrome">
       <div class="dots"><i></i><i></i><i></i></div>
       <div class="demo-url"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span id="demoUrl">demo.humadigitalstudio.com</span></div>
       <div class="demo-tools">
-        <button class="dev-btn active" id="devDesktop" data-i18n-aria="demo.desktop" aria-label="Vista de escritorio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/></svg></button>
-        <button class="dev-btn" id="devMobile" data-i18n-aria="demo.mobile" aria-label="Vista móvil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></button>
-        <button class="demo-close" id="demoClose" data-i18n-aria="demo.close" aria-label="Cerrar demostración"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <button type="button" class="dev-btn active" id="devDesktop" data-i18n-aria="demo.desktop" aria-label="Vista de escritorio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/></svg></button>
+        <button type="button" class="dev-btn" id="devMobile" data-i18n-aria="demo.mobile" aria-label="Vista móvil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></button>
+        <button type="button" class="demo-close" id="demoClose" data-i18n-aria="demo.close" aria-label="Cerrar demostración"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
     </div>
     <div class="demo-banner">
       <span><b>Demostración</b> · <span data-i18n="demo.banner">Así de profesional podría verse tu web</span></span>
-      <button class="btn btn-primary" id="demoWant" data-i18n="demo.want">Quiero una web así</button>
+      <button type="button" class="btn btn-primary" id="demoWant" data-i18n="demo.want">Quiero una web así</button>
     </div>
     <div class="demo-stage" id="demoStage"><iframe id="demoFrame" title="Demostración de sitio web"></iframe></div>
   </div>
@@ -1147,7 +1153,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       +'*Email:* '+encodeURIComponent(email||'-')+'%0A'
       +'*Necesito:* '+encodeURIComponent(tipo||'-')+'%0A'
       +'*Mensaje:* '+encodeURIComponent(msg||'-');
-    window.open('https://wa.me/'+WHATSAPP+'?text='+t,'_blank');
+    window.open('https://wa.me/'+WHATSAPP+'?text='+t,'_blank','noopener,noreferrer');
   }); }
 
   // Año
@@ -1172,7 +1178,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       'meta.desc':'Creamos páginas web modernas, rápidas y funcionales para empresas y organizaciones de todo el mundo.',
       'nav.inicio':'Inicio','nav.servicios':'Servicios','nav.proyectos':'Proyectos',
       'nav.proceso':'Proceso','nav.planes':'Planes','nav.nosotros':'Nosotros',
-      'nav.contacto':'Contacto','nav.cta':'Solicitar propuesta','nav.burger':'Abrir menú',
+      'nav.contacto':'Contacto','nav.cta':'Solicitar propuesta','nav.burger':'Abrir menú','nav.lang':'Cambiar idioma',
       'hero.badge':' Agencia digital · Para cualquier negocio',
       'hero.h1':'Impulsamos empresas hacia el <span class="grad-text">mundo digital</span>',
       'hero.lead':'Creamos páginas web modernas, rápidas y funcionales para que empresas, marcas y organizaciones fortalezcan su presencia online, generen confianza y conecten con más clientes.',
@@ -1282,7 +1288,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       'meta.desc':'We create modern, fast, and functional websites for businesses and organizations worldwide.',
       'nav.inicio':'Home','nav.servicios':'Services','nav.proyectos':'Projects',
       'nav.proceso':'Process','nav.planes':'Pricing','nav.nosotros':'About',
-      'nav.contacto':'Contact','nav.cta':'Request a proposal','nav.burger':'Open menu',
+      'nav.contacto':'Contact','nav.cta':'Request a proposal','nav.burger':'Open menu','nav.lang':'Change language',
       'hero.badge':' Digital agency · For any business',
       'hero.h1':'We drive businesses into the <span class="grad-text">digital world</span>',
       'hero.lead':'We build modern, fast, and functional websites so that businesses, brands and organizations can strengthen their online presence, build trust and connect with more customers.',
@@ -1392,7 +1398,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       'meta.desc':'Nous créons des sites web modernes, rapides et fonctionnels pour les entreprises et organisations du monde entier.',
       'nav.inicio':'Accueil','nav.servicios':'Services','nav.proyectos':'Projets',
       'nav.proceso':'Processus','nav.planes':'Tarifs','nav.nosotros':'À propos',
-      'nav.contacto':'Contact','nav.cta':'Demander un devis','nav.burger':'Ouvrir le menu',
+      'nav.contacto':'Contact','nav.cta':'Demander un devis','nav.burger':'Ouvrir le menu','nav.lang':'Changer de langue',
       'hero.badge':" Agence digitale · Pour tout type d'entreprise",
       'hero.h1':'Nous propulsons les entreprises dans le <span class="grad-text">monde digital</span>',
       'hero.lead':'Nous créons des sites web modernes, rapides et fonctionnels pour que les entreprises, marques et organisations renforcent leur présence en ligne, génèrent de la confiance et connectent avec plus de clients.',
@@ -1502,7 +1508,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       'meta.desc':'Создаём современные, быстрые и функциональные сайты для компаний и организаций по всему миру.',
       'nav.inicio':'Главная','nav.servicios':'Услуги','nav.proyectos':'Проекты',
       'nav.proceso':'Процесс','nav.planes':'Тарифы','nav.nosotros':'О нас',
-      'nav.contacto':'Контакты','nav.cta':'Запросить предложение','nav.burger':'Открыть меню',
+      'nav.contacto':'Контакты','nav.cta':'Запросить предложение','nav.burger':'Открыть меню','nav.lang':'Изменить язык',
       'hero.badge':' Цифровое агентство · Для любого бизнеса',
       'hero.h1':'Развиваем бизнес в <span class="grad-text">цифровом мире</span>',
       'hero.lead':'Создаём современные, быстрые и функциональные сайты, чтобы компании, бренды и организации укрепляли своё присутствие в интернете, вызывали доверие и привлекали больше клиентов.',
@@ -1627,7 +1633,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
     var codeEl = document.getElementById('langCode');
     if (codeEl) codeEl.textContent = lang.toUpperCase();
     document.querySelectorAll('[data-lang]').forEach(function(btn) {
-      btn.classList.toggle('lang-active', btn.getAttribute('data-lang') === lang);
+      var active = btn.getAttribute('data-lang') === lang;
+      btn.classList.toggle('lang-active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
     });
     if (t['meta.title']) document.title = t['meta.title'];
     var md = document.querySelector('meta[name="description"]');
@@ -1639,11 +1647,19 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
   var lsw = document.getElementById('langSwitch');
   var lbtn = document.getElementById('langBtn');
   if (lsw && lbtn) {
-    lbtn.addEventListener('click', function(e) { e.stopPropagation(); lsw.classList.toggle('open'); });
-    document.addEventListener('click', function() { lsw.classList.remove('open'); });
+    function closeLangMenu() { lsw.classList.remove('open'); lbtn.setAttribute('aria-expanded', 'false'); }
+    lbtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var open = lsw.classList.toggle('open');
+      lbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', closeLangMenu);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lsw.classList.contains('open')) { closeLangMenu(); lbtn.focus(); }
+    });
     lsw.addEventListener('click', function(e) { e.stopPropagation(); });
     document.getElementById('langMenu').querySelectorAll('[data-lang]').forEach(function(btn) {
-      btn.addEventListener('click', function() { setLang(btn.getAttribute('data-lang')); lsw.classList.remove('open'); });
+      btn.addEventListener('click', function() { setLang(btn.getAttribute('data-lang')); closeLangMenu(); });
     });
   }
 
@@ -2213,7 +2229,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       gridTitle:'Cursos disponibles', gridSub:'Programas diseñados para impulsar tu carrera.',
       items:[
         {tag:'Online', title:'Marketing digital', desc:'Estrategias para vender en internet.', meta:'8 semanas · Certificado', price:'$120', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('https://www.lobocom.es/recurso/noticia/plandemarketingdigital0.jpg') center/cover,linear-gradient(135deg,#45bf5b,#0c7a52)"},
-        {tag:'Presencial', title:'Diseño gráfico', desc:'De cero a portafolio profesional.', meta:'12 semanas · Certificado', price:'$180', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('http://www.ccnestudio.com/wp-content/uploads/Diseno-sin-titulo-25-1.jpg') center/cover,linear-gradient(135deg,#34c77a,#0a6a4a)"},
+        {tag:'Presencial', title:'Diseño gráfico', desc:'De cero a portafolio profesional.', meta:'12 semanas · Certificado', price:'$180', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('https://www.ccnestudio.com/wp-content/uploads/Diseno-sin-titulo-25-1.jpg') center/cover,linear-gradient(135deg,#34c77a,#0a6a4a)"},
         {tag:'Online', title:'Excel avanzado', desc:'Domina datos y automatiza tareas.', meta:'6 semanas · Certificado', price:'$90', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('https://aulaxativa.com/wp-content/uploads/2019/04/Curso-de-Microsoft-Excel-Avanzado.webp') center/cover,linear-gradient(135deg,#6bd089,#0c8a55)"}
       ],
       bandBg:'#ffffff', featIcon:'rgba(22,163,74,.12)',
@@ -2268,11 +2284,13 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
     document.getElementById('devMobile').classList.remove('active');
     lastFocus=document.activeElement;
     overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
     document.body.style.overflow='hidden';
     document.getElementById('demoClose').focus();
   }
   function closeDemo(){
     overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden','true');
     document.body.style.overflow='';
     frame.srcdoc='';
     if(lastFocus) lastFocus.focus();

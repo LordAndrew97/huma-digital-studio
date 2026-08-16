@@ -17,6 +17,7 @@ desktop.ini
 *.log
 npm-debug.log*
 *.tmp
+screenshots/
 
 # === Dependencias (por si en el futuro añades Node) ===
 node_modules/

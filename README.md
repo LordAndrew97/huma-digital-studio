@@ -14,15 +14,16 @@ automáticamente.
 
 ## 📁 Estructura
 
-| Archivo          | Descripción                                          |
-|------------------|------------------------------------------------------|
-| `index.html`     | Página principal (todo el sitio en un solo archivo). |
-| `favicon.png`    | Ícono del sitio.                                     |
-| `og-image.png`   | Imagen para compartir en redes (Open Graph).         |
-| `robots.txt`     | Instrucciones para buscadores.                       |
-| `sitemap.xml`    | Mapa del sitio para SEO.                             |
-| `_headers`       | Cabeceras de seguridad y caché (Cloudflare).         |
-| `404.html`       | Página de error personalizada.                       |
+| Archivo                              | Descripción                                          |
+|--------------------------------------|------------------------------------------------------|
+| `index.html`                         | Página principal (todo el sitio en un solo archivo). |
+| `favicon.svg` / `favicon-huma.png`   | Iconos del sitio.                                    |
+| `og-image.png`                       | Imagen para compartir en redes (Open Graph).         |
+| `*.png`                              | Imágenes utilizadas por las demostraciones.         |
+| `robots.txt`                         | Instrucciones para buscadores.                       |
+| `sitemap.xml`                        | Mapa del sitio para SEO.                             |
+| `_headers`                           | Cabeceras de seguridad y caché (Cloudflare).         |
+| `404.html`                           | Página de error personalizada.                       |
 
 ## ✏️ Cómo hacer cambios
 
