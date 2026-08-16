@@ -300,6 +300,7 @@ header.nav.scrolled{ padding:10px 0; background:rgba(6,14,28,.72); backdrop-filt
 .wk-screen{ position:absolute; inset:30px 0 0 0; padding:18px; display:flex; flex-direction:column; }
 /* tema por industria, controlado por --t1/--t2 */
 .wk-frame{ background:linear-gradient(150deg, var(--t1), var(--t2)); }
+.wk-frame.has-photo{ background-color:var(--t2); background-image:linear-gradient(180deg,rgba(4,10,20,.14) 0%,rgba(4,10,20,.24) 42%,rgba(4,10,20,.88) 100%),var(--card-img),linear-gradient(150deg,var(--t1),var(--t2)); background-position:center; background-size:cover; background-repeat:no-repeat; }
 .wk-screen .wk-tag{ font-family:var(--font-display); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.85); margin-bottom:auto; }
 .wk-screen .wk-title{ font-family:var(--font-display); font-weight:800; font-size:1.35rem; color:#fff; line-height:1.05; text-shadow:0 2px 16px rgba(0,0,0,.3); }
 .wk-screen .wk-sub{ font-size:.78rem; color:rgba(255,255,255,.85); margin-top:6px; }
@@ -731,7 +732,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
         </div>
       </div>
       <a href="#contacto" class="btn btn-primary" data-i18n="nav.cta">Solicitar propuesta</a>
-      <button class="burger" id="burger" data-i18n-aria="nav.burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+      <button class="burger" id="burger" type="button" data-i18n-aria="nav.burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
@@ -878,12 +879,12 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
     </div>
     <!-- [PROYECTOS] Sustituye estas muestras por capturas reales de tus webs cuando las tengas -->
     <div class="work-grid">
-      <article class="work-card reveal open-demo" data-demo="restaurante" role="button" tabindex="0" aria-label="Ver demostración de web para restaurante" data-delay="1"><div class="wk-frame" style="--t1:#ff7a45;--t2:#d63a2f"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.rest.tag">Restaurante</span><span class="wk-title" data-i18n="wk.rest.title">Sabores que enamoran</span><span class="wk-sub" data-i18n="work.rest.sub">Menú, reservas y delivery</span><span class="wk-pill" data-i18n="work.rest.pill">Reservar mesa</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.rest.h3">Gastronomía</h3><span data-i18n="work.rest.meta">Restaurantes y cafeterías</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
-      <article class="work-card reveal open-demo" data-demo="clinica" role="button" tabindex="0" aria-label="Ver demostración de web para clinica" data-delay="2"><div class="wk-frame" style="--t1:#19c5ef;--t2:#0a6aa8"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.clinic.tag">Clínica</span><span class="wk-title" data-i18n="wk.clinic.title">Tu salud, en buenas manos</span><span class="wk-sub" data-i18n="work.clinic.sub">Especialidades y citas online</span><span class="wk-pill" data-i18n="work.clinic.pill">Agendar cita</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.clinic.h3">Salud</h3><span data-i18n="work.clinic.meta">Clínicas y consultorios</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
-      <article class="work-card reveal open-demo" data-demo="inmobiliaria" role="button" tabindex="0" aria-label="Ver demostración de web para inmobiliaria" data-delay="3"><div class="wk-frame" style="--t1:#c8a24a;--t2:#1f2a3c"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.real.tag">Inmobiliaria</span><span class="wk-title" data-i18n="wk.real.title">Encuentra tu próximo hogar</span><span class="wk-sub" data-i18n="work.real.sub">Catálogo de propiedades</span><span class="wk-pill" data-i18n="work.real.pill">Ver propiedades</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.real.h3">Inmobiliaria</h3><span data-i18n="work.real.meta">Venta y alquiler</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
-      <article class="work-card reveal open-demo" data-demo="legal" role="button" tabindex="0" aria-label="Ver demostración de web para legal" data-delay="1"><div class="wk-frame" style="--t1:#3b5bdb;--t2:#11203a"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.legal.tag">Estudio jurídico</span><span class="wk-title" data-i18n="wk.legal.title">Asesoría legal de confianza</span><span class="wk-sub" data-i18n="work.legal.sub">Áreas de práctica y contacto</span><span class="wk-pill" data-i18n="work.legal.pill">Consultar caso</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.legal.h3">Legal</h3><span data-i18n="work.legal.meta">Abogados y consultoras</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
-      <article class="work-card reveal open-demo" data-demo="academia" role="button" tabindex="0" aria-label="Ver demostración de web para academia" data-delay="2"><div class="wk-frame" style="--t1:#45bf5b;--t2:#0c7a52"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.acad.tag">Academia</span><span class="wk-title" data-i18n="wk.acad.title">Aprende a tu ritmo</span><span class="wk-sub" data-i18n="work.acad.sub">Cursos, horarios e inscripción</span><span class="wk-pill" data-i18n="work.acad.pill">Inscríbete</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.acad.h3">Educación</h3><span data-i18n="work.acad.meta">Academias y centros</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
-      <article class="work-card reveal open-demo" data-demo="comercio" role="button" tabindex="0" aria-label="Ver demostración de web para comercio" data-delay="3"><div class="wk-frame" style="--t1:#a855f7;--t2:#5b21b6"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.shop.tag">Comercio</span><span class="wk-title" data-i18n="wk.shop.title">Tu tienda, siempre abierta</span><span class="wk-sub" data-i18n="work.shop.sub">Catálogo y pedidos por WhatsApp</span><span class="wk-pill" data-i18n="work.shop.pill">Ver catálogo</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.shop.h3">Comercio</h3><span data-i18n="work.shop.meta">Tiendas y servicios</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="restaurante" role="button" tabindex="0" aria-label="Ver demostración de web para restaurante" data-delay="1"><div class="wk-frame has-photo" style="--t1:#ff7a45;--t2:#d63a2f;--card-img:url('assets/cards/card-restaurante.jpg')"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.rest.tag">Restaurante</span><span class="wk-title" data-i18n="wk.rest.title">Sabores que enamoran</span><span class="wk-sub" data-i18n="work.rest.sub">Menú, reservas y delivery</span><span class="wk-pill" data-i18n="work.rest.pill">Reservar mesa</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.rest.h3">Gastronomía</h3><span data-i18n="work.rest.meta">Restaurantes y cafeterías</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="clinica" role="button" tabindex="0" aria-label="Ver demostración de web para clinica" data-delay="2"><div class="wk-frame has-photo" style="--t1:#19c5ef;--t2:#0a6aa8;--card-img:url('assets/cards/card-clinica.jpg')"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.clinic.tag">Clínica</span><span class="wk-title" data-i18n="wk.clinic.title">Tu salud, en buenas manos</span><span class="wk-sub" data-i18n="work.clinic.sub">Especialidades y citas online</span><span class="wk-pill" data-i18n="work.clinic.pill">Agendar cita</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.clinic.h3">Salud</h3><span data-i18n="work.clinic.meta">Clínicas y consultorios</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="inmobiliaria" role="button" tabindex="0" aria-label="Ver demostración de web para inmobiliaria" data-delay="3"><div class="wk-frame has-photo" style="--t1:#c8a24a;--t2:#1f2a3c;--card-img:url('assets/cards/card-inmobiliaria.jpg')"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.real.tag">Inmobiliaria</span><span class="wk-title" data-i18n="wk.real.title">Encuentra tu próximo hogar</span><span class="wk-sub" data-i18n="work.real.sub">Catálogo de propiedades</span><span class="wk-pill" data-i18n="work.real.pill">Ver propiedades</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.real.h3">Inmobiliaria</h3><span data-i18n="work.real.meta">Venta y alquiler</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="legal" role="button" tabindex="0" aria-label="Ver demostración de web para legal" data-delay="1"><div class="wk-frame has-photo" style="--t1:#3b5bdb;--t2:#11203a;--card-img:url('assets/cards/card-legal.jpg')"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.legal.tag">Estudio jurídico</span><span class="wk-title" data-i18n="wk.legal.title">Asesoría legal de confianza</span><span class="wk-sub" data-i18n="work.legal.sub">Áreas de práctica y contacto</span><span class="wk-pill" data-i18n="work.legal.pill">Consultar caso</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.legal.h3">Legal</h3><span data-i18n="work.legal.meta">Abogados y consultoras</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="academia" role="button" tabindex="0" aria-label="Ver demostración de web para academia" data-delay="2"><div class="wk-frame has-photo" style="--t1:#45bf5b;--t2:#0c7a52;--card-img:url('assets/cards/card-academia.jpg')"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.acad.tag">Academia</span><span class="wk-title" data-i18n="wk.acad.title">Aprende a tu ritmo</span><span class="wk-sub" data-i18n="work.acad.sub">Cursos, horarios e inscripción</span><span class="wk-pill" data-i18n="work.acad.pill">Inscríbete</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.acad.h3">Educación</h3><span data-i18n="work.acad.meta">Academias y centros</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
+      <article class="work-card reveal open-demo" data-demo="comercio" role="button" tabindex="0" aria-label="Ver demostración de web para comercio" data-delay="3"><div class="wk-frame has-photo" style="--t1:#a855f7;--t2:#5b21b6;--card-img:url('assets/cards/card-comercio.jpg')"><div class="wk-bar"><i></i><i></i><i></i></div><div class="wk-screen"><span class="wk-tag" data-i18n="wk.shop.tag">Comercio</span><span class="wk-title" data-i18n="wk.shop.title">Tu tienda, siempre abierta</span><span class="wk-sub" data-i18n="work.shop.sub">Catálogo y pedidos por WhatsApp</span><span class="wk-pill" data-i18n="work.shop.pill">Ver catálogo</span></div><div class="wk-open"><span class="wk-open-btn" data-i18n="demo.btn">Ver demo en vivo</span></div></div><div class="wk-meta"><div><h3 data-i18n="work.shop.h3">Comercio</h3><span data-i18n="work.shop.meta">Tiendas y servicios</span></div><span class="wk-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div></article>
     </div>
   </div>
 </section>
@@ -934,9 +935,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
   <div class="wrap">
     <div class="section-head center reveal"><span class="eyebrow" data-i18n="plans.eyebrow">Planes</span><h2 data-i18n-html="plans.h2">Planes pensados para <span class="grad-text">cada tipo de empresa</span></h2><p class="sub" data-i18n="plans.sub">Precios orientativos. Elige el punto de partida que mejor encaje con tu negocio.</p></div>
     <div class="plans-grid">
-      <div class="plan reveal" data-delay="1"><h3 data-i18n="plan.1.h3">Presencia</h3><p class="plan-desc" data-i18n="plan.1.desc">Para negocios que necesitan una landing simple y profesional.</p><div class="price"><small>Desde</small> <b>250</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li1">Página de una sola vista</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li2">Hasta 4 secciones</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li3">Diseño responsive</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li4">Botón de WhatsApp</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li5">Redes sociales</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li6">Publicación online</span></li></ul><a href="#contacto" class="btn btn-ghost" data-i18n="plan.cta">Solicitar este plan</a></div>
-      <div class="plan featured reveal" data-delay="2"><span class="plan-tag" data-i18n="plan.2.tag">Más elegido</span><h3 data-i18n="plan.2.h3">Profesional</h3><p class="plan-desc" data-i18n="plan.2.desc">Para empresas que quieren una presencia digital más completa.</p><div class="price"><small>Desde</small> <b class="grad-text">300</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li1">Página web moderna</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li2">Hasta 6 secciones</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li3">Diseño responsive</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li4">WhatsApp + mapa de ubicación</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li5">Formulario o botón de contacto</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li6">Galería básica</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li7">SEO básico inicial</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li8">Publicación con HTTPS</span></li></ul><a href="#contacto" class="btn btn-primary" data-i18n="plan.cta">Solicitar este plan</a></div>
-      <div class="plan reveal" data-delay="3"><h3 data-i18n="plan.3.h3">Corporativo</h3><p class="plan-desc" data-i18n="plan.3.desc">Para empresas que necesitan mayor estructura y presencia institucional.</p><div class="price"><small>Desde</small> <b>450</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li1">Estructura ampliada</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li2">Secciones corporativas</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li3">Servicios detallados</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li4">Integraciones básicas</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li5">Optimización inicial</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li6">Soporte de publicación</span></li></ul><a href="#contacto" class="btn btn-ghost" data-i18n="plan.cta">Solicitar este plan</a></div>
+      <div class="plan reveal" data-delay="1"><h3 data-i18n="plan.1.h3">Presencia</h3><p class="plan-desc" data-i18n="plan.1.desc">Para negocios que necesitan una landing simple y profesional.</p><div class="price"><small>Desde</small> <b>250</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li1">Página de una sola vista</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li2">Hasta 4 secciones</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li3">Diseño responsive</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li4">Botón de WhatsApp</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li5">Redes sociales</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.1.li6">Publicación online</span></li></ul><a href="#contacto" class="btn btn-ghost" data-plan-interest data-i18n="plan.cta">Solicitar este plan</a></div>
+      <div class="plan featured reveal" data-delay="2"><span class="plan-tag" data-i18n="plan.2.tag">Más elegido</span><h3 data-i18n="plan.2.h3">Profesional</h3><p class="plan-desc" data-i18n="plan.2.desc">Para empresas que quieren una presencia digital más completa.</p><div class="price"><small>Desde</small> <b class="grad-text">300</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li1">Página web moderna</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li2">Hasta 6 secciones</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li3">Diseño responsive</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li4">WhatsApp + mapa de ubicación</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li5">Formulario o botón de contacto</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li6">Galería básica</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li7">SEO básico inicial</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.2.li8">Publicación con HTTPS</span></li></ul><a href="#contacto" class="btn btn-primary" data-plan-interest data-i18n="plan.cta">Solicitar este plan</a></div>
+      <div class="plan reveal" data-delay="3"><h3 data-i18n="plan.3.h3">Corporativo</h3><p class="plan-desc" data-i18n="plan.3.desc">Para empresas que necesitan mayor estructura y presencia institucional.</p><div class="price"><small>Desde</small> <b>450</b> <small>USD</small></div><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li1">Estructura ampliada</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li2">Secciones corporativas</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li3">Servicios detallados</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li4">Integraciones básicas</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li5">Optimización inicial</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.3.li6">Soporte de publicación</span></li></ul><a href="#contacto" class="btn btn-ghost" data-plan-interest data-i18n="plan.cta">Solicitar este plan</a></div>
     </div>
     <p class="plans-note reveal" data-i18n-html="plans.note">Los precios pueden ajustarse según el alcance, número de secciones, funcionalidades y necesidades específicas de cada empresa.<br><b>Mantenimiento anual desde 80 USD/año</b>, incluyendo soporte técnico básico, hosting, dominio estándar y pequeños ajustes.</p>
   </div>
@@ -1006,10 +1007,10 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       <p class="fh" data-i18n="form.fh">Rellena el formulario y abriremos WhatsApp con tu mensaje listo para enviar.</p>
       <form id="leadForm">
         <div class="form-row">
-          <div class="field"><label for="f-nombre" data-i18n="form.nombre">Nombre</label><input id="f-nombre" name="nombre" type="text" data-i18n-ph="form.ph.nombre" placeholder="Tu nombre" required /></div>
-          <div class="field"><label for="f-empresa" data-i18n="form.empresa">Empresa</label><input id="f-empresa" name="empresa" type="text" data-i18n-ph="form.ph.empresa" placeholder="Nombre de tu empresa" /></div>
+          <div class="field"><label for="f-nombre" data-i18n="form.nombre">Nombre</label><input id="f-nombre" name="nombre" type="text" autocomplete="name" maxlength="80" data-i18n-ph="form.ph.nombre" placeholder="Tu nombre" required /></div>
+          <div class="field"><label for="f-empresa" data-i18n="form.empresa">Empresa</label><input id="f-empresa" name="empresa" type="text" autocomplete="organization" maxlength="120" data-i18n-ph="form.ph.empresa" placeholder="Nombre de tu empresa" /></div>
         </div>
-        <div class="field"><label for="f-email" data-i18n="form.email">Email</label><input id="f-email" name="email" type="email" data-i18n-ph="form.ph.email" placeholder="tucorreo@empresa.com" /></div>
+        <div class="field"><label for="f-email" data-i18n="form.email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="160" data-i18n-ph="form.ph.email" placeholder="tucorreo@empresa.com" /></div>
         <div class="field"><label for="f-tipo" data-i18n="form.tipo">¿Qué necesitas?</label>
           <select id="f-tipo" name="tipo">
             <option data-i18n="form.opt1">Página web nueva</option>
@@ -1019,7 +1020,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
             <option data-i18n="form.opt5">Otra solución digital</option>
           </select>
         </div>
-        <div class="field"><label for="f-msg" data-i18n="form.msg">Cuéntanos un poco más</label><textarea id="f-msg" name="mensaje" data-i18n-ph="form.ph.msg" placeholder="Describe brevemente tu proyecto..."></textarea></div>
+        <div class="field"><label for="f-msg" data-i18n="form.msg">Cuéntanos un poco más</label><textarea id="f-msg" name="mensaje" maxlength="1000" data-i18n-ph="form.ph.msg" placeholder="Describe brevemente tu proyecto..."></textarea></div>
         <button type="submit" class="btn btn-primary" data-i18n="form.submit">Enviar por WhatsApp</button>
         <p class="form-note" data-i18n="form.note">También puedes escribirnos a ventas@humadigitalstudio.com</p>
       </form>
@@ -1065,8 +1066,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       <div class="dots"><i></i><i></i><i></i></div>
       <div class="demo-url"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span id="demoUrl">demo.humadigitalstudio.com</span></div>
       <div class="demo-tools">
-        <button type="button" class="dev-btn active" id="devDesktop" data-i18n-aria="demo.desktop" aria-label="Vista de escritorio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/></svg></button>
-        <button type="button" class="dev-btn" id="devMobile" data-i18n-aria="demo.mobile" aria-label="Vista móvil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></button>
+        <button type="button" class="dev-btn active" id="devDesktop" data-i18n-aria="demo.desktop" aria-label="Vista de escritorio" aria-pressed="true" aria-controls="demoFrame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/></svg></button>
+        <button type="button" class="dev-btn" id="devMobile" data-i18n-aria="demo.mobile" aria-label="Vista móvil" aria-pressed="false" aria-controls="demoFrame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></button>
         <button type="button" class="demo-close" id="demoClose" data-i18n-aria="demo.close" aria-label="Cerrar demostración"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
     </div>
@@ -1095,8 +1096,24 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 
   // Menú móvil
   var burger=document.getElementById('burger'), links=document.getElementById('navLinks');
-  burger.addEventListener('click',function(){ var o=links.classList.toggle('open'); burger.classList.toggle('open',o); burger.setAttribute('aria-expanded',o?'true':'false'); });
-  links.addEventListener('click',function(e){ if(e.target.tagName==='A'){ links.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded','false'); } });
+  function closeMobileMenu(returnFocus){
+    links.classList.remove('open');
+    burger.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+    if(returnFocus) burger.focus();
+  }
+  burger.addEventListener('click',function(){
+    var o=links.classList.toggle('open');
+    burger.classList.toggle('open',o);
+    burger.setAttribute('aria-expanded',o?'true':'false');
+  });
+  links.addEventListener('click',function(e){ if(e.target.closest('a')) closeMobileMenu(false); });
+  document.addEventListener('click',function(e){ if(links.classList.contains('open') && !nav.contains(e.target)) closeMobileMenu(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && links.classList.contains('open')) closeMobileMenu(true); });
+  var desktopMenuQuery=window.matchMedia('(min-width:681px)');
+  var resetMobileMenu=function(e){ if(e.matches) closeMobileMenu(false); };
+  if(desktopMenuQuery.addEventListener) desktopMenuQuery.addEventListener('change',resetMobileMenu);
+  else desktopMenuQuery.addListener(resetMobileMenu);
 
   // Revelado al hacer scroll
   var rev=document.querySelectorAll('.reveal');
@@ -1143,15 +1160,24 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 
   // Formulario -> WhatsApp (sin backend)
   var form=document.getElementById('leadForm');
+  document.querySelectorAll('[data-plan-interest]').forEach(function(link){
+    link.addEventListener('click',function(){
+      var plan=link.closest('.plan');
+      var name=plan && plan.querySelector('h3');
+      if(form && name) form.dataset.interest='Plan: '+name.textContent.trim();
+    });
+  });
   if(form){ form.addEventListener('submit',function(e){
     e.preventDefault();
     var g=function(id){ return (document.getElementById(id).value||'').trim(); };
     var nombre=g('f-nombre'), empresa=g('f-empresa'), email=g('f-email'), tipo=g('f-tipo'), msg=g('f-msg');
+    var interest=(form.dataset.interest||'').trim();
     var t='Hola HUMA Digital Studio, quiero solicitar una propuesta.%0A%0A'
       +'*Nombre:* '+encodeURIComponent(nombre||'-')+'%0A'
       +'*Empresa:* '+encodeURIComponent(empresa||'-')+'%0A'
       +'*Email:* '+encodeURIComponent(email||'-')+'%0A'
       +'*Necesito:* '+encodeURIComponent(tipo||'-')+'%0A'
+      +(interest?'*Interés:* '+encodeURIComponent(interest)+'%0A':'')
       +'*Mensaje:* '+encodeURIComponent(msg||'-');
     window.open('https://wa.me/'+WHATSAPP+'?text='+t,'_blank','noopener,noreferrer');
   }); }
@@ -1708,7 +1734,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       +'.nav{position:sticky;top:0;z-index:10;background:'+d.navbg+';backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}'
       +'.nav .w{display:flex;align-items:center;justify-content:space-between;padding:16px 26px}'
       +'.brand{display:flex;align-items:center;gap:10px;font-family:'+d.head+';font-weight:800;font-size:1.18rem}'
-      +'.brand .m{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--p),var(--p2));display:grid;place-items:center;color:#fff;font-family:'+d.head+';font-weight:800;font-size:.85rem}'
+      +'.brand .m{width:34px;height:34px;border-radius:'+(d.markRadius||'9px')+';background:linear-gradient(135deg,var(--p),var(--p2));display:grid;place-items:center;color:#fff;font-family:'+d.head+';font-weight:800;font-size:.85rem}.brand .m svg{width:18px;height:18px}'
       +'.menu{display:flex;gap:22px;font-size:.9rem;color:var(--mut)}.menu a{transition:color .2s}.menu a:hover{color:var(--p)}'
       +'.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;cursor:pointer;border:0;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;font-family:'+d.head+';font-weight:700;padding:12px 22px;border-radius:var(--rad);font-size:.9rem;transition:transform .22s,box-shadow .22s;white-space:nowrap}'
       +'.btn:hover{transform:translateY(-2px);box-shadow:0 14px 32px -12px rgba(0,0,0,.32)}'
@@ -1735,15 +1761,16 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       +'footer{padding:32px 0;border-top:1px solid var(--line)}'
       +'.foot-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}'
       +'.foot-brand{display:flex;align-items:center;gap:8px;font-family:'+d.head+';font-weight:700;font-size:.92rem}'
-      +'.foot-m{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--p),var(--p2));display:grid;place-items:center;color:#fff;font-size:.68rem;font-weight:800;font-family:'+d.head+';flex:none}'
+      +'.foot-m{width:28px;height:28px;border-radius:'+(d.markRadius||'8px')+';background:linear-gradient(135deg,var(--p),var(--p2));display:grid;place-items:center;color:#fff;font-size:.68rem;font-weight:800;font-family:'+d.head+';flex:none}.foot-m svg{width:14px;height:14px}'
       +'.foot-links{display:flex;gap:16px;font-size:.82rem;color:var(--mut)}.foot-links a{transition:color .2s}.foot-links a:hover{color:var(--p)}'
       +'.foot-copy{font-size:.76rem;color:var(--mut)}'
       +'@media(max-width:760px){.menu{display:none}.tst-grid{grid-template-columns:1fr}.foot-links{display:none}}';
-    var nav='<div class="nav"><div class="w"><div class="brand"><span class="m">'+d.initial+'</span>'+d.name+'</div>'
+    var brandMark=d.brandIcon||d.initial;
+    var nav='<div class="nav"><div class="w"><div class="brand"><span class="m">'+brandMark+'</span>'+d.name+'</div>'
       +'<div class="menu">'+d.menu.map(function(m){return'<a href="#">'+m+'</a>';}).join('')+'</div>'
       +'<a class="btn" href="#">'+d.navCta+'</a></div></div>';
     var foot='<footer><div class="w"><div class="foot-inner">'
-      +'<div class="foot-brand"><span class="foot-m">'+d.initial+'</span>'+d.name+'</div>'
+      +'<div class="foot-brand"><span class="foot-m">'+brandMark+'</span>'+d.name+'</div>'
       +'<div class="foot-links">'+d.menu.slice(0,3).map(function(m){return'<a href="#">'+m+'</a>';}).join('')+'</div>'
       +'<span class="foot-copy">© 2026 '+d.name+' &nbsp;·&nbsp; Demo creado por HUMA Digital Studio</span>'
       +'</div></div></footer>';
@@ -1778,14 +1805,14 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       }).join('');
       return head+'<style>'+baseCSS
         +'.hero{position:relative;overflow:hidden;padding:120px 0;text-align:center;'+d.heroBg+'}'
-        +'.hero::before{content:"";position:absolute;inset:0;background:url("'+d.heroImg+'") center/cover;z-index:0}'
+        +'.hero::before{content:"";position:absolute;inset:0;background-color:var(--surf);background-image:url("'+d.heroImg+'");background-position:'+(d.heroPos||'center')+';background-size:cover;background-repeat:no-repeat;z-index:0}'
         +'.hero::after{content:"";position:absolute;inset:0;background:'+d.heroOverlay+';z-index:1}'
-        +'.hero .w{position:relative;z-index:2}'
+        +'.hero .w{position:relative;z-index:2;text-align:left}.hero .w>*{max-width:540px}'
         +'.badge{display:inline-block;font-family:'+d.head+';font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--p);background:'+d.badgeBg+';padding:7px 16px;border-radius:30px;margin-bottom:20px}'
         +'.hero h1{font-family:'+d.head+';font-size:clamp(2.8rem,6.5vw,4.4rem);line-height:1.02;color:#fff;margin-bottom:0}'
-        +'.rule{width:56px;height:2px;background:linear-gradient(90deg,var(--p),var(--p2));margin:20px auto}'
-        +'.hero p{font-size:1.08rem;color:'+(d.heroMut||'rgba(255,255,255,.78)')+';margin:0 auto 28px;max-width:480px}'
-        +'.row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}'
+        +'.rule{width:56px;height:2px;background:linear-gradient(90deg,var(--p),var(--p2));margin:20px 0}'
+        +'.hero p{font-size:1.08rem;color:'+(d.heroMut||'rgba(255,255,255,.78)')+';margin:0 0 28px;max-width:480px}'
+        +'.row{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-start}'
         +'.sec{padding:74px 0;text-align:center}.sec h2{font-family:'+d.head+';font-size:clamp(1.7rem,3.4vw,2.5rem);margin-bottom:8px}'
         +'.sub{color:var(--mut);margin-bottom:40px}'
         +'.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;text-align:left}'
@@ -1827,9 +1854,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       }).join('');
       return head+'<style>'+baseCSS
         +'.hero{position:relative;overflow:hidden;padding:100px 0;'+d.heroBg+'}'
-        +'.hero::before{content:"";position:absolute;inset:0;background:url("'+d.heroImg+'") center/cover;z-index:0}'
+        +'.hero::before{content:"";position:absolute;inset:0;background-color:var(--surf);background-image:url("'+d.heroImg+'");background-position:'+(d.heroPos||'center')+';background-size:cover;background-repeat:no-repeat;z-index:0}'
         +'.hero::after{content:"";position:absolute;inset:0;background:'+d.heroOverlay+';z-index:1}'
-        +'.hero .w{position:relative;z-index:2;max-width:600px}'
+        +'.hero .w{position:relative;z-index:2;max-width:1060px}'
         +'.badge{display:inline-block;font-family:'+d.head+';font-weight:700;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--p);background:'+d.badgeBg+';padding:6px 14px;border-radius:4px;margin-bottom:20px}'
         +'.hero h1{font-family:'+d.head+';font-size:clamp(2.4rem,5.4vw,4rem);line-height:1.02;margin-bottom:18px}'
         +'.hero p{font-size:1.06rem;color:'+(d.heroMut||'var(--mut)')+';max-width:480px;margin-bottom:28px}'
@@ -1878,12 +1905,16 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
           +'<div><h4>'+f.title+'</h4><p>'+f.desc+'</p></div></div>';
       }).join('');
       return head+'<style>'+baseCSS
-        +'.hero{padding:96px 0;'+d.heroBg+'}'
+        +'.hero{padding:78px 0;position:relative;overflow:hidden;'+d.heroBg+'}'
+        +'.hero .w{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.82fr);gap:56px;align-items:center}'
         +'.eyebrow{display:flex;align-items:center;gap:12px;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--p);font-weight:700;margin-bottom:24px}'
         +'.eyebrow::before{content:"";display:block;width:36px;height:2px;background:var(--p);flex:none}'
         +'.hero h1{font-family:'+d.head+';font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.04;margin-bottom:18px;max-width:16ch}'
         +'.hero p{font-size:1.06rem;color:var(--mut);max-width:500px;margin-bottom:28px}'
         +'.row{display:flex;gap:14px;flex-wrap:wrap}'
+        +'.hero-photo{min-height:430px;border-radius:calc(var(--rad) * 2);background-color:var(--surf);background-image:url("'+d.heroImg+'");background-position:'+(d.heroPos||'center')+';background-size:cover;background-repeat:no-repeat;box-shadow:0 30px 70px -24px rgba(22,35,90,.35);position:relative;overflow:hidden}'
+        +'.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(9,18,42,.62))}'
+        +'.hero-proof{position:absolute;z-index:1;left:22px;bottom:20px;color:#fff;display:flex;align-items:baseline;gap:9px}.hero-proof b{font-family:'+d.head+';font-size:2rem}.hero-proof span{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}'
         +'.sec{padding:74px 0}.sec h2{font-family:'+d.head+';font-size:clamp(1.6rem,3.4vw,2.4rem);margin-bottom:10px}'
         +'.sub{color:var(--mut);margin-bottom:40px;max-width:540px}'
         +'.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--line);border-radius:var(--rad);overflow:hidden}'
@@ -1901,11 +1932,12 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
         +'.feat p{font-size:.88rem;color:var(--mut)}'
         +'.cta{padding:84px 0;text-align:center;'+d.ctaBg+'}.cta h2{font-family:'+d.head+';font-size:clamp(1.7rem,3.4vw,2.5rem);color:'+(d.ctaInk||'#fff')+'}'
         +'.cta p{color:'+(d.ctaMut||'rgba(255,255,255,.85)')+';margin:12px auto 26px;max-width:460px}'
-        +'@media(max-width:760px){.grid{grid-template-columns:1fr;border:none}.card{border-right:none;border-bottom:1px solid var(--line)}.feats{grid-template-columns:1fr}}'
+        +'@media(max-width:760px){.hero{padding:54px 0}.hero .w{grid-template-columns:1fr;gap:30px}.hero-photo{min-height:260px;order:-1}.grid{grid-template-columns:1fr;border:none}.card{border-right:none;border-bottom:1px solid var(--line)}.feats{grid-template-columns:1fr}}'
         +'</style></head><body>'+nav
-        +'<header class="hero"><div class="w"><div class="eyebrow">'+d.heroBadge+'</div>'
+        +'<header class="hero"><div class="w"><div class="hero-copy"><div class="eyebrow">'+d.heroBadge+'</div>'
         +'<h1>'+d.heroTitle+'</h1><p>'+d.heroSub+'</p>'
-        +'<div class="row"><a class="btn" href="#">'+d.heroCta1+'</a><a class="btn o" href="#">'+d.heroCta2+'</a></div></div></header>'
+        +'<div class="row"><a class="btn" href="#">'+d.heroCta1+'</a><a class="btn o" href="#">'+d.heroCta2+'</a></div></div>'
+        +'<div class="hero-photo" aria-hidden="true"><div class="hero-proof"><b>25+</b><span>años de experiencia</span></div></div></div></header>'
         +'<section class="sec"><div class="w"><h2>'+d.gridTitle+'</h2><p class="sub">'+d.gridSub+'</p><div class="grid">'+cards+'</div></div></section>'
         +'<section class="band"><div class="w"><div class="feats">'+feats+'</div></div></section>'
         +'<section class="cta"><div class="w"><h2>'+d.ctaTitle+'</h2><p>'+d.ctaSub+'</p><a class="btn" href="#" style="'+(d.ctaBtn||'')+'">'+d.ctaBtnText+'</a></div></section>'
@@ -1932,7 +1964,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
         +'.hero h1{font-family:'+d.head+';font-size:clamp(2.2rem,5.2vw,3.7rem);line-height:1.04;margin-bottom:16px}'
         +'.hero p{font-size:1.08rem;color:var(--mut);margin:0 auto 26px;max-width:500px}'
         +'.row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}'
-        +'.spills{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:32px}'
+        +'.hero-media{height:280px;max-width:900px;margin:34px auto 0;border-radius:24px;background-color:var(--surf);background-image:linear-gradient(90deg,rgba(22,163,74,.08),transparent),url("'+d.heroImg+'");background-position:'+(d.heroPos||'center')+';background-size:cover;background-repeat:no-repeat;box-shadow:0 28px 60px -28px rgba(12,122,82,.45);border:1px solid var(--line)}'
+        +'.spills{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:-26px;position:relative;z-index:2}'
         +'.spill{background:var(--surf);border:1px solid var(--line);border-radius:var(--rad);padding:10px 22px;text-align:center}'
         +'.spill b{display:block;font-family:'+d.head+';font-size:1.3rem;color:var(--p)}'
         +'.spill span{font-size:.78rem;color:var(--mut)}'
@@ -1957,12 +1990,12 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
         +'.feat p{font-size:.88rem;color:var(--mut)}'
         +'.cta{padding:84px 0;text-align:center;'+d.ctaBg+'}.cta h2{font-family:'+d.head+';font-size:clamp(1.7rem,3.6vw,2.6rem);color:'+(d.ctaInk||'#fff')+'}'
         +'.cta p{color:'+(d.ctaMut||'rgba(255,255,255,.85)')+';margin:12px auto 26px;max-width:460px}'
-        +'@media(max-width:760px){.grid{grid-template-columns:1fr}.feats{grid-template-columns:1fr}.spills{gap:10px}}'
+        +'@media(max-width:760px){.hero-media{height:190px;border-radius:18px}.grid{grid-template-columns:1fr}.feats{grid-template-columns:1fr}.spills{gap:10px;margin-top:-20px}}'
         +'</style></head><body>'+nav
         +'<header class="hero"><div class="w"><span class="badge">'+d.heroBadge+'</span>'
         +'<h1>'+d.heroTitle+'</h1><p>'+d.heroSub+'</p>'
         +'<div class="row"><a class="btn" href="#">'+d.heroCta1+'</a><a class="btn o" href="#">'+d.heroCta2+'</a></div>'
-        +'<div class="spills">'+pills+'</div></div></header>'
+        +'<div class="hero-media" aria-hidden="true"></div><div class="spills">'+pills+'</div></div></header>'
         +'<section class="sec"><div class="w"><h2>'+d.gridTitle+'</h2><p class="sub">'+d.gridSub+'</p><div class="grid">'+cards+'</div></div></section>'
         +'<section class="band"><div class="w"><div class="feats">'+feats+'</div></div></section>'
         +'<section class="cta"><div class="w"><h2>'+d.ctaTitle+'</h2><p>'+d.ctaSub+'</p><a class="btn" href="#" style="'+(d.ctaBtn||'')+'">'+d.ctaBtnText+'</a></div></section>'
@@ -1989,7 +2022,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
         +'.hero h1{font-family:'+d.head+';font-size:clamp(2rem,4.8vw,3.4rem);line-height:1.06;margin-bottom:16px}'
         +'.hero p{font-size:1.06rem;color:var(--mut);margin-bottom:26px}'
         +'.row{display:flex;gap:12px;flex-wrap:wrap}'
-        +'.hero-img{aspect-ratio:1;border-radius:var(--rad);background:url("'+d.heroImg+'") center/cover;box-shadow:0 30px 60px -20px rgba(0,0,0,.2)}'
+        +'.hero-img{aspect-ratio:1;border-radius:var(--rad);background-color:var(--surf);background-image:url("'+d.heroImg+'");background-position:'+(d.heroPos||'center')+';background-size:cover;background-repeat:no-repeat;box-shadow:0 30px 60px -20px rgba(0,0,0,.2)}'
         +'.sec{padding:74px 0}.sec h2{font-family:'+d.head+';font-size:clamp(1.6rem,3.4vw,2.4rem);margin-bottom:10px}'
         +'.sub{color:var(--mut);margin-bottom:40px}'
         +'.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}'
@@ -2043,7 +2076,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
         +'.hero h1{font-family:'+d.head+';font-size:clamp(2rem,4.8vw,3.4rem);line-height:1.06;margin-bottom:16px}'
         +'.hero p{font-size:1.06rem;color:'+(d.heroMut||'var(--mut)')+';margin-bottom:26px}'
         +'.row{display:flex;gap:12px;flex-wrap:wrap}'
-        +'.appt{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:26px;box-shadow:0 20px 50px -20px rgba(0,0,0,.1)}'
+        +'.appt{background:var(--surf);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 20px 50px -20px rgba(0,0,0,.1)}'
+        +'.appt-photo{height:150px;background-color:var(--bg);background-image:url("'+d.heroImg+'");background-position:'+(d.heroPos||'center')+';background-size:cover;background-repeat:no-repeat}.appt-body{padding:24px 26px 26px}'
         +'.appt h3{font-family:'+d.head+';font-size:1.05rem;margin-bottom:18px;color:var(--p)}'
         +'.field{margin-bottom:12px}.field label{display:block;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);margin-bottom:4px}'
         +'.field select,.field input{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:9px 13px;font-size:.9rem;background:var(--bg);color:var(--ink);font-family:'+d.body+'}'
@@ -2066,16 +2100,16 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
         +'.feat p{font-size:.88rem;color:'+(d.bandMut||'var(--mut)')+'}'
         +'.cta{padding:84px 0;text-align:center;'+d.ctaBg+'}.cta h2{font-family:'+d.head+';font-size:clamp(1.7rem,3.6vw,2.6rem);color:'+(d.ctaInk||'#fff')+'}'
         +'.cta p{color:'+(d.ctaMut||'rgba(255,255,255,.85)')+';margin:12px auto 26px;max-width:460px}'
-        +'@media(max-width:760px){.grid{grid-template-columns:1fr}.feats{grid-template-columns:1fr}.hero .w{grid-template-columns:1fr}.appt{display:none}}'
+        +'@media(max-width:760px){.grid{grid-template-columns:1fr}.feats{grid-template-columns:1fr}.hero .w{grid-template-columns:1fr}.appt-photo{height:220px}.appt-body{display:none}}'
         +'</style></head><body>'+nav
         +'<header class="hero"><div class="w"><div><span class="badge">'+d.heroBadge+'</span>'
         +'<h1>'+d.heroTitle+'</h1><p>'+d.heroSub+'</p>'
         +'<div class="row"><a class="btn" href="#">'+d.heroCta1+'</a><a class="btn o" href="#">'+d.heroCta2+'</a></div></div>'
-        +'<div class="appt"><h3>Agenda tu cita</h3>'
+        +'<div class="appt"><div class="appt-photo" aria-hidden="true"></div><div class="appt-body"><h3>Agenda tu cita</h3>'
         +'<div class="field"><label>Especialidad</label><select><option>Medicina general</option><option>Odontología</option><option>Pediatría</option></select></div>'
         +'<div class="field"><label>Fecha preferida</label><input type="date" value="2026-06-10"></div>'
         +'<div class="field"><label>Tu nombre</label><input type="text" placeholder="Nombre completo"></div>'
-        +'<a class="btn" href="#">Confirmar cita</a></div></div></header>'
+        +'<a class="btn" href="#">Confirmar cita</a></div></div></div></header>'
         +'<section class="sec"><div class="w"><h2>'+d.gridTitle+'</h2><p class="sub">'+d.gridSub+'</p><div class="grid">'+cards+'</div></div></section>'
         +'<section class="band"><div class="w"><div class="feats">'+feats+'</div></div></section>'
         +'<section class="cta"><div class="w"><h2>'+d.ctaTitle+'</h2><p>'+d.ctaSub+'</p><a class="btn" href="#" style="'+(d.ctaBtn||'')+'">'+d.ctaBtnText+'</a></div></section>'
@@ -2094,7 +2128,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
     }).join('');
     return head+'<style>'+baseCSS
       +'.hero{position:relative;overflow:hidden;padding:90px 0;'+d.heroBg+'}'
-      +'.hero::before{content:"";position:absolute;inset:0;background:url("'+d.heroImg+'") center/cover;z-index:0}'
+      +'.hero::before{content:"";position:absolute;inset:0;background-color:var(--surf);background-image:url("'+d.heroImg+'");background-position:'+(d.heroPos||'center')+';background-size:cover;background-repeat:no-repeat;z-index:0}'
       +'.hero::after{content:"";position:absolute;inset:0;background:'+d.heroOverlay+';z-index:1}'
       +'.hero .w{position:relative;z-index:2}'
       +'.badge{display:inline-block;font-family:'+d.head+';font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--p);background:'+d.badgeBg+';padding:7px 14px;border-radius:30px;margin-bottom:18px}'
@@ -2128,7 +2162,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
   // ---------- Contenido de cada sector ----------
   var DEMOS = {
     restaurante:{
-      layout:'menu', domain:'la-terraza.com', name:'La Terraza', initial:'LT', heroImg:'https://andilana.com/wp-content/uploads/2025/12/Andilana-9.jpg', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(15,10,8,.62) 55%, rgba(15,10,8,.2) 100%)',
+      layout:'menu', domain:'la-terraza.com', name:'La Terraza', initial:'LT', brandIcon:I.leaf, markRadius:'50%', heroImg:'assets/demos/hero-restaurante.jpg', heroPos:'center', heroOverlay:'linear-gradient(90deg, rgba(15,10,8,.92) 0%, rgba(15,10,8,.64) 48%, rgba(15,10,8,.18) 100%)',
       font:'Playfair+Display:wght@700;800&family=Mulish:wght@400;600;700', head:"'Playfair Display',serif", body:"'Mulish',system-ui,sans-serif", radius:'14px',
       p:'#ff7a45', p2:'#d63a2f', bg:'#14100e', surf:'#1d1714', ink:'#f6ece6', mut:'#b9a99f', line:'rgba(255,255,255,.09)',
       navbg:'rgba(20,16,14,.82)', heroBg:'background:radial-gradient(120% 90% at 85% -20%,rgba(255,122,69,.30),transparent 55%),#14100e;', heroMut:'#cdbcb1', badgeBg:'rgba(255,122,69,.14)',
@@ -2151,7 +2185,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       ]
     },
     clinica:{
-      layout:'clinic', domain:'clinica-vital.com', name:'Clínica Vital', initial:'CV', heroImg:'https://images.adsttc.com/media/images/5bff/0cf0/08a5/e522/0900/0357/large_jpg/CLI%E2%80%BAA%CC%8ANICA_UNIVERSITARIA_NAVARRA001.jpg?1543441608', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(243,250,252,.72) 55%, rgba(243,250,252,.2) 100%)',
+      layout:'clinic', domain:'clinica-vital.com', name:'Clínica Vital', initial:'CV', brandIcon:I.heart, markRadius:'12px', heroImg:'assets/demos/hero-clinica.jpg', heroPos:'72% center', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(243,250,252,.72) 55%, rgba(243,250,252,.2) 100%)',
       font:'Poppins:wght@500;600;700;800', head:"'Poppins',sans-serif", body:"'Poppins',system-ui,sans-serif", radius:'16px',
       p:'#0ea5b7', p2:'#0a6aa8', bg:'#f3fafc', surf:'#ffffff', ink:'#11303a', mut:'#5e7785', line:'#e0eef2',
       navbg:'rgba(255,255,255,.85)', heroBg:'background:radial-gradient(120% 90% at 90% -10%,rgba(14,165,183,.18),transparent 55%),#f3fafc;', badgeBg:'rgba(14,165,183,.12)',
@@ -2159,9 +2193,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       heroBadge:'Tu salud primero', heroTitle:'Cuidamos de ti y de los <span style="color:#0ea5b7">tuyos</span>', heroSub:'Atención médica integral con profesionales especializados y tecnología de última generación.', heroCta1:'Agendar cita', heroCta2:'Ver especialidades',
       gridTitle:'Nuestras especialidades', gridSub:'Un equipo multidisciplinar al servicio de tu bienestar.',
       items:[
-        {tag:'Especialidad', title:'Medicina general', desc:'Diagnóstico y seguimiento integral.', meta:'Lun a Sáb', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('https://hospitallaantigua.com/resources/sections/specialties/medicina-general.jpg') center/cover,linear-gradient(135deg,#19c5ef,#0a6aa8)"},
-        {tag:'Especialidad', title:'Odontología', desc:'Salud y estética dental para toda la familia.', meta:'Con cita', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('https://faceclinic.es/wp-content/uploads/2024/08/odontologia-conservadora.jpeg') center/cover,linear-gradient(135deg,#34d0cf,#0a8aa8)"},
-        {tag:'Especialidad', title:'Pediatría', desc:'Cuidado especializado para los más pequeños.', meta:'Lun a Vie', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('https://img.magnific.com/foto-gratis/nino-oficina-doctor_1098-19672.jpg?semt=ais_hybrid&w=740&q=80') center/cover,linear-gradient(135deg,#5ad1e8,#0a6aa8)"}
+        {tag:'Especialidad', title:'Medicina general', desc:'Diagnóstico y seguimiento integral.', meta:'Lun a Sáb', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('assets/demos/detail-clinica-medicina.jpg') center/cover,linear-gradient(135deg,#19c5ef,#0a6aa8)"},
+        {tag:'Especialidad', title:'Odontología', desc:'Salud y estética dental para toda la familia.', meta:'Con cita', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('assets/demos/detail-clinica-odontologia.jpg') center/cover,linear-gradient(135deg,#34d0cf,#0a8aa8)"},
+        {tag:'Especialidad', title:'Pediatría', desc:'Cuidado especializado para los más pequeños.', meta:'Lun a Vie', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('assets/demos/detail-clinica-pediatria.jpg') center/cover,linear-gradient(135deg,#5ad1e8,#0a6aa8)"}
       ],
       bandBg:'#ffffff', featIcon:'rgba(14,165,183,.12)',
       feats:[{icon:I.cal,title:'Citas online',desc:'Agenda tu cita sin llamadas.'},{icon:I.shield,title:'Profesionales certificados',desc:'Experiencia que da confianza.'},{icon:I.heart,title:'Atención cercana',desc:'Te acompañamos en cada paso.'}],
@@ -2174,7 +2208,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       ]
     },
     inmobiliaria:{
-      layout:'realestate', domain:'andes-propiedades.com', name:'Andes Propiedades', initial:'AP', heroImg:'Inmobiliaria.png', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(15,20,28,.62) 55%, rgba(15,20,28,.2) 100%)',
+      layout:'realestate', domain:'andes-propiedades.com', name:'Andes Propiedades', initial:'AP', brandIcon:I.home, markRadius:'3px', heroImg:'assets/demos/hero-inmobiliaria.jpg', heroPos:'center', heroOverlay:'linear-gradient(90deg, rgba(15,20,28,.96) 0%, rgba(15,20,28,.72) 48%, rgba(15,20,28,.12) 100%)',
       font:'Jost:wght@500;600;700&family=Cormorant+Garamond:wght@600;700', head:"'Cormorant Garamond',serif", body:"'Jost',system-ui,sans-serif", radius:'10px',
       p:'#c8a24a', p2:'#9a7b2e', bg:'#0f141c', surf:'#161d28', ink:'#eef1f6', mut:'#9aa6b8', line:'rgba(255,255,255,.08)',
       navbg:'rgba(15,20,28,.82)', heroBg:'background:radial-gradient(120% 90% at 80% -10%,rgba(200,162,74,.20),transparent 55%),#0f141c;', heroMut:'#b6c0d0', badgeBg:'rgba(200,162,74,.14)',
@@ -2182,9 +2216,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       heroBadge:'Bienes raíces premium', heroTitle:'Encuentra tu próximo <span style="color:#c8a24a">hogar</span>', heroSub:'Selección exclusiva de propiedades en las mejores zonas. Acompañamiento experto en cada paso.', heroCta1:'Ver propiedades', heroCta2:'Vender mi inmueble',
       gridTitle:'Propiedades destacadas', gridSub:'Una muestra de nuestro catálogo actual.',
       items:[
-        {tag:'En venta', title:'Casa moderna · Cumbayá', desc:'Amplios espacios y acabados premium.', meta:'4 hab · 3 baños · 280 m²', price:'$320.000', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('Casa moderna.png') center/cover,linear-gradient(135deg,#c8a24a,#5c4a1f)"},
-        {tag:'En alquiler', title:'Departamento · La Carolina', desc:'Vista panorámica y áreas comunes.', meta:'2 hab · 2 baños · 96 m²', price:'$950/mes', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('Departamento.png') center/cover,linear-gradient(135deg,#a8843a,#2a3340)"},
-        {tag:'En venta', title:'Loft · Centro histórico', desc:'Diseño contemporáneo en zona céntrica.', meta:'1 hab · 1 baño · 65 m²', price:'$148.000', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('Loft.png') center/cover,linear-gradient(135deg,#d9b65e,#3a4150)"}
+        {tag:'En venta', title:'Casa moderna · Cumbayá', desc:'Amplios espacios y acabados premium.', meta:'4 hab · 3 baños · 280 m²', price:'$320.000', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('assets/demos/detail-inmobiliaria-casa.jpg') center/cover,linear-gradient(135deg,#c8a24a,#5c4a1f)"},
+        {tag:'En alquiler', title:'Departamento · La Carolina', desc:'Vista panorámica y áreas comunes.', meta:'2 hab · 2 baños · 96 m²', price:'$950/mes', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('assets/demos/detail-inmobiliaria-departamento.jpg') center/cover,linear-gradient(135deg,#a8843a,#2a3340)"},
+        {tag:'En venta', title:'Loft · Centro histórico', desc:'Diseño contemporáneo en zona céntrica.', meta:'1 hab · 1 baño · 65 m²', price:'$148.000', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('assets/demos/detail-inmobiliaria-loft.jpg') center/cover,linear-gradient(135deg,#d9b65e,#3a4150)"}
       ],
       bandBg:'#161d28', featIcon:'rgba(200,162,74,.14)',
       feats:[{icon:I.home,title:'Catálogo curado',desc:'Solo propiedades verificadas.'},{icon:I.pin,title:'Las mejores zonas',desc:'Ubicaciones de alta plusvalía.'},{icon:I.award,title:'Asesoría experta',desc:'Te guiamos en toda la operación.'}],
@@ -2197,7 +2231,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       ]
     },
     legal:{
-      layout:'corporate', domain:'estudio-ramirez.com', name:'Estudio Ramírez', initial:'ER', heroImg:'https://loremflickr.com/1280/720/office?lock=81', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(245,246,250,.74) 55%, rgba(245,246,250,.2) 100%)',
+      layout:'corporate', domain:'estudio-ramirez.com', name:'Estudio Ramírez', initial:'ER', brandIcon:I.scale, markRadius:'3px', heroImg:'assets/demos/hero-legal.jpg', heroPos:'72% center', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(245,246,250,.74) 55%, rgba(245,246,250,.2) 100%)',
       font:'Playfair+Display:wght@700;800&family=Source+Sans+3:wght@400;600;700', head:"'Playfair Display',serif", body:"'Source Sans 3',system-ui,sans-serif", radius:'8px',
       p:'#2f4ba8', p2:'#16235a', bg:'#f5f6fa', surf:'#ffffff', ink:'#16213a', mut:'#56607a', line:'#e3e7f0',
       navbg:'rgba(255,255,255,.88)', heroBg:'background:radial-gradient(120% 90% at 88% -10%,rgba(47,75,168,.14),transparent 55%),#f5f6fa;', badgeBg:'rgba(47,75,168,.10)',
@@ -2220,7 +2254,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       ]
     },
     academia:{
-      layout:'academy', heroStats:[{n:'20+',l:'cursos'},{n:'+500',l:'estudiantes'},{n:'98%',l:'satisfacción'}], domain:'academia-impulso.com', name:'Academia Impulso', initial:'AI', heroImg:'https://loremflickr.com/1280/720/classroom?lock=101', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(243,251,245,.74) 55%, rgba(243,251,245,.2) 100%)',
+      layout:'academy', heroStats:[{n:'20+',l:'cursos'},{n:'+500',l:'estudiantes'},{n:'98%',l:'satisfacción'}], domain:'academia-impulso.com', name:'Academia Impulso', initial:'AI', brandIcon:I.book, markRadius:'50%', heroImg:'assets/demos/hero-academia.jpg', heroPos:'70% center', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(243,251,245,.74) 55%, rgba(243,251,245,.2) 100%)',
       font:'Poppins:wght@500;600;700;800', head:"'Poppins',sans-serif", body:"'Poppins',system-ui,sans-serif", radius:'16px',
       p:'#16a34a', p2:'#0c7a52', bg:'#f3fbf5', surf:'#ffffff', ink:'#0f2a1c', mut:'#5b7567', line:'#dcefe2',
       navbg:'rgba(255,255,255,.85)', heroBg:'background:radial-gradient(120% 90% at 90% -10%,rgba(22,163,74,.16),transparent 55%),#f3fbf5;', badgeBg:'rgba(22,163,74,.12)',
@@ -2228,9 +2262,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       heroBadge:'Formación que transforma', heroTitle:'Aprende a tu <span style="color:#16a34a">ritmo</span>', heroSub:'Cursos prácticos impartidos por profesionales, con certificación y acompañamiento personalizado.', heroCta1:'Ver cursos', heroCta2:'Cómo funciona',
       gridTitle:'Cursos disponibles', gridSub:'Programas diseñados para impulsar tu carrera.',
       items:[
-        {tag:'Online', title:'Marketing digital', desc:'Estrategias para vender en internet.', meta:'8 semanas · Certificado', price:'$120', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('https://www.lobocom.es/recurso/noticia/plandemarketingdigital0.jpg') center/cover,linear-gradient(135deg,#45bf5b,#0c7a52)"},
-        {tag:'Presencial', title:'Diseño gráfico', desc:'De cero a portafolio profesional.', meta:'12 semanas · Certificado', price:'$180', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('https://www.ccnestudio.com/wp-content/uploads/Diseno-sin-titulo-25-1.jpg') center/cover,linear-gradient(135deg,#34c77a,#0a6a4a)"},
-        {tag:'Online', title:'Excel avanzado', desc:'Domina datos y automatiza tareas.', meta:'6 semanas · Certificado', price:'$90', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('https://aulaxativa.com/wp-content/uploads/2019/04/Curso-de-Microsoft-Excel-Avanzado.webp') center/cover,linear-gradient(135deg,#6bd089,#0c8a55)"}
+        {tag:'Online', title:'Marketing digital', desc:'Estrategias para vender en internet.', meta:'8 semanas · Certificado', price:'$120', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('assets/demos/detail-academia-marketing.jpg') center/cover,linear-gradient(135deg,#45bf5b,#0c7a52)"},
+        {tag:'Presencial', title:'Diseño gráfico', desc:'De cero a portafolio profesional.', meta:'12 semanas · Certificado', price:'$180', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('assets/demos/detail-academia-diseno.jpg') center/cover,linear-gradient(135deg,#34c77a,#0a6a4a)"},
+        {tag:'Online', title:'Excel avanzado', desc:'Domina datos y automatiza tareas.', meta:'6 semanas · Certificado', price:'$90', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('assets/demos/detail-academia-excel.jpg') center/cover,linear-gradient(135deg,#6bd089,#0c8a55)"}
       ],
       bandBg:'#ffffff', featIcon:'rgba(22,163,74,.12)',
       feats:[{icon:I.book,title:'Contenido práctico',desc:'Aprendes haciendo proyectos reales.'},{icon:I.user,title:'Tutores expertos',desc:'Acompañamiento durante todo el curso.'},{icon:I.award,title:'Certificación',desc:'Acredita tus nuevas habilidades.'}],
@@ -2243,7 +2277,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       ]
     },
     comercio:{
-      layout:'shop', domain:'tienda-nova.com', name:'Tienda Nova', initial:'TN', heroImg:'https://www.muycanal.com/wp-content/uploads/2019/01/BEEP.jpg', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(250,246,255,.74) 55%, rgba(250,246,255,.2) 100%)',
+      layout:'shop', domain:'tienda-nova.com', name:'Tienda Nova', initial:'TN', brandIcon:I.cart, markRadius:'12px', heroImg:'assets/demos/hero-comercio.jpg', heroPos:'72% center', heroOverlay:'linear-gradient(90deg, var(--bg) 0%, rgba(250,246,255,.74) 55%, rgba(250,246,255,.2) 100%)',
       font:'Poppins:wght@500;600;700;800', head:"'Poppins',sans-serif", body:"'Poppins',system-ui,sans-serif", radius:'16px',
       p:'#9333ea', p2:'#6d28d9', bg:'#faf6ff', surf:'#ffffff', ink:'#241338', mut:'#6b5a82', line:'#ece2f7',
       navbg:'rgba(255,255,255,.85)', heroBg:'background:radial-gradient(120% 90% at 90% -10%,rgba(147,51,234,.16),transparent 55%),#faf6ff;', badgeBg:'rgba(147,51,234,.12)',
@@ -2253,7 +2287,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       items:[
         {tag:'Nuevo', title:'Audífonos inalámbricos', desc:'Sonido envolvente y batería de 24h.', price:'$39.90', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('https://www.powerplanetonline.com/cdnassets/Sony-WH-1000XM6-negro-001_l.jpg') center/cover,linear-gradient(135deg,#a855f7,#6d28d9)"},
         {tag:'Oferta', title:'Smartwatch deportivo', desc:'Monitoreo de salud y notificaciones.', price:'$59.00', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('https://dsl.co.uk/cdn/shop/files/Main_hero_revised.png?v=1738228919') center/cover,linear-gradient(135deg,#c084fc,#7c3aed)"},
-        {tag:'Top', title:'Mochila antirrobo', desc:'Resistente, con puerto USB integrado.', price:'$34.50', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('mochila.png') center/cover,linear-gradient(135deg,#8b5cf6,#5b21b6)"}
+        {tag:'Top', title:'Mochila antirrobo', desc:'Resistente, con puerto USB integrado.', price:'$34.50', ph:"background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.5)),url('assets/demos/detail-comercio-mochila.jpg') center/cover,linear-gradient(135deg,#8b5cf6,#5b21b6)"}
       ],
       bandBg:'#ffffff', featIcon:'rgba(147,51,234,.12)',
       feats:[{icon:I.cart,title:'Pedido por WhatsApp',desc:'Compra en un par de toques.'},{icon:I.truck,title:'Envío a todo el país',desc:'Recibe donde estés.'},{icon:I.shield,title:'Compra segura',desc:'Pagos protegidos y garantía.'}],
@@ -2274,14 +2308,18 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
   var urlEl=document.getElementById('demoUrl');
   var stage=document.getElementById('demoStage');
   var lastFocus=null;
+  var currentDemoId='';
 
   function openDemo(id){
     var d=DEMOS[id]; if(!d) return;
+    currentDemoId=id;
     urlEl.textContent=d.domain;
     frame.srcdoc=renderDemo(d);
     stage.classList.remove('mobile');
     document.getElementById('devDesktop').classList.add('active');
+    document.getElementById('devDesktop').setAttribute('aria-pressed','true');
     document.getElementById('devMobile').classList.remove('active');
+    document.getElementById('devMobile').setAttribute('aria-pressed','false');
     lastFocus=document.activeElement;
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden','false');
@@ -2293,6 +2331,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
     overlay.setAttribute('aria-hidden','true');
     document.body.style.overflow='';
     frame.srcdoc='';
+    currentDemoId='';
     if(lastFocus) lastFocus.focus();
   }
 
@@ -2307,13 +2346,26 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
   document.getElementById('demoClose').addEventListener('click',closeDemo);
   overlay.querySelectorAll('[data-close]').forEach(function(el){ el.addEventListener('click',closeDemo); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&overlay.classList.contains('open')) closeDemo(); });
+  overlay.addEventListener('keydown',function(e){
+    if(e.key!=='Tab' || !overlay.classList.contains('open')) return;
+    var focusable=Array.from(overlay.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'))
+      .filter(function(el){ return el.offsetParent!==null; });
+    if(!focusable.length){ e.preventDefault(); return; }
+    var first=focusable[0], last=focusable[focusable.length-1];
+    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+  });
 
   // Conmutador escritorio / móvil
-  document.getElementById('devDesktop').addEventListener('click',function(){ stage.classList.remove('mobile'); this.classList.add('active'); document.getElementById('devMobile').classList.remove('active'); });
-  document.getElementById('devMobile').addEventListener('click',function(){ stage.classList.add('mobile'); this.classList.add('active'); document.getElementById('devDesktop').classList.remove('active'); });
+  document.getElementById('devDesktop').addEventListener('click',function(){ stage.classList.remove('mobile'); this.classList.add('active'); this.setAttribute('aria-pressed','true'); document.getElementById('devMobile').classList.remove('active'); document.getElementById('devMobile').setAttribute('aria-pressed','false'); });
+  document.getElementById('devMobile').addEventListener('click',function(){ stage.classList.add('mobile'); this.classList.add('active'); this.setAttribute('aria-pressed','true'); document.getElementById('devDesktop').classList.remove('active'); document.getElementById('devDesktop').setAttribute('aria-pressed','false'); });
 
   // "Quiero una web así" -> cierra y va al formulario
   document.getElementById('demoWant').addEventListener('click',function(){
+    var form=document.getElementById('leadForm');
+    var card=currentDemoId && document.querySelector('.open-demo[data-demo="'+currentDemoId+'"]');
+    var sector=card && card.querySelector('h3');
+    if(form && sector) form.dataset.interest='Demo: '+sector.textContent.trim();
     closeDemo();
     var c=document.getElementById('contacto');
     if(c) c.scrollIntoView({behavior:'smooth'});
