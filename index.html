@@ -1304,11 +1304,27 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 
   // Formulario -> WhatsApp (sin backend)
   var form=document.getElementById('leadForm');
+  function trackEvent(name, params) {
+    if (typeof window.gtag !== 'function') return;
+    window.gtag('event', name, params || {});
+  }
+  window.humaTrackEvent = trackEvent;
+  document.addEventListener('click',function(e){
+    var link=e.target.closest && e.target.closest('a[href]');
+    if(!link) return;
+    var href=link.getAttribute('href')||'';
+    if(/^https?:\/\/(?:www\.)?wa\.me\//i.test(href)) trackEvent('whatsapp_click',{link_location:link.className||'link'});
+    else if(/^mailto:/i.test(href)) trackEvent('email_click',{link_location:link.className||'link'});
+  });
   document.querySelectorAll('[data-plan-interest]').forEach(function(link){
     link.addEventListener('click',function(){
       var plan=link.closest('.plan');
       var name=plan && plan.querySelector('h3');
-      if(form && name) form.dataset.interest='Plan: '+name.textContent.trim();
+      if(form && name) {
+        var planName=name.textContent.trim();
+        form.dataset.interest='Plan: '+planName;
+        trackEvent('plan_click',{plan_name:planName});
+      }
     });
   });
   if(form){ form.addEventListener('submit',function(e){
@@ -1323,6 +1339,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
       +'*Necesito:* '+encodeURIComponent(tipo||'-')+'%0A'
       +(interest?'*Interés:* '+encodeURIComponent(interest)+'%0A':'')
       +'*Mensaje:* '+encodeURIComponent(msg||'-');
+    trackEvent('proposal_form_submit',{form_name:'proposal',lead_channel:'whatsapp'});
     window.open('https://wa.me/'+WHATSAPP+'?text='+t,'_blank','noopener,noreferrer');
   }); }
 
@@ -1833,7 +1850,12 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
     });
     lsw.addEventListener('click', function(e) { e.stopPropagation(); });
     document.getElementById('langMenu').querySelectorAll('[data-lang]').forEach(function(btn) {
-      btn.addEventListener('click', function() { setLang(btn.getAttribute('data-lang')); closeLangMenu(); });
+      btn.addEventListener('click', function() {
+        var selectedLang=btn.getAttribute('data-lang');
+        setLang(selectedLang);
+        trackEvent('language_change',{language:selectedLang});
+        closeLangMenu();
+      });
     });
   }
 
@@ -2535,8 +2557,11 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
   // Abrir desde las tarjetas de proyectos
   document.querySelectorAll('.open-demo').forEach(function(card){
     var id=card.getAttribute('data-demo');
-    card.addEventListener('click',function(){ openDemo(id); });
-    card.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openDemo(id); } });
+    card.addEventListener('click',function(){
+      if(window.humaTrackEvent) window.humaTrackEvent('project_click',{project_id:id});
+      openDemo(id);
+    });
+    card.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); if(window.humaTrackEvent) window.humaTrackEvent('project_click',{project_id:id}); openDemo(id); } });
   });
 
   // Cerrar
