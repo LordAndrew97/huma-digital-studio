@@ -50,11 +50,13 @@
 <link rel="icon" type="image/png" href="favicon-huma.png" />
 <link rel="apple-touch-icon" href="favicon-huma.png" />
 
-<!-- Tipografías -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=optional" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-<noscript><link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=optional" rel="stylesheet" /></noscript>
+<!-- Tipografías locales: evita el intercambio de fuentes y la dependencia crítica de terceros -->
+<link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin />
+<style>
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400 700;font-display:swap;src:url('assets/fonts/manrope-latin.woff2') format('woff2');}
+@font-face{font-family:'Sora';font-style:normal;font-weight:400 800;font-display:swap;src:url('assets/fonts/sora-latin.woff2') format('woff2');}
+</style>
 
 <!-- Datos estructurados (SEO) -->
 <script type="application/ld+json">
@@ -189,7 +191,7 @@ header.nav.scrolled{ padding:10px 0; background:rgba(6,14,28,.72); backdrop-filt
 .hero-grid{ position:relative; z-index:3; display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; }
 .hero-copy{ max-width:600px; }
 .hero-badge{ display:inline-flex; align-items:center; gap:8px; padding:7px 14px; border-radius:40px; background:var(--glass); border:1px solid var(--glass-border); font-size:.82rem; color:var(--on-dark-muted); margin-bottom:22px; }
-.hero-badge .dot{ width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 0 rgba(69,191,91,.6); animation:pulse 2.4s infinite; }
+.hero-badge .dot{ width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 0 rgba(69,191,91,.6); }
 @keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(69,191,91,.6);} 70%{ box-shadow:0 0 0 9px rgba(69,191,91,0);} 100%{ box-shadow:0 0 0 0 rgba(69,191,91,0);} }
 .hero h1{ font-size:clamp(2.4rem, 5.4vw, 4.05rem); font-weight:800; margin-bottom:22px; }
 .hero p.lead{ font-size:clamp(1.04rem, 1.6vw, 1.18rem); color:var(--on-dark-muted); margin-bottom:34px; max-width:540px; }
@@ -241,7 +243,7 @@ header.nav.scrolled{ padding:10px 0; background:rgba(6,14,28,.72); backdrop-filt
 .scroll-cue{ position:absolute; left:50%; bottom:22px; transform:translateX(-50%); z-index:3; display:flex; flex-direction:column; align-items:center; gap:7px; color:var(--on-dark-muted); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; }
 .scroll-cue .mouse{ width:22px; height:36px; border:2px solid var(--on-dark-muted); border-radius:14px; position:relative; }
 .scroll-cue .mouse::before{ content:""; position:absolute; top:6px; left:50%; transform:translateX(-50%); width:3px; height:7px; border-radius:3px; background:var(--on-dark-muted); animation:scrolldot 1.8s infinite; }
-@keyframes scrolldot{ 0%{ opacity:0; top:6px;} 40%{ opacity:1;} 80%{ opacity:0; top:18px;} 100%{ opacity:0;} }
+@keyframes scrolldot{ 0%,100%{ opacity:0; transform:translate(-50%,0);} 40%{ opacity:1; transform:translate(-50%,0);} 80%{ opacity:0; transform:translate(-50%,12px);} }
 
 /* ============================================================
    6. BANDA DE SECTORES + STATS
@@ -1233,7 +1235,18 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, select:focus-vi
 
   // Barra de progreso de scroll
   var prog=document.getElementById('scroll-progress');
-  function updateProgress(){ var h=document.documentElement.scrollHeight-window.innerHeight; prog.style.width=h>0?Math.round(window.scrollY/h*1000)/10+'%':'0%'; }
+  var progressFrame=0, progressMax=0;
+  function measureProgress(){ progressMax=Math.max(0,document.documentElement.scrollHeight-window.innerHeight); }
+  function updateProgress(){
+    if(progressFrame) return;
+    progressFrame=requestAnimationFrame(function(){
+      progressFrame=0;
+      var h=progressMax;
+      prog.style.width=h>0?Math.round(window.scrollY/h*1000)/10+'%':'0%';
+    });
+  }
+  measureProgress();
+  window.addEventListener('resize',function(){ measureProgress(); updateProgress(); },{passive:true});
   window.addEventListener('scroll',updateProgress,{passive:true});
 
   // Header scroll
