@@ -1,0 +1,81 @@
+name: Deploy Cloudflare preview
+
+on:
+  push:
+    branches:
+      - feature/automated-demo
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    environment: cloudflareapi
+    steps:
+      - name: Check out the feature branch
+        uses: actions/checkout@v4
+
+      - name: Discover the Cloudflare Pages project
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          auth_header="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          accounts_json="$(curl --fail --silent --show-error --header "${auth_header}" "https://api.cloudflare.com/client/v4/accounts")"
+
+          account_id="$(jq -r '
+            if .success == true and (.result | length) == 1
+            then .result[0].id
+            else empty
+            end
+          ' <<<"${accounts_json}")"
+
+          if [[ -z "${account_id}" ]]; then
+            echo "The token must provide access to exactly one Cloudflare account." >&2
+            exit 1
+          fi
+
+          projects_json="$(curl --fail --silent --show-error --header "${auth_header}" "https://api.cloudflare.com/client/v4/accounts/${account_id}/pages/projects")"
+
+          project_name="$(jq -r --arg repository "${GITHUB_REPOSITORY}" '
+            def repo_short: ($repository | split("/") | last);
+            [
+              .result[]
+              | select(
+                  .source.config.repo_name == $repository
+                  or .source.config.repo_name == repo_short
+                )
+            ] as $matching
+            | if ($matching | length) == 1 then $matching[0].name
+              elif (.result | length) == 1 then .result[0].name
+              else empty
+              end
+          ' <<<"${projects_json}")"
+
+          if [[ -z "${project_name}" ]]; then
+            echo "Cloudflare returned several Pages projects and none matched ${GITHUB_REPOSITORY}." >&2
+            jq -r '.result[].name' <<<"${projects_json}" >&2
+            exit 1
+          fi
+
+          {
+            echo "CLOUDFLARE_ACCOUNT_ID=${account_id}"
+            echo "CLOUDFLARE_PAGES_PROJECT=${project_name}"
+          } >> "${GITHUB_ENV}"
+
+      - name: Prepare the static site
+        shell: bash
+        run: |
+          mkdir -p dist
+          rsync -a --exclude '.git/' --exclude '.github/' --exclude '.gitignore' --exclude 'README.md' ./ dist/
+
+      - name: Publish the preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        shell: bash
+        run: |
+          npx --yes wrangler@4 pages deploy dist --project-name "${CLOUDFLARE_PAGES_PROJECT}" --branch "automated-demo" --commit-hash "${GITHUB_SHA}" --commit-dirty=false
