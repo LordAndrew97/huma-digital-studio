@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#060e1c" />
+  <title>Crea tu demo web gratis | HUMA Digital Studio</title>
+  <meta name="description" content="Genera una primera versión de la web de tu negocio en pocos minutos." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/demo-generator.css" />
+</head>
+<body>
+  <a class="skip" href="#demoForm">Ir al formulario</a>
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Volver a HUMA Digital Studio">
+      <img src="logo-huma.png" alt="HUMA Digital Studio" />
+    </a>
+    <div class="topbar-meta">
+      <span class="secure"><span aria-hidden="true">●</span> Demo gratuita</span>
+      <a href="index.html">Volver a HUMA</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="intro-glow" aria-hidden="true"></div>
+      <div class="intro-copy">
+        <p class="eyebrow">Primera versión en minutos</p>
+        <h1>Cuéntanos sobre tu negocio y <span>mira cómo podría verse tu web</span></h1>
+        <p>Completa la información esencial. Crearemos una one-page personalizada que podrás revisar en ordenador y móvil, sin compromiso.</p>
+        <div class="promise-list" aria-label="Ventajas">
+          <span>Vista previa inmediata</span>
+          <span>Diseño adaptable</span>
+          <span>Sin tarjeta ni pago</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="builder" aria-label="Generador de demo web">
+      <div class="form-panel" id="formPanel">
+        <div class="panel-heading">
+          <div>
+            <p class="step-label" id="stepLabel">Paso 1 de 3</p>
+            <h2 id="stepTitle">Tu negocio</h2>
+          </div>
+          <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+        </div>
+
+        <form id="demoForm" novalidate>
+          <fieldset class="form-step active" data-step="1">
+            <legend>Información principal</legend>
+            <div class="field">
+              <label for="businessName">Nombre del negocio <em>*</em></label>
+              <input id="businessName" name="businessName" type="text" maxlength="80" autocomplete="organization" placeholder="Ej. Clínica Dental Sonrisa" required />
+              <small class="error" data-error-for="businessName"></small>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label for="sector">Tipo de negocio <em>*</em></label>
+                <select id="sector" name="sector" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="health">Clínica o salud</option>
+                  <option value="restaurant">Restaurante o cafetería</option>
+                  <option value="professional">Servicios profesionales</option>
+                  <option value="realestate">Inmobiliaria</option>
+                  <option value="education">Academia o formación</option>
+                  <option value="commerce">Comercio o tienda</option>
+                  <option value="beauty">Belleza y bienestar</option>
+                  <option value="other">Otro</option>
+                </select>
+                <small class="error" data-error-for="sector"></small>
+              </div>
+              <div class="field">
+                <label for="city">Ciudad o zona</label>
+                <input id="city" name="city" type="text" maxlength="70" autocomplete="address-level2" placeholder="Ej. Valencia" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="businessDescription">¿Qué ofrece tu negocio? <em>*</em></label>
+              <textarea id="businessDescription" name="businessDescription" maxlength="360" rows="4" placeholder="Describe brevemente lo que haces, a quién ayudas y qué te diferencia." required></textarea>
+              <div class="field-meta"><small class="error" data-error-for="businessDescription"></small><small><span data-count="businessDescription">0</span>/360</small></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-step" data-step="2">
+            <legend>Contenido de la web</legend>
+            <div class="field">
+              <label for="headline">Mensaje principal</label>
+              <input id="headline" name="headline" type="text" maxlength="100" placeholder="Ej. Cuidamos tu sonrisa con atención cercana" />
+              <small>Si lo dejas vacío, crearemos uno según tu sector.</small>
+            </div>
+            <div class="field">
+              <label>Servicios principales <em>*</em></label>
+              <div class="service-fields">
+                <input id="service1" name="service1" type="text" maxlength="60" placeholder="Servicio 1" required />
+                <input id="service2" name="service2" type="text" maxlength="60" placeholder="Servicio 2" required />
+                <input id="service3" name="service3" type="text" maxlength="60" placeholder="Servicio 3" required />
+              </div>
+              <small class="error" data-error-for="services"></small>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label for="phone">WhatsApp o teléfono</label>
+                <input id="phone" name="phone" type="tel" maxlength="30" autocomplete="tel" placeholder="Ej. +34 600 000 000" />
+              </div>
+              <div class="field">
+                <label for="email">Correo de contacto</label>
+                <input id="email" name="email" type="email" maxlength="120" autocomplete="email" placeholder="hola@tunegocio.com" />
+                <small class="error" data-error-for="email"></small>
+              </div>
+            </div>
+            <div class="field">
+              <label for="ctaText">Acción que quieres que realice el cliente</label>
+              <select id="ctaText" name="ctaText">
+                <option value="Solicitar información">Solicitar información</option>
+                <option value="Reservar una cita">Reservar una cita</option>
+                <option value="Pedir presupuesto">Pedir presupuesto</option>
+                <option value="Ver servicios">Ver servicios</option>
+                <option value="Hacer un pedido">Hacer un pedido</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-step" data-step="3">
+            <legend>Estilo y contacto</legend>
+            <div class="field">
+              <label>Estilo visual</label>
+              <div class="style-options">
+                <label><input type="radio" name="style" value="modern" checked /><span><b>Moderno</b><small>Limpio y dinámico</small></span></label>
+                <label><input type="radio" name="style" value="elegant" /><span><b>Elegante</b><small>Sobrio y premium</small></span></label>
+                <label><input type="radio" name="style" value="warm" /><span><b>Cercano</b><small>Cálido y natural</small></span></label>
+              </div>
+            </div>
+            <div class="field">
+              <label>Color principal</label>
+              <div class="color-options" role="radiogroup" aria-label="Color principal">
+                <label><input type="radio" name="color" value="blue" checked /><span style="--swatch:#1769e0" title="Azul"></span></label>
+                <label><input type="radio" name="color" value="green" /><span style="--swatch:#16896a" title="Verde"></span></label>
+                <label><input type="radio" name="color" value="purple" /><span style="--swatch:#7752c8" title="Morado"></span></label>
+                <label><input type="radio" name="color" value="terracotta" /><span style="--swatch:#c65d42" title="Terracota"></span></label>
+                <label><input type="radio" name="color" value="black" /><span style="--swatch:#17191f" title="Negro"></span></label>
+              </div>
+            </div>
+            <div class="field">
+              <label for="contactName">Tu nombre <em>*</em></label>
+              <input id="contactName" name="contactName" type="text" maxlength="80" autocomplete="name" placeholder="Nombre de la persona de contacto" required />
+              <small class="error" data-error-for="contactName"></small>
+            </div>
+            <label class="consent">
+              <input id="consent" name="consent" type="checkbox" required />
+              <span>Acepto que HUMA utilice estos datos para preparar mi demo y contactarme sobre este proyecto. <em>*</em></span>
+            </label>
+            <small class="error consent-error" data-error-for="consent"></small>
+            <div class="privacy-note">En este prototipo la información se procesa únicamente en tu navegador y todavía no se almacena ni se envía a HUMA.</div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button class="button button-secondary" id="backButton" type="button" hidden>Anterior</button>
+            <button class="button button-primary" id="nextButton" type="button">Continuar</button>
+            <button class="button button-primary generate" id="generateButton" type="submit" hidden>
+              <span>Generar mi demo</span><i aria-hidden="true"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="preview-panel" id="previewPanel">
+        <div class="preview-empty" id="previewEmpty">
+          <div class="preview-illustration" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <p class="preview-kicker">Vista previa</p>
+          <h2>Tu web aparecerá aquí</h2>
+          <p>Completa los tres pasos para crear una propuesta visual adaptada a tu negocio.</p>
+        </div>
+
+        <div class="preview-result" id="previewResult" hidden>
+          <div class="preview-toolbar">
+            <div class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="preview-url"><span aria-hidden="true">▣</span><span id="previewDomain">tunegocio.com</span></div>
+            <div class="device-switch" aria-label="Cambiar vista">
+              <button type="button" data-device="desktop" class="active" aria-label="Vista de ordenador">▰</button>
+              <button type="button" data-device="mobile" aria-label="Vista móvil">▯</button>
+            </div>
+          </div>
+          <div class="preview-stage" id="previewStage">
+            <iframe id="previewFrame" title="Vista previa de tu demo web" sandbox="allow-popups"></iframe>
+          </div>
+          <div class="result-actions">
+            <div><b>Tu primera versión está lista</b><span>Podemos convertirla en una web publicada y personalizada.</span></div>
+            <a class="button button-primary" id="contactHuma" href="#">Quiero continuar con HUMA</a>
+            <button class="text-button" id="editButton" type="button">Modificar respuestas</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> HUMA Digital Studio</span>
+    <span>Esta es una propuesta visual automática; el resultado final puede personalizarse.</span>
+  </footer>
+
+  <script src="assets/demo-generator.js" defer></script>
+</body>
+</html>
