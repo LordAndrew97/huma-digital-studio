@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
+  <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#060e1c" />
   <title>Crea tu demo web gratis | HUMA Digital Studio</title>
   <meta name="description" content="Genera una primera versión de la web de tu negocio en pocos minutos." />
+  <link rel="canonical" href="https://www.humadigitalstudio.com/demo" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Crea tu demo web gratis | HUMA Digital Studio" />
+  <meta property="og:description" content="Genera una primera versión de la web de tu negocio en pocos minutos." />
+  <meta property="og:url" content="https://www.humadigitalstudio.com/demo" />
+  <meta property="og:image" content="https://www.humadigitalstudio.com/og-image.jpg" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Generador de demo web HUMA","url":"https://www.humadigitalstudio.com/demo","applicationCategory":"DesignApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"provider":{"@type":"Organization","name":"HUMA Digital Studio","url":"https://www.humadigitalstudio.com/"}}</script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/sora-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -16,12 +23,12 @@
   <a class="skip" href="#demoForm">Ir al formulario</a>
 
   <header class="topbar">
-    <a class="brand" href="index.html" aria-label="Volver a HUMA Digital Studio">
-      <img src="logo-huma.png" alt="HUMA Digital Studio" />
+    <a class="brand" href="/" aria-label="Volver a HUMA Digital Studio">
+      <img src="logo-huma.png" alt="HUMA Digital Studio" width="520" height="180" />
     </a>
     <div class="topbar-meta">
       <span class="secure"><span aria-hidden="true">●</span> Demo gratuita</span>
-      <a href="index.html">Volver a HUMA</a>
+      <a href="/">Volver a HUMA</a>
     </div>
   </header>
 
@@ -105,7 +112,7 @@
             <div class="field-grid">
               <div class="field">
                 <label for="phone">WhatsApp o teléfono</label>
-                <input id="phone" name="phone" type="tel" maxlength="30" autocomplete="tel" placeholder="Ej. +34 600 000 000" />
+              <input id="phone" name="phone" type="tel" maxlength="30" autocomplete="tel" inputmode="tel" placeholder="Ej. +34 600 000 000" />
               </div>
               <div class="field">
                 <label for="email">Correo de contacto</label>
@@ -183,8 +190,8 @@
             <div class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></div>
             <div class="preview-url"><span aria-hidden="true">▣</span><span id="previewDomain">tunegocio.com</span></div>
             <div class="device-switch" aria-label="Cambiar vista">
-              <button type="button" data-device="desktop" class="active" aria-label="Vista de ordenador">▰</button>
-              <button type="button" data-device="mobile" aria-label="Vista móvil">▯</button>
+              <button type="button" data-device="desktop" class="active" aria-label="Vista de ordenador" aria-pressed="true">▰</button>
+              <button type="button" data-device="mobile" aria-label="Vista móvil" aria-pressed="false">▯</button>
             </div>
           </div>
           <div class="preview-stage" id="previewStage">

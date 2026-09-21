@@ -16,14 +16,16 @@ automáticamente.
 
 | Archivo                              | Descripción                                          |
 |--------------------------------------|------------------------------------------------------|
-| `index.html`                         | Página principal (todo el sitio en un solo archivo). |
+| `index.html`                         | Estructura semántica de la página principal.         |
+| `assets/site.css` / `assets/site.js` | Estilos y comportamiento de la página principal.     |
+| `demo.html`                          | Generador de demo accesible desde `/demo`.            |
 | `favicon.svg` / `favicon-huma.png`   | Iconos del sitio.                                    |
-| `og-image.png`                       | Imagen para compartir en redes (Open Graph).         |
-| `*.png`                              | Imágenes utilizadas por las demostraciones.         |
+| `og-image.jpg`                       | Imagen optimizada para compartir en redes.           |
 | `robots.txt`                         | Instrucciones para buscadores.                       |
 | `sitemap.xml`                        | Mapa del sitio para SEO.                             |
 | `_headers`                           | Cabeceras de seguridad y caché (Cloudflare).         |
 | `404.html`                           | Página de error personalizada.                       |
+| `scripts/validate-site.mjs`          | Validación automática de enlaces, IDs y dependencias.|
 
 ## ✏️ Cómo hacer cambios
 

@@ -22,6 +22,29 @@
   var previewFrame = document.getElementById('previewFrame');
   var previewStage = document.getElementById('previewStage');
   var contactHuma = document.getElementById('contactHuma');
+  var localImages = [
+    'assets/demos/hero-clinica.jpg','assets/demos/detail-clinica-medicina.jpg','assets/demos/detail-clinica-odontologia.jpg','assets/demos/detail-clinica-pediatria.jpg',
+    'assets/demos/hero-restaurante.jpg','assets/demos/hero-legal.jpg','assets/demos/hero-inmobiliaria.jpg','assets/demos/detail-inmobiliaria-casa.jpg','assets/demos/detail-inmobiliaria-departamento.jpg','assets/demos/detail-inmobiliaria-loft.jpg',
+    'assets/demos/hero-academia.jpg','assets/demos/detail-academia-diseno.jpg','assets/demos/detail-academia-excel.jpg','assets/demos/detail-academia-marketing.jpg',
+    'assets/demos/hero-comercio.jpg','assets/demos/detail-comercio-mochila.jpg','assets/cards/card-restaurante.jpg','assets/cards/card-comercio.jpg'
+  ];
+
+  function trackEvent(name, params) {
+    if (typeof window.gtag === 'function') window.gtag('event', name, params || {});
+  }
+
+  try {
+    if (localStorage.getItem('huma_cookie_consent') === 'accepted') {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', 'G-31GKJRK2TV');
+      var analytics = document.createElement('script');
+      analytics.async = true;
+      analytics.src = 'https://www.googletagmanager.com/gtag/js?id=G-31GKJRK2TV';
+      document.head.appendChild(analytics);
+    }
+  } catch (error) {}
 
   var sectorDefaults = {
     health: { headline: 'Tu bienestar, en buenas manos', eyebrow: 'Atención profesional y cercana', about: 'Un equipo comprometido con ofrecerte una atención rigurosa, humana y adaptada a tus necesidades.', icon: '✦' },
@@ -126,8 +149,10 @@
     return normalized.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 42) + '.com';
   }
 
-  function imageUrl(photoId, width) {
-    return 'https://images.unsplash.com/' + photoId + '?auto=format&fit=crop&w=' + (width || 1200) + '&q=82';
+  function imageUrl(photoId) {
+    var hash = 0;
+    for (var index = 0; index < photoId.length; index += 1) hash = ((hash << 5) - hash + photoId.charCodeAt(index)) | 0;
+    return localImages[Math.abs(hash) % localImages.length];
   }
 
   function pickSectorImages(sector, count) {
@@ -139,7 +164,7 @@
       pool[randomIndex] = temporary;
     }
     return pool.slice(0, count).map(function (photoId, index) {
-      return imageUrl(photoId, index === 0 ? 1600 : 1000);
+      return imageUrl(photoId);
     });
   }
 
@@ -174,6 +199,11 @@
       showError('consent', missingConsent ? 'Necesitamos tu aceptación para continuar.' : '');
       valid = !missingName && !missingConsent;
     }
+    if (!valid) {
+      var invalid = steps[step - 1].querySelector('.invalid, input:invalid, select:invalid, textarea:invalid');
+      if (invalid) invalid.focus();
+      trackEvent('demo_validation_error', { step: step });
+    }
     return valid;
   }
 
@@ -188,6 +218,7 @@
     backButton.hidden = currentStep === 1;
     nextButton.hidden = currentStep === 3;
     generateButton.hidden = currentStep !== 3;
+    trackEvent('demo_step_view', { step: currentStep });
     document.getElementById('formPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -255,12 +286,16 @@
   function render(data) {
     previewFrame.srcdoc = buildPreview(data);
     document.getElementById('previewDomain').textContent = safeDomain(data.businessName);
-    var text = 'Hola HUMA Digital Studio, he creado una demo para ' + data.businessName + ' y quiero continuar con el proyecto.';
+    var text = 'Hola HUMA Digital Studio, he creado una demo y quiero continuar con el proyecto.\n\n' +
+      'Negocio: ' + data.businessName + '\nSector: ' + data.sector + '\nCiudad: ' + (data.city || '-') +
+      '\nServicios: ' + data.services.join(', ') + '\nEstilo: ' + data.style + '\nColor: ' + data.color +
+      '\nContacto: ' + data.contactName + (data.email ? ' · ' + data.email : '') + (data.phone ? ' · ' + data.phone : '');
     contactHuma.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text);
     contactHuma.target = '_blank';
     contactHuma.rel = 'noopener noreferrer';
     previewEmpty.hidden = true;
     previewResult.hidden = false;
+    trackEvent('demo_generated', { sector: data.sector, style: data.style, color: data.color });
     previewResult.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -285,10 +320,13 @@
     document.getElementById('formPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
+  contactHuma.addEventListener('click', function () { trackEvent('demo_lead_whatsapp', { lead_source: 'demo_generator' }); });
+
   document.querySelectorAll('[data-device]').forEach(function (button) {
     button.addEventListener('click', function () {
       document.querySelectorAll('[data-device]').forEach(function (item) { item.classList.remove('active'); });
       button.classList.add('active');
+      document.querySelectorAll('[data-device]').forEach(function (item) { item.setAttribute('aria-pressed', item === button ? 'true' : 'false'); });
       previewStage.classList.toggle('mobile', button.dataset.device === 'mobile');
     });
   });
