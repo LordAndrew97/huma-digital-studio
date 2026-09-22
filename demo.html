@@ -103,9 +103,9 @@
             <div class="field">
               <label>Servicios principales <em>*</em></label>
               <div class="service-fields">
-                <input id="service1" name="service1" type="text" maxlength="60" placeholder="Servicio 1" required />
-                <input id="service2" name="service2" type="text" maxlength="60" placeholder="Servicio 2" required />
-                <input id="service3" name="service3" type="text" maxlength="60" placeholder="Servicio 3" required />
+                <input id="service1" name="service1" type="text" maxlength="60" placeholder="Servicio 1" aria-label="Servicio principal 1" required />
+                <input id="service2" name="service2" type="text" maxlength="60" placeholder="Servicio 2" aria-label="Servicio principal 2" required />
+                <input id="service3" name="service3" type="text" maxlength="60" placeholder="Servicio 3" aria-label="Servicio principal 3" required />
               </div>
               <small class="error" data-error-for="services"></small>
             </div>
@@ -159,10 +159,10 @@
             </div>
             <label class="consent">
               <input id="consent" name="consent" type="checkbox" required />
-              <span>Acepto que HUMA utilice estos datos para preparar mi demo y contactarme sobre este proyecto. <em>*</em></span>
+              <span>Entiendo que la demo se genera en mi navegador y que mis datos solo se compartirán con HUMA si pulso «Quiero continuar con HUMA». <em>*</em></span>
             </label>
             <small class="error consent-error" data-error-for="consent"></small>
-            <div class="privacy-note">En este prototipo la información se procesa únicamente en tu navegador y todavía no se almacena ni se envía a HUMA.</div>
+            <div class="privacy-note">La información se procesa únicamente en tu navegador. No se almacena ni se envía a HUMA durante la generación.</div>
           </fieldset>
 
           <div class="form-actions">
