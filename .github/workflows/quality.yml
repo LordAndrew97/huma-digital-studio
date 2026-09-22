@@ -17,5 +17,7 @@ jobs:
         with:
           node-version: 22
       - run: node --check assets/site.js
+      - run: node --check assets/demo-image-selector.js
       - run: node --check assets/demo-generator.js
+      - run: node scripts/test-demo-images.cjs
       - run: node scripts/validate-site.mjs
