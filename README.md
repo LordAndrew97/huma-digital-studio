@@ -19,6 +19,7 @@ automáticamente.
 | `index.html`                         | Estructura semántica de la página principal.         |
 | `assets/site.css` / `assets/site.js` | Estilos y comportamiento de la página principal.     |
 | `demo.html`                          | Generador de demo accesible desde `/demo`.            |
+| `assets/demo-image-selector.js`      | Selección contextual de imágenes según el negocio.    |
 | `favicon.svg` / `favicon-huma.png`   | Iconos del sitio.                                    |
 | `og-image.jpg`                       | Imagen optimizada para compartir en redes.           |
 | `robots.txt`                         | Instrucciones para buscadores.                       |
@@ -26,6 +27,7 @@ automáticamente.
 | `_headers`                           | Cabeceras de seguridad y caché (Cloudflare).         |
 | `404.html`                           | Página de error personalizada.                       |
 | `scripts/validate-site.mjs`          | Validación automática de enlaces, IDs y dependencias.|
+| `scripts/test-demo-images.cjs`       | Pruebas de relación entre negocio e imágenes.         |
 
 ## ✏️ Cómo hacer cambios
 

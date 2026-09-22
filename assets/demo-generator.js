@@ -22,12 +22,6 @@
   var previewFrame = document.getElementById('previewFrame');
   var previewStage = document.getElementById('previewStage');
   var contactHuma = document.getElementById('contactHuma');
-  var localImages = [
-    'assets/demos/hero-clinica.jpg','assets/demos/detail-clinica-medicina.jpg','assets/demos/detail-clinica-odontologia.jpg','assets/demos/detail-clinica-pediatria.jpg',
-    'assets/demos/hero-restaurante.jpg','assets/demos/hero-legal.jpg','assets/demos/hero-inmobiliaria.jpg','assets/demos/detail-inmobiliaria-casa.jpg','assets/demos/detail-inmobiliaria-departamento.jpg','assets/demos/detail-inmobiliaria-loft.jpg',
-    'assets/demos/hero-academia.jpg','assets/demos/detail-academia-diseno.jpg','assets/demos/detail-academia-excel.jpg','assets/demos/detail-academia-marketing.jpg',
-    'assets/demos/hero-comercio.jpg','assets/demos/detail-comercio-mochila.jpg','assets/cards/card-restaurante.jpg','assets/cards/card-comercio.jpg'
-  ];
 
   function trackEvent(name, params) {
     if (typeof window.gtag === 'function') window.gtag('event', name, params || {});
@@ -55,65 +49,6 @@
     commerce: { headline: 'Lo que buscas, más cerca de ti', eyebrow: 'Calidad y atención en cada compra', about: 'Seleccionamos productos y soluciones pensados para hacer tu día a día más fácil.', icon: '◇' },
     beauty: { headline: 'Un espacio creado para cuidarte', eyebrow: 'Bienestar que se nota', about: 'Tratamientos y experiencias personalizadas para que te sientas bien por dentro y por fuera.', icon: '✧' },
     other: { headline: 'Una forma diferente de hacer las cosas', eyebrow: 'Calidad, cercanía y confianza', about: 'Conoce una propuesta creada para ayudarte con atención personalizada y resultados que marcan la diferencia.', icon: '●' }
-  };
-
-  var sectorImages = {
-    health: [
-      'photo-1516841273335-e39b37888115', 'photo-1538108149393-fbbd81895907',
-      'photo-1576091160399-112ba8d25d1d', 'photo-1584982751601-97dcc096659c',
-      'photo-1532938911079-1b06ac7ceec7', 'photo-1629909613654-28e377c37b09',
-      'photo-1622253692010-333f2da6031d', 'photo-1606811971618-4486d14f3f99',
-      'photo-1666214280557-f1b5022eb634', 'photo-1588776814546-1ffcf47267a5'
-    ],
-    restaurant: [
-      'photo-1517248135467-4c7edcad34c4', 'photo-1414235077428-338989a2e8c0',
-      'photo-1555396273-367ea4eb4db5', 'photo-1504674900247-0877df9cc836',
-      'photo-1550966871-3ed3cdb5ed0d', 'photo-1515003197210-e0cd71810b5f',
-      'photo-1544148103-0773bf10d330', 'photo-1569058242253-92a9c755a0ec',
-      'photo-1514933651103-005eec06c04b', 'photo-1508424757105-b6d5ad9329d0'
-    ],
-    professional: [
-      'photo-1521737711867-e3b97375f902', 'photo-1497366754035-f200968a6e72',
-      'photo-1497366811353-6870744d04b2', 'photo-1556761175-b413da4baf72',
-      'photo-1556761175-4b46a572b786', 'photo-1524758631624-e2822e304c36',
-      'photo-1542744173-8e7e53415bb0', 'photo-1522071820081-009f0129c71c',
-      'photo-1551836022-d5d88e9218df', 'photo-1504384308090-c894fdcc538d'
-    ],
-    realestate: [
-      'photo-1600585154340-be6161a56a0c', 'photo-1600566753190-17f0baa2a6c3',
-      'photo-1600607687939-ce8a6c25118c', 'photo-1600607687920-4e2a09cf159d',
-      'photo-1613490493576-7fde63acd811', 'photo-1600047509807-ba8f99d2cdde',
-      'photo-1600573472550-8090b5e0745e', 'photo-1600607688969-a5bfcd646154',
-      'photo-1600566753086-00f18fb6b3ea', 'photo-1600596542815-ffad4c1539a9'
-    ],
-    education: [
-      'photo-1523240795612-9a054b0db644', 'photo-1509062522246-3755977927d7',
-      'photo-1523050854058-8df90110c9f1', 'photo-1577896851231-70ef18881754',
-      'photo-1519452575417-564c1401ecc0', 'photo-1503676260728-1c00da094a0b',
-      'photo-1522202176988-66273c2fd55f', 'photo-1427504494785-3a9ca7044f45',
-      'photo-1516321318423-f06f85e504b3', 'photo-1532012197267-da84d127e765'
-    ],
-    commerce: [
-      'photo-1441986300917-64674bd600d8', 'photo-1556742049-0cfed4f6a45d',
-      'photo-1604719312566-8912e9227c6a', 'photo-1607082348824-0a96f2a4b9da',
-      'photo-1472851294608-062f824d29cc', 'photo-1534452203293-494d7ddbf7e0',
-      'photo-1528698827591-e19ccd7bc23d', 'photo-1578916171728-46686eac8d58',
-      'photo-1601598851547-4302969d0614', 'photo-1555529669-e69e7aa0ba9a'
-    ],
-    beauty: [
-      'photo-1560066984-138dadb4c035', 'photo-1522337360788-8b13dee7a37e',
-      'photo-1600948836101-f9ffda59d250', 'photo-1562322140-8baeececf3df',
-      'photo-1616394584738-fc6e612e71b9', 'photo-1516975080664-ed2fc6a32937',
-      'photo-1487412912498-0447578fcca8', 'photo-1521590832167-7bcbfaa6381f',
-      'photo-1608248543803-ba4f8c70ae0b', 'photo-1570172619644-dfd03ed5d881'
-    ],
-    other: [
-      'photo-1497366754035-f200968a6e72', 'photo-1522071820081-009f0129c71c',
-      'photo-1497215728101-856f4ea42174', 'photo-1497366811364-ccf3f6e0b8dd',
-      'photo-1504384308090-c894fdcc538d', 'photo-1556761175-b413da4baf72',
-      'photo-1524758631624-e2822e304c36', 'photo-1497366216548-37526070297c',
-      'photo-1521737711867-e3b97375f902', 'photo-1542744173-8e7e53415bb0'
-    ]
   };
 
   var palettes = {
@@ -147,25 +82,6 @@
   function safeDomain(name) {
     var normalized = String(name || 'tu-negocio').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     return normalized.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 42) + '.com';
-  }
-
-  function imageUrl(photoId) {
-    var hash = 0;
-    for (var index = 0; index < photoId.length; index += 1) hash = ((hash << 5) - hash + photoId.charCodeAt(index)) | 0;
-    return localImages[Math.abs(hash) % localImages.length];
-  }
-
-  function pickSectorImages(sector, count) {
-    var pool = (sectorImages[sector] || sectorImages.other).slice();
-    for (var index = pool.length - 1; index > 0; index -= 1) {
-      var randomIndex = Math.floor(Math.random() * (index + 1));
-      var temporary = pool[index];
-      pool[index] = pool[randomIndex];
-      pool[randomIndex] = temporary;
-    }
-    return pool.slice(0, count).map(function (photoId, index) {
-      return imageUrl(photoId);
-    });
   }
 
   function showError(field, message) {
@@ -242,7 +158,8 @@
   function buildPreview(data) {
     var defaults = sectorDefaults[data.sector] || sectorDefaults.other;
     var palette = palettes[data.color] || palettes.blue;
-    var images = pickSectorImages(data.sector, 3);
+    var imageProfile = window.HumaDemoImages.select(data);
+    var images = imageProfile.images;
     var business = escapeHtml(data.businessName);
     var headline = escapeHtml(data.headline || defaults.headline);
     var description = escapeHtml(data.description);
@@ -253,7 +170,7 @@
     var phone = escapeHtml(data.phone);
     var phoneHref = safePhone(data.phone);
     var themeClass = data.style === 'elegant' ? 'theme-elegant' : data.style === 'warm' ? 'theme-warm' : 'theme-modern';
-    var imageAlt = 'Imagen representativa de ' + business;
+    var imageAlt = 'Imagen de ' + escapeHtml(imageProfile.label) + ' para ' + business;
     var serviceCards = data.services.map(function (service, index) {
       return '<article><span>0' + (index + 1) + '</span><h3>' + escapeHtml(service) + '</h3><p>Una solución clara, personalizada y orientada a conseguir el mejor resultado.</p></article>';
     }).join('');
@@ -295,7 +212,8 @@
     contactHuma.rel = 'noopener noreferrer';
     previewEmpty.hidden = true;
     previewResult.hidden = false;
-    trackEvent('demo_generated', { sector: data.sector, style: data.style, color: data.color });
+    var imageProfile = window.HumaDemoImages.detect(data);
+    trackEvent('demo_generated', { sector: data.sector, style: data.style, color: data.color, image_profile: imageProfile.id });
     previewResult.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
