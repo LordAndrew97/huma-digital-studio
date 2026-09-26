@@ -1,0 +1,113 @@
+name: Provision HUMA lead backend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'functions/api/leads.js'
+      - '.github/workflows/provision-leads.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: huma-lead-backend
+  cancel-in-progress: false
+
+jobs:
+  provision:
+    runs-on: ubuntu-latest
+    environment: cloudflareapi
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Discover Cloudflare account and Pages project
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          api="https://api.cloudflare.com/client/v4"
+          auth="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          accounts="$(curl --fail --silent --show-error -H "$auth" "$api/accounts")"
+          account_id="$(jq -r 'if .success and (.result|length)==1 then .result[0].id else empty end' <<<"$accounts")"
+          test -n "$account_id" || { echo "Token must expose exactly one Cloudflare account" >&2; exit 1; }
+          projects="$(curl --fail --silent --show-error -H "$auth" "$api/accounts/$account_id/pages/projects")"
+          project="$(jq -r --arg repo "$GITHUB_REPOSITORY" '
+            def short: ($repo|split("/")|last);
+            [.result[] | select(.source.config.repo_name==$repo or .source.config.repo_name==short)] as $m
+            | if ($m|length)==1 then $m[0].name elif (.result|length)==1 then .result[0].name else empty end
+          ' <<<"$projects")"
+          test -n "$project" || { echo "Could not uniquely identify Pages project" >&2; exit 1; }
+          echo "CF_ACCOUNT_ID=$account_id" >> "$GITHUB_ENV"
+          echo "CF_PAGES_PROJECT=$project" >> "$GITHUB_ENV"
+
+      - name: Create or reuse HUMA leads KV namespace
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          api="https://api.cloudflare.com/client/v4"
+          auth="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          list="$(curl --fail --silent --show-error -H "$auth" "$api/accounts/$CF_ACCOUNT_ID/storage/kv/namespaces?per_page=100")"
+          ns="$(jq -r '.result[] | select(.title=="huma-digital-studio-leads") | .id' <<<"$list" | head -1)"
+          if [[ -z "$ns" ]]; then
+            created="$(curl --fail --silent --show-error -X POST -H "$auth" -H 'Content-Type: application/json'               --data '{"title":"huma-digital-studio-leads"}' "$api/accounts/$CF_ACCOUNT_ID/storage/kv/namespaces")"
+            ns="$(jq -r 'if .success then .result.id else empty end' <<<"$created")"
+          fi
+          test -n "$ns" || { echo "Could not create/reuse KV namespace. Token needs Workers KV Storage Write." >&2; exit 1; }
+          echo "CF_KV_NAMESPACE_ID=$ns" >> "$GITHUB_ENV"
+
+      - name: Bind KV to Pages production and preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          api="https://api.cloudflare.com/client/v4"
+          auth="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          project_url="$api/accounts/$CF_ACCOUNT_ID/pages/projects/$CF_PAGES_PROJECT"
+          current="$(curl --fail --silent --show-error -H "$auth" "$project_url")"
+          payload="$(jq -n --arg ns "$CF_KV_NAMESPACE_ID" '{
+            deployment_configs: {
+              production: {kv_namespaces: {HUMA_LEADS: {namespace_id: $ns}}},
+              preview: {kv_namespaces: {HUMA_LEADS: {namespace_id: $ns}}}
+            }
+          }')"
+          updated="$(curl --fail --silent --show-error -X PATCH -H "$auth" -H 'Content-Type: application/json' --data "$payload" "$project_url")"
+          jq -e '.success == true' <<<"$updated" >/dev/null
+          verify="$(curl --fail --silent --show-error -H "$auth" "$project_url")"
+          jq -e --arg ns "$CF_KV_NAMESPACE_ID" '
+            .result.deployment_configs.production.kv_namespaces.HUMA_LEADS.namespace_id == $ns and
+            .result.deployment_configs.preview.kv_namespaces.HUMA_LEADS.namespace_id == $ns
+          ' <<<"$verify" >/dev/null
+
+      - name: Deploy production with Pages Functions
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ env.CF_ACCOUNT_ID }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          rsync -a --exclude '.git/' --exclude '.github/' --exclude 'functions/' --exclude '.gitignore' --exclude 'README.md' --exclude 'scripts/' ./ dist/
+          npx --yes wrangler@4 pages deploy dist --project-name "$CF_PAGES_PROJECT" --branch main --commit-hash "$GITHUB_SHA" --commit-dirty=false
+
+      - name: Smoke test lead endpoint
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://www.humadigitalstudio.com/api/leads"
+          for i in {1..12}; do
+            status="$(curl -sS -o /tmp/lead.json -w '%{http_code}' -X POST -H 'Content-Type: application/json'               --data '{"demoId":"smoke-test","contact":{"name":"HUMA smoke test","email":"smoke-test@example.com"},"demo":{"businessName":"HUMA test","sector":"professional","services":["Test 1","Test 2","Test 3"],"style":"modern","color":"blue"}}' "$url" || true)"
+            if [[ "$status" == "201" ]]; then
+              jq -e '.ok == true' /tmp/lead.json >/dev/null
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Lead endpoint did not return 201" >&2
+          cat /tmp/lead.json >&2 || true
+          exit 1
