@@ -1,7 +1,7 @@
 # HUMA Digital Studio
 
 Sitio web comercial de **HUMA Digital Studio** — agencia de diseño y desarrollo web.
-Landing page de una sola página, estática (HTML + CSS + JS), sin backend.
+Landing page comercial con generador de demos y una capa serverless mínima para captación de leads.
 
 ## 🌐 Publicación
 
@@ -40,3 +40,14 @@ automáticamente.
 ---
 
 © HUMA Digital Studio. Todos los derechos reservados.
+
+
+## Captación de leads
+
+El generador envía las solicitudes de clientes a `POST /api/leads`, implementado como Cloudflare Pages Function en `functions/api/leads.js`.
+
+Configuración necesaria en Cloudflare Pages:
+- Binding KV: `HUMA_LEADS` — almacena cada lead durante 365 días.
+- Variable opcional: `LEAD_WEBHOOK_URL` — reenvía el lead a un CRM o automatización externa.
+
+La demo sigue generándose en el navegador. Los datos solo se envían cuando el usuario pulsa **Enviar solicitud** y acepta expresamente el contacto.

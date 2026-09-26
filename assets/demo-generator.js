@@ -22,6 +22,12 @@
   var previewFrame = document.getElementById('previewFrame');
   var previewStage = document.getElementById('previewStage');
   var contactHuma = document.getElementById('contactHuma');
+  var leadCapture = document.getElementById('leadCapture');
+  var leadForm = document.getElementById('demoLeadForm');
+  var leadStatus = document.getElementById('leadStatus');
+  var leadWhatsapp = document.getElementById('leadWhatsapp');
+  var activeDemo = null;
+  var activeDemoId = null;
 
   function trackEvent(name, params) {
     if (typeof window.gtag === 'function') window.gtag('event', name, params || {});
@@ -225,16 +231,37 @@
       '<footer><span>' + business + '</span><span>Propuesta visual automática · HUMA Digital Studio</span></footer></body></html>';
   }
 
-  function render(data) {
-    previewFrame.srcdoc = buildPreview(data);
-    document.getElementById('previewDomain').textContent = safeDomain(data.businessName);
-    var text = 'Hola HUMA Digital Studio, he creado una demo y quiero continuar con el proyecto.\n\n' +
-      'Negocio: ' + data.businessName + '\nSector: ' + data.sector + '\nCiudad: ' + (data.city || '-') +
+  function createDemoId() {
+    if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+    return 'demo-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+  }
+
+  function persistLocalDemo(data) {
+    activeDemoId = createDemoId();
+    try {
+      sessionStorage.setItem('huma_demo_' + activeDemoId, JSON.stringify({ id: activeDemoId, createdAt: new Date().toISOString(), data: data }));
+    } catch (error) {}
+    return activeDemoId;
+  }
+
+  function leadMessage(data) {
+    return 'Hola HUMA Digital Studio, he creado una demo y quiero continuar con el proyecto.\n\n' +
+      'Referencia: ' + (activeDemoId || '-') + '\nNegocio: ' + data.businessName + '\nSector: ' + data.sector + '\nCiudad: ' + (data.city || '-') +
       '\nServicios: ' + data.services.join(', ') + '\nEstilo: ' + data.style + '\nColor: ' + data.color +
       '\nContacto: ' + data.contactName + (data.email ? ' · ' + data.email : '') + (data.phone ? ' · ' + data.phone : '');
-    contactHuma.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text);
-    contactHuma.target = '_blank';
-    contactHuma.rel = 'noopener noreferrer';
+  }
+
+  function render(data) {
+    activeDemo = data;
+    persistLocalDemo(data);
+    previewFrame.srcdoc = buildPreview(data);
+    document.getElementById('previewDomain').textContent = safeDomain(data.businessName);
+    var text = leadMessage(data);
+    leadWhatsapp.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text);
+    document.getElementById('leadName').value = data.contactName || '';
+    document.getElementById('leadEmail').value = data.email || '';
+    document.getElementById('leadPhone').value = data.phone || '';
+    leadCapture.hidden = true;
     previewEmpty.hidden = true;
     previewResult.hidden = false;
     var imageProfile = window.HumaDemoImages.detect(data);
@@ -263,7 +290,53 @@
     document.getElementById('formPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  contactHuma.addEventListener('click', function () { trackEvent('demo_lead_whatsapp', { lead_source: 'demo_generator' }); });
+  contactHuma.addEventListener('click', function () {
+    leadCapture.hidden = false;
+    trackEvent('demo_lead_open', { lead_source: 'demo_generator', sector: activeDemo ? activeDemo.sector : '' });
+    leadCapture.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  leadWhatsapp.addEventListener('click', function () {
+    trackEvent('demo_lead_whatsapp', { lead_source: 'demo_generator', demo_id: activeDemoId || '' });
+  });
+
+  leadForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (!activeDemo) return;
+    var name = document.getElementById('leadName').value.trim();
+    var email = document.getElementById('leadEmail').value.trim();
+    var phone = document.getElementById('leadPhone').value.trim();
+    var consent = document.getElementById('leadConsent').checked;
+    leadStatus.classList.remove('error');
+    if (!name || (!email && !phone) || !consent) {
+      leadStatus.textContent = 'Indica tu nombre, al menos un email o teléfono y acepta el contacto.';
+      leadStatus.classList.add('error');
+      return;
+    }
+    var payload = {
+      demoId: activeDemoId,
+      createdAt: new Date().toISOString(),
+      source: 'demo_generator',
+      contact: { name: name, email: email, phone: phone },
+      demo: activeDemo
+    };
+    fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (response) {
+      if (!response.ok) throw new Error('lead');
+      return response.json();
+    }).then(function () {
+      leadStatus.textContent = 'Solicitud enviada. HUMA ya tiene el contexto de tu demo.';
+      trackEvent('demo_lead_submitted', { lead_source: 'demo_generator', sector: activeDemo.sector });
+      leadForm.querySelector('button[type="submit"]').disabled = true;
+    }).catch(function () {
+      leadStatus.textContent = 'No hemos podido guardar la solicitud automáticamente. Puedes enviárnosla por WhatsApp.';
+      leadStatus.classList.add('error');
+      trackEvent('demo_lead_error', { lead_source: 'demo_generator' });
+    });
+  });
 
   document.querySelectorAll('[data-device]').forEach(function (button) {
     button.addEventListener('click', function () {
