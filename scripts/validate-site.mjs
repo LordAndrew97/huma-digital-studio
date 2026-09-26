@@ -45,7 +45,7 @@ for (const page of pages) {
   }
 }
 
-for (const script of ['assets/site.js', 'assets/demo-generator.js']) {
+for (const script of ['assets/site.js', 'assets/demo-generator.js', 'functions/api/leads.js']) {
   if (extname(script) !== '.js' || !existsSync(script)) errors.push(`Missing script ${script}`);
 }
 
